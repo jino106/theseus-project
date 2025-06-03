@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": {
+      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f213ff497e4ff462a77319cf677cf20cc0860ca9"
+    },
     "com.unity.2d.animation": {
       "version": "10.1.4",
       "depth": 0,
@@ -241,8 +248,8 @@
       "depth": 2,
       "source": "registry",
       "dependencies": {
-        "com.unity.collections": "2.4.2",
-        "com.unity.burst": "1.7.2"
+        "com.unity.burst": "1.7.2",
+        "com.unity.collections": "2.4.2"
       },
       "url": "https://packages.unity.com"
     },
