@@ -519,7 +519,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &70446708
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -714,6 +714,75 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverManager: {fileID: 774299497}
+--- !u!1001 &560015990
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1321463952059408492, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
+      propertyPath: ground
+      value: 
+      objectReference: {fileID: 1636053886}
+    - target: {fileID: 1321463952059408492, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 70446702}
+    - target: {fileID: 1321463952059408492, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
+      propertyPath: gameOverManager
+      value: 
+      objectReference: {fileID: 774299497}
+    - target: {fileID: 4158996020203178185, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
+      propertyPath: m_Name
+      value: FallingCeiling
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415201944478543751, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415201944478543751, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415201944478543751, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415201944478543751, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415201944478543751, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415201944478543751, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415201944478543751, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415201944478543751, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415201944478543751, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415201944478543751, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4fa5f4811a09b4fdaa1595703f6af022, type: 3}
 --- !u!1 &742264106
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,3 +1534,4 @@ SceneRoots:
   - {fileID: 498434892}
   - {fileID: 742264107}
   - {fileID: 1365103312}
+  - {fileID: 560015990}
