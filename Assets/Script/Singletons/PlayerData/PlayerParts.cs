@@ -1,10 +1,10 @@
 using UnityEngine;
 
 /// <summary>
-/// プレイヤーが保持するデータ（部品など）を保持するシングルトン
+/// プレイヤーが装備しているパーツを保持するシングルトン
 /// </summary>
 
-public class PlayerData : MonoBehaviour
+public class PlayerParts : MonoBehaviour
 {
 
     // 各部品を保持する変数
