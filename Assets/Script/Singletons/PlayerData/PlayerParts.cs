@@ -1,4 +1,5 @@
 using UnityEngine;
+using Parts.Types;
 
 /// <summary>
 /// プレイヤーが装備しているパーツを保持するシングルトン
@@ -8,29 +9,29 @@ public class PlayerParts : MonoBehaviour
 {
 
     // 各部品を保持する変数
-    private int leftArm = 0;
-    private int rightArm = 0;
-    private int leftLeg = 0;
-    private int rightLeg = 0;
+    private PartsChara leftArm = PartsChara.Normal;
+    private PartsChara rightArm = PartsChara.Normal;
+    private PartsChara leftLeg = PartsChara.Normal;
+    private PartsChara rightLeg = PartsChara.Normal;
 
     // 各部品を取得、設定するプロパティ
-    public int LeftArm {
+    public PartsChara LeftArm {
         get { return leftArm; }
-        set { leftArm = Mathf.Max(0, value); }
+        set { leftArm = value; }
     }
 
-    public int RightArm {
+    public PartsChara RightArm {
         get { return rightArm; }
-        set { rightArm = Mathf.Max(0, value); }
+        set { rightArm = value; }
     }
 
-    public int LeftLeg {
+    public PartsChara LeftLeg {
         get { return leftLeg; }
-        set { leftLeg = Mathf.Max(0, value); }
+        set { leftLeg = value; }
     }
 
-    public int RightLeg {
+    public PartsChara RightLeg {
         get { return rightLeg; }
-        set { rightLeg = Mathf.Max(0, value); }
+        set { rightLeg = value; }
     }
 }
