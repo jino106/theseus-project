@@ -1256,9 +1256,10 @@ GameObject:
   m_Component:
   - component: {fileID: 866193140}
   - component: {fileID: 866193139}
-  - component: {fileID: 866193138}
   - component: {fileID: 866193137}
-  m_Layer: 0
+  - component: {fileID: 866193138}
+  - component: {fileID: 866193141}
+  m_Layer: 3
   m_Name: PressMachinePlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1409,6 +1410,19 @@ Transform:
   - {fileID: 2135820186}
   m_Father: {fileID: 2085492019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &866193141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866193136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf54974e3471717428924241c86a4027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 70446702}
 --- !u!1 &900011178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1491,8 +1505,8 @@ Transform:
   m_GameObject: {fileID: 900011178}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
-  m_LocalScale: {x: 1, y: 0.6666667, z: 1}
+  m_LocalPosition: {x: 0, y: -4.94, z: 0}
+  m_LocalScale: {x: 0.99, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2085492019}
@@ -2249,8 +2263,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2085492019}
   - component: {fileID: 2085492018}
-  - component: {fileID: 2085492020}
   - component: {fileID: 2085492021}
+  - component: {fileID: 2085492022}
   m_Layer: 0
   m_Name: PressMachineBase
   m_TagString: Untagged
@@ -2330,26 +2344,6 @@ Transform:
   - {fileID: 900011180}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2085492020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2085492017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec4a03531fde48442af2096dd68e6494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plate: {fileID: 866193136}
-  pressArea: {fileID: 900011178}
-  gameOverManager: {fileID: 774299497}
-  player: {fileID: 70446702}
-  posStart: {x: 0, y: -1.6}
-  posReady: {x: 0, y: -1.1}
-  posPressed: {x: 0, y: -4.85}
-  coolTime: 1.5
 --- !u!50 &2085492021
 Rigidbody2D:
   serializedVersion: 5
@@ -2377,6 +2371,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2085492022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085492017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec4a03531fde48442af2096dd68e6494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plate: {fileID: 866193136}
+  pressArea: {fileID: 900011178}
+  gameOverManager: {fileID: 774299497}
+  player: {fileID: 70446702}
+  posStart: {x: 0, y: -1.6}
+  posReady: {x: 0, y: -1.1}
+  posPressed: {x: 0, y: -4.85}
+  coolTime: 1.5
 --- !u!1 &2135820185
 GameObject:
   m_ObjectHideFlags: 0
