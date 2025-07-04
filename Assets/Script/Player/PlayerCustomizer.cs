@@ -29,7 +29,7 @@ public class PlayerCustomizer : MonoBehaviour
         resetStatus();
 
         // 能力を再計算する
-        // 左足の計算
+        // 左腕の計算
         switch(playerParts.LeftArm) {
             case PartsChara.Normal:
                 break;
@@ -47,7 +47,7 @@ public class PlayerCustomizer : MonoBehaviour
                 break;
         }
 
-        // 右足の計算
+        // 右腕の計算
         switch(playerParts.RightArm) {
             case PartsChara.Normal:
                 break;
@@ -65,7 +65,7 @@ public class PlayerCustomizer : MonoBehaviour
                 break;
         }
 
-        // 左腕の計算
+        // 左足の計算
         switch(playerParts.LeftLeg) {
             case PartsChara.Normal:
                 break;
@@ -83,7 +83,7 @@ public class PlayerCustomizer : MonoBehaviour
                 break;
         }
 
-        // 右腕の計算
+        // 右足の計算
         switch(playerParts.RightLeg) {
             case PartsChara.Normal:
                 break;
