@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FallObject
   - Parts
+  - RustyLever
   layers:
   - Default
   - TransparentFX

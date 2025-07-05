@@ -13,6 +13,8 @@ public class ObjectInteractionTrigger : MonoBehaviour
     [SerializeField] private string partsTag = "Parts";
     // PlayerManagerの参照
     [SerializeField] private PartsManager partsManager;
+    // 錆びたレバーのタグ
+    [SerializeField] private string leverTag = "RustyLever";
     // 決定ボタンの入力アクション
     [SerializeField] private InputActionProperty interactAction;
     // 接触しているコライダー
@@ -23,36 +25,46 @@ public class ObjectInteractionTrigger : MonoBehaviour
     {
         // マップに落ちているパーツにインタラクト可能にする
         InteractParts(this.GetCancellationTokenOnDestroy()).Forget();
+        InteractLever(this.GetCancellationTokenOnDestroy()).Forget();
+    }
+
+
+    // Interactの共通部分   
+    async UniTask Interact(CancellationToken ct)
+    {
+        
+    }
+
+    private async UniTask Interact<T>(string tag, System.Action<T> onInteract, CancellationToken ct) where T : Component
+    {
+        while (true)
+        {
+            await interactAction.action.OnStartedAsync(ct);
+
+            if (touchingCollision == null || !touchingCollision.gameObject.CompareTag(tag))
+                continue;
+
+            var component = touchingCollision.gameObject.GetComponent<T>();
+            if (component == null)
+            {
+                Debug.LogError(typeof(T).Name + "コンポーネントが見つかりません。");
+                continue;
+            }
+
+            onInteract(component);
+        }
     }
 
     // マップに落ちているパーツにインタラクトするメソッド
-    async UniTask InteractParts(CancellationToken ct)
+    private UniTask InteractParts(CancellationToken ct)
     {
-        // マップ上に落ちているパーツのスクリプト
-        MapParts mapParts = null;
+        return Interact<MapParts>(partsTag, mapParts => partsManager.ExchangeParts(mapParts), ct);
+    }
 
-        while (true)
-        {
-            // インタラクトボタンが押されるまで待機
-            await interactAction.action.OnStartedAsync(ct);
-
-            // マップに落ちているパーツに接触していない場合は，再びインタラクトボタンが押されるまで待機
-            if (touchingCollision == null || !touchingCollision.gameObject.CompareTag(partsTag))
-            {
-                continue;
-            }
-            
-            // マップに落ちているパーツのスクリプトを取得
-            mapParts = touchingCollision.gameObject.GetComponent<MapParts>();
-            if (mapParts == null)
-            {
-                Debug.LogError("MapPartsコンポーネントが見つかりません。");
-                continue; // 次のループへ
-            }
-
-            // プレイヤーのパーツとマップに落ちているパーツを交換
-            partsManager.ExchangeParts(mapParts);
-        }
+    // レバーにインタラクトするメソッド
+    private UniTask InteractLever(CancellationToken ct)
+    {
+        return Interact<RustyLever>(leverTag, lever => lever.RotateLever(), ct);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
