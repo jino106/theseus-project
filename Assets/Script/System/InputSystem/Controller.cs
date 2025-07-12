@@ -17,8 +17,18 @@ public class Controller : MonoBehaviour
     [SerializeField] private PlayerParts playerParts; // プレイヤーパーを取得
 
     // 摩擦の設定
-    [SerializeField] private float friction;
-    [SerializeField] private float airResistance;
+    private float friction;
+    private float airResistance;
+
+    // 衝突判定で使う変数
+    [Header("壁判定の設定")]
+    [Tooltip("壁と判定する地面からの最小角度")]
+    [SerializeField, Range(30f, 90f)] private float wallAngleThreshold = 45f;
+    [Tooltip("壁に張り付かないようにするための、摩擦ゼロのマテリアル")]
+    [SerializeField] private PhysicsMaterial2D slipperyMaterial;
+    private PhysicsMaterial2D originalMaterial;
+    private int wallContactCount = 0; // 壁との接触数を数えるカウンター
+
 
     private void Start()
     {
@@ -60,7 +70,7 @@ public class Controller : MonoBehaviour
 
         // 新しい Material を設定
         col.sharedMaterial.friction = friction;
-        Debug.Log(col.sharedMaterial.friction);
+        // Debug.Log(col.sharedMaterial.friction);
 
         // Unity 6向けの強制更新処理を追加
         col.enabled = false;
@@ -92,7 +102,7 @@ public class Controller : MonoBehaviour
         {
             float targetVelocityX, forceX = 0f;
 
-            Debug.Log(col.sharedMaterial.friction);
+            // Debug.Log(col.sharedMaterial.friction);
 
             if (rb != null)
             {
@@ -126,16 +136,56 @@ public class Controller : MonoBehaviour
             if (hit.collider != null)
             {
                 // ヒットしたオブジェクトとの距離をデバッグログに出力
-                Debug.Log($"Hit object: {hit.collider.name}, Distance: {hit.distance}");
+                // Debug.Log($"Hit object: {hit.collider.name}, Distance: {hit.distance}");
                 
                 // 地面にいる場合のみジャンプ処理を実行
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-                Debug.Log("Jumping");
+                // Debug.Log("Jumping");
             }
             else
             {
-                Debug.Log("No ground detected.");
+                // Debug.Log("No ground detected.");
             }
+        }
+    }
+
+    // 壁との接触判定を考慮するメソッド
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // 接触した点の法線をチェック
+        foreach (var contact in collision.contacts)
+        {
+            float angle = Vector2.Angle(contact.normal, Vector2.up);
+            if (angle > wallAngleThreshold)
+            {
+                // 壁との接触なのでカウンターを増やす
+                wallContactCount++;
+                break; // この衝突判定では壁だと分かったのでループを抜ける
+            }
+        }
+
+        // 壁との接触が1つ以上あれば、滑るマテリアルに切り替える
+        if (wallContactCount > 0 && col.sharedMaterial != slipperyMaterial)
+        {
+            col.sharedMaterial = slipperyMaterial;
+        }
+    }
+
+    // オブジェクトから離れた瞬間に呼ばれる
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        // OnCollisionExit2Dでは衝突「点」が取得できないため、
+        // 離れたオブジェクトが壁だったかを判定するのは難しい。
+        // そのため、ここでは一旦すべての接触が壁だった可能性を考慮してカウンターを減らす。
+        if (wallContactCount > 0)
+        {
+            wallContactCount = 0;
+        }
+
+        // 壁との接触がなくなった場合、元のマテリアルに戻す
+        if (wallContactCount == 0 && col.sharedMaterial != originalMaterial)
+        {
+            col.sharedMaterial = originalMaterial;
         }
     }
 }

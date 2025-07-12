@@ -366,6 +366,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerStatus: {fileID: 1704125957}
+  playerParts: {fileID: 1872299853}
+  wallAngleThreshold: 45
+  slipperyMaterial: {fileID: 6200000, guid: dc08e1d830058498ebd5ac83825771a6, type: 2}
 --- !u!114 &70446706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,7 +548,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 1dfff3b5c142045fbb9a89a94212dee6, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
