@@ -149,6 +149,7 @@ public class Controller : MonoBehaviour
         }
     }
 
+    /*
     // 壁との接触判定を考慮するメソッド
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -188,4 +189,5 @@ public class Controller : MonoBehaviour
             col.sharedMaterial = originalMaterial;
         }
     }
+    */
 }
