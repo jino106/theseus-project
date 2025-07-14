@@ -24,12 +24,6 @@ public class Controller : MonoBehaviour
     private float friction;
     private float airResistance;
 
-    // 衝突判定で使う変数
-    [Header("壁判定の設定")]
-    [Tooltip("壁と判定する地面からの最小角度")]
-    [SerializeField, Range(30f, 90f)] private float wallAngleThreshold = 45f;
-
-
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>(); // Rigidbodyを取得
@@ -85,6 +79,7 @@ public class Controller : MonoBehaviour
             {
                 // 動き始めたら摩擦を0にする
                 col.sharedMaterial.friction = 0;
+                // physicsマテリアルの更新
                 col.enabled = false;
                 col.enabled = true;
 
@@ -96,6 +91,7 @@ public class Controller : MonoBehaviour
         {
             // 止まってる場合は摩擦を有効化する
             col.sharedMaterial.friction = friction;
+            // physicsマテリアルの更新
             col.enabled = false;
             col.enabled = true;
 
