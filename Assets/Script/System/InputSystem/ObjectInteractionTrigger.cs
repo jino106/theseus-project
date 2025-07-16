@@ -15,6 +15,8 @@ public class ObjectInteractionTrigger : MonoBehaviour
     [SerializeField] private PartsManager partsManager;
     // 錆びたレバーのタグ
     [SerializeField] private string leverTag = "RustyLever";
+    // ストップボタンのタグ
+    [SerializeField] private string stopButtonTag = "StopButton";
     // 決定ボタンの入力アクション
     [SerializeField] private InputActionProperty interactAction;
     // 接触しているコライダー
@@ -38,6 +40,8 @@ public class ObjectInteractionTrigger : MonoBehaviour
         // マップに落ちているパーツにインタラクト可能にする
         InteractParts(this.GetCancellationTokenOnDestroy()).Forget();
         InteractLever(this.GetCancellationTokenOnDestroy()).Forget();
+        // ストップボタンにインタラクト可能にする
+        InteractStopButton(this.GetCancellationTokenOnDestroy()).Forget();
         
         // 起動時に周囲のオブジェクトを確認
         CheckSurroundingObjects();
@@ -50,7 +54,9 @@ public class ObjectInteractionTrigger : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1.0f);
         foreach (Collider2D collider in colliders)
         {
-            if (collider.gameObject.CompareTag(partsTag) || collider.gameObject.CompareTag(leverTag))
+            if (collider.gameObject.CompareTag(partsTag) || 
+                collider.gameObject.CompareTag(leverTag) || 
+                collider.gameObject.CompareTag(stopButtonTag))
             {
                 // すでに接触しているオブジェクトを設定
                 touchingCollision = collider;
@@ -104,9 +110,17 @@ public class ObjectInteractionTrigger : MonoBehaviour
         return Interact<RustyLever>(leverTag, lever => lever.RotateLever(), ct);
     }
 
+    // ストップボタンにインタラクトするメソッド
+    private UniTask InteractStopButton(CancellationToken ct)
+    {
+        return Interact<StopButton>(stopButtonTag, stopButton => stopButton.PressButton(), ct);
+    }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag(partsTag) || collision.gameObject.CompareTag(leverTag))
+        if (collision.gameObject.CompareTag(partsTag) || 
+            collision.gameObject.CompareTag(leverTag) || 
+            collision.gameObject.CompareTag(stopButtonTag))
         {
             touchingCollision = collision;
             if (showDebugLogs) Debug.Log($"トリガーエンター: {collision.gameObject.name}");
