@@ -101,13 +101,14 @@ public class HeavyObject : MonoBehaviour
                 // 離れすぎている場合は速度を調整
                 if (distance > distanceThreshold)
                 {
-                    // HeavyObjectの速度を0にする
-                    rb.linearVelocity = Vector2.zero;
+                    // X軸方向のみ速度を0にする（Y軸は維持して重力の影響を受けるようにする）
+                    rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
                 }
                 else
                 {
-                    // プレイヤーの速度を直接適用（ただし最大速度を超えないように制限）
-                    rb.linearVelocity = Vector2.ClampMagnitude(playerRb.linearVelocity, maxSpeed);
+                    // プレイヤーのX軸方向の速度のみ適用（Y軸は現在の値を維持）
+                    float xVelocity = Mathf.Clamp(playerRb.linearVelocity.x, -maxSpeed, maxSpeed);
+                    rb.linearVelocity = new Vector2(xVelocity, rb.linearVelocity.y);
                 }
 
                 await UniTask.Yield(PlayerLoopTiming.FixedUpdate);
