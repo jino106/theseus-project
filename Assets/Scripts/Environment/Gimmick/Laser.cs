@@ -6,6 +6,7 @@ public class Laser : StoppableGimick
     [SerializeField] private GameObject laserBeam; // レーザー本体
     [SerializeField] private GameOverManager gameOverManager; // GameOverManagerの参照
     [SerializeField] private GameObject player; // プレイヤーオブジェクト
+    [SerializeField] private LaserTarget target; // GameObject → LaserTargetに変更
 
     private bool isActive = true;
 
@@ -38,11 +39,17 @@ public class Laser : StoppableGimick
         // StopableGimmickのStartGimickメソッドをオーバーライド
         isActive = true;
         laserBeam.SetActive(true); // レーザー本体を表示する
-    } 
+
+        // target.Start()の呼び出しを削除
+        // 代わりにGameObjectをアクティブにする
+        target.gameObject.SetActive(true);
+    }
+
     public override void StopGimick()
     {
         // StopableGimmickのStopGimickメソッドをオーバーライド
         isActive = false;
         laserBeam.SetActive(false); // レーザー本体を非表示にする
+        target.StopTarget(); // ターゲットの動作を停止
     }
 }
