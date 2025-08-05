@@ -3233,6 +3233,7 @@ MonoBehaviour:
   posStart: {x: 0, y: -1.6}
   posPressed: {x: 0, y: -4.85}
   coolTime: 1.5
+  isMovingAtStart: 1
 --- !u!1 &2135820185
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using System.Threading;
 using System;
 using Cysharp.Threading.Tasks.Triggers;
 using DG.Tweening;
+using NUnit.Framework.Constraints;
 
 
 /// <summary>
@@ -32,8 +33,6 @@ public class PressMachineBase : StoppableGimick
     [SerializeField] private float coolTime;
     // PlateオブジェクトのRigidBody2D
     private Rigidbody2D plateRigidBody;
-    // キャンセレーショントークン
-    private CancellationTokenSource cancellationTokenSource;
     // Playerの死亡判定用、PressAreaに入ったらtrueになる
     private bool isInsidePressArea;
     // Playerの死亡判定用、Plateに接触している間trueになる
@@ -45,6 +44,9 @@ public class PressMachineBase : StoppableGimick
     // プレス機が落下中かを判定するbool型変数
     // 落下中にプレイヤーがPressArea内にいて、isOnPlateがtrueならゲームオーバーを呼び出す
     private bool isFalling;
+    // ゲームスタート時に停止させておくか判定するbool型変数
+    // trueならゲームスタート時は動く状態
+    [SerializeField] private bool isMovingAtStart;
 
     void Start()
     {
@@ -95,12 +97,15 @@ public class PressMachineBase : StoppableGimick
         {
             Debug.LogError("PressMachineBase: Player cannot found.");
         }
-        // トークンを生成
-        cancellationTokenSource = new CancellationTokenSource();
+
         isInsidePressArea = false;
         isOnPlate = false;
         // プレス機のPlateを初期位置へ
         plate.transform.localPosition = posStart;
+        // DOTweenの初期設定
+        DOTween.Init();
+        // こちらが指示するまでアニメーションを開始しないようにする
+        DOTween.defaultAutoPlay = AutoPlay.None;
         //DOTweenのシーケンスを定義
         MoveSequence = DOTween.Sequence();
         // シーケンスに動作を追加---------------------------------------------
@@ -127,45 +132,35 @@ public class PressMachineBase : StoppableGimick
         ));
         // 指定されたクールタイム分だけ待つ
         MoveSequence.AppendInterval(coolTime);
+        // ループを設定
+        MoveSequence.SetLoops(-1, LoopType.Restart);
         // -------------------------------------------------------------------
-        // 動作開始
-        MoveLoop(cancellationTokenSource.Token);
-    }
-
-    void MoveLoop(CancellationToken MyToken = default)
-    {
-        MoveSequence.SetLoops(-1, LoopType.Restart).WithCancellation(MyToken);
+        // スタート時から動かすのであれば、アニメーションを開始する
+        if (isMovingAtStart == true)
+        {
+            StartGimick();
+        }
     }
 
     // プレス機の動作を止める関数
     public override void StopGimick()
     {
-        // 非同期処理をキャンセル
-        cancellationTokenSource.Cancel();
-        // // Plateをスタート位置へ移動
-        // Vector2 posNow = plate.transform.localPosition;
-        // plateRigidBody.DOLocalPath(
-        //     path: new Vector2[] { posNow, posStart },
-        //     duration: 1.0f
-        // );
+        // アニメーションを停止
+        MoveSequence.Kill();
+        // Plateをスタート位置へ移動
+        Vector2 posNow = plate.transform.localPosition;
+        plateRigidBody.DOLocalPath(
+            path: new Vector2[] { posNow, posStart },
+            duration: 1.0f
+        );
         Debug.Log("Stopped PressMachine!");
     }
 
-    // StopGimick関数のデバッグ用--------------
-    // private void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.K))
-    //     {
-    //         StopGimick();
-    //     }
-    // }
-    // -----------------------------------------
-
-    // オブジェクトが破棄される時に非同期処理をキャンセルする
+    // オブジェクトが破棄される時にアニメーションを停止する
     private void OnDestroy()
     {
-        // 非同期処理をキャンセル
-        cancellationTokenSource.Cancel();
+        // アニメーションを停止
+        MoveSequence.Kill();
     }
 
     // PlayerがPressAreaへ入ったことを検知する
@@ -193,13 +188,14 @@ public class PressMachineBase : StoppableGimick
         }
     }
 
-    // PlateにPlayerが挟まれたか判定する
     // PlateにPlayerが接触した時に、PressMachinePlateスクリプトから呼び出す
     public void OnPlateCollisionEnter()
     {
         isOnPlate = true;
-        if (isInsidePressArea == true)
+        // PlayerがPressArea内にいて、かつPlateが落下中なら
+        if (isInsidePressArea == true && isFalling == true)
         {
+            // ゲームオーバーを呼び出す
             gameOverManager.GameOver();
         }
     }
@@ -215,7 +211,7 @@ public class PressMachineBase : StoppableGimick
     public override bool IsRunning => MoveSequence.IsActive(); // ギミックが動作中かどうかを示すプロパティ
     public override void StartGimick()
     {
-        // ギミックを再起動するために、シーケンスをリセット
+        // ギミックを再起動するために、シーケンスをリセットして再スタート
         MoveSequence.Restart();
         Debug.Log("Started PressMachine!");
     }
