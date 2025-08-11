@@ -8,6 +8,7 @@ public class FireCheckZone : MonoBehaviour
     [SerializeField] private PlayerStatus playerStatus;
     [SerializeField] private GameObject warningUI; // 警告表示用のUI（オプション）
     [SerializeField] private Collider2D fireFieldCollider; // 炎フィールドの物理コライダー
+    [SerializeField] private Collider2D fireFieldColliderOpposite; // 反対側の炎フィールドの物理コライダー
     
     private void Start()
     {
@@ -28,21 +29,23 @@ public class FireCheckZone : MonoBehaviour
             {
                 // 通過できない場合の処理
                 Debug.Log("炎で通れない！");
-                
+
                 // 警告UIを表示（オプション）
                 if (warningUI != null)
                 {
                     warningUI.SetActive(true);
                 }
-                
+
                 // 炎フィールドの物理コライダーを有効化
                 fireFieldCollider.enabled = true;
+                fireFieldColliderOpposite.enabled = true;
             }
             else
             {
                 Debug.Log("炎を通り抜けられる");
                 // 炎フィールドの物理コライダーを無効化
                 fireFieldCollider.enabled = false;
+                fireFieldColliderOpposite.enabled = false;
             }
         }
     }
