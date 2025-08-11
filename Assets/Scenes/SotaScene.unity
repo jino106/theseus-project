@@ -2113,7 +2113,6 @@ MonoBehaviour:
   deltaY: 3
   isMovingAtStart: 1
   initialPhaseDeg: 0
-  isMovingUpFirst: 1
 --- !u!61 &1685379502
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -23,9 +23,6 @@ public class MovingLift : StoppableGimick
     [SerializeField] private bool isMovingAtStart;
     // 初期位相（単位は度数）
     [SerializeField] private float initialPhaseDeg;
-    // 最初に上に動くのか下に動くのかを決める変数
-    // trueなら上に動き、falseなら下に動く
-    [SerializeField] private bool isMovingUpFirst;
 
     void Start()
     {
@@ -39,10 +36,6 @@ public class MovingLift : StoppableGimick
         // アタッチされている場合
         else
         {
-            // 初期位相に合わせてリフトのスタート位置を動かす
-            Vector2 movedPos = rigidBody2D.transform.position;
-            movedPos.y += Mathf.Sin(initialPhaseDeg / 180 * Mathf.PI);
-            rigidBody2D.transform.position = movedPos;
             // スタート時の座標を取得
             posStart = rigidBody2D.transform.position;
         }
@@ -76,6 +69,10 @@ public class MovingLift : StoppableGimick
 
     public override void StartGimick()
     {
+        // 初期位相に合わせてリフトのスタート位置を動かす
+        Vector2 movedPos = posStart;
+        movedPos.y += Mathf.Sin(initialPhaseDeg / 180 * Mathf.PI);
+        rigidBody2D.DOMove(movedPos, 1.5f);
         // アニメーションを開始
         liftAnimation.Restart();
     }
