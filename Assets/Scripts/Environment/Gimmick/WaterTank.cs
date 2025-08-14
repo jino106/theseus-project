@@ -1,5 +1,7 @@
 using UnityEngine;
-
+/// <summary>
+/// 水をチャージするためのクラス
+/// </summary>
 public class WaterTank : MonoBehaviour
 {
     [SerializeField] private PlayerStatus playerStatus; // プレイヤーのステータスを参照する
