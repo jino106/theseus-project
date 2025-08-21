@@ -17,6 +17,9 @@ public class PlayerCustomizer : MonoBehaviour
     // データファイルの取得
     [SerializeField] private PlayerStatusData statusData;
 
+    // RunTimeStatusの取得
+    [SerializeField] private PlayerRunTimeStatus runTimeStatus;
+
     private void Awake() {
         ChangePlayerStatus();
         controller.SetStatus();
@@ -34,6 +37,7 @@ public class PlayerCustomizer : MonoBehaviour
         playerStatus.CanShootWater = statusData.NormalCanShootWater;
         playerStatus.CanDoubleJump = statusData.NormalCanDoubleJump;
         playerStatus.CanThrowKnife = statusData.NormalCanThrowKnife;
+        runTimeStatus.ResetRunTimeStatus();
     }
 
     // 装備したパーツの能力を設定する関数
@@ -62,6 +66,7 @@ public class PlayerCustomizer : MonoBehaviour
             
             case PartsChara.Assassin:
                 playerStatus.CanThrowKnife = statusData.AssassinCanThrowKnife;
+                runTimeStatus.CanThrowKnife = true;
                 break;
 
             default:
@@ -88,6 +93,7 @@ public class PlayerCustomizer : MonoBehaviour
             
             case PartsChara.Assassin:
                 playerStatus.CanThrowKnife = statusData.AssassinCanThrowKnife;
+                runTimeStatus.CanThrowKnife = true;
                 break;
 
             default:
@@ -116,6 +122,7 @@ public class PlayerCustomizer : MonoBehaviour
             
             case PartsChara.Assassin:
                 playerStatus.CanDoubleJump = statusData.AssassinCanDoubleJump;
+                runTimeStatus.CanDoubleJump = true;
                 break;
             
             default:
@@ -144,6 +151,7 @@ public class PlayerCustomizer : MonoBehaviour
             
             case PartsChara.Assassin:
                 playerStatus.CanDoubleJump = statusData.AssassinCanDoubleJump;
+                runTimeStatus.CanDoubleJump = true;
                 break;
             
             default:
