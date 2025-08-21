@@ -114,7 +114,6 @@ public class PlayerCustomizer : MonoBehaviour
             
             case PartsChara.Muscle:
                 playerStatus.JumpForce = statusData.MuscleJumpForce;
-                runTimeStatus.CanDoubleJump = true;
                 break;
             
             case PartsChara.Fire:
@@ -123,6 +122,7 @@ public class PlayerCustomizer : MonoBehaviour
             
             case PartsChara.Assassin:
                 playerStatus.CanDoubleJump = statusData.AssassinCanDoubleJump;
+                runTimeStatus.CanDoubleJump = true;
                 break;
             
             default:
@@ -143,7 +143,6 @@ public class PlayerCustomizer : MonoBehaviour
             
             case PartsChara.Muscle:
                 playerStatus.JumpForce = statusData.MuscleJumpForce;
-                runTimeStatus.CanDoubleJump = true;
                 break;
             
             case PartsChara.Fire:
@@ -152,6 +151,7 @@ public class PlayerCustomizer : MonoBehaviour
             
             case PartsChara.Assassin:
                 playerStatus.CanDoubleJump = statusData.AssassinCanDoubleJump;
+                runTimeStatus.CanDoubleJump = true;
                 break;
             
             default:
