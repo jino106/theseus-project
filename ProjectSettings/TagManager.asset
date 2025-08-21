@@ -8,6 +8,7 @@ TagManager:
   - Parts
   - RustyLever
   - StopButton
+  - WaterTank
   layers:
   - Default
   - TransparentFX
