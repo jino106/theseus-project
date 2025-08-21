@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 70446707}
   - component: {fileID: 70446709}
   - component: {fileID: 70446710}
+  - component: {fileID: 70446711}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -365,8 +366,12 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  sizeModifier: {x: 1, y: 0.1}
+  groundCheckBuffer: 0
   playerStatus: {fileID: 1704125957}
   playerParts: {fileID: 1872299853}
+  playerAnimationParameters: {fileID: 0}
+  airChecker: {fileID: 70446711}
 --- !u!114 &70446706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,6 +509,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7ea5be1a-f89b-4138-b59c-fd103a344e47
+    m_ActionName: 'Player/OnShootWater[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -611,6 +620,7 @@ MonoBehaviour:
   partsManager: {fileID: 356738044}
   leverTag: RustyLever
   stopButtonTag: StopButton
+  waterTankTag: WaterTank
   interactAction:
     m_UseReference: 1
     m_Action:
@@ -624,6 +634,23 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   showDebugLogs: 0
+--- !u!114 &70446711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70446702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f203e0ae580c45bbafed87acb4f6d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  sizeModifier: {x: 1, y: 0.1}
+  groundCheckBuffer: 0
 --- !u!1 &174777210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2862,6 +2889,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2045294079}
   - {fileID: 1872299852}
   - {fileID: 1704125956}
   m_Father: {fileID: 1365103312}
@@ -3001,6 +3029,7 @@ MonoBehaviour:
   playerStatus: {fileID: 1704125957}
   controller: {fileID: 70446705}
   statusData: {fileID: 11400000, guid: 97f2d7b11cda942e3980954cb162c685, type: 2}
+  runTimeStatus: {fileID: 2045294080}
 --- !u!1 &2043468818
 GameObject:
   m_ObjectHideFlags: 0
@@ -3096,6 +3125,50 @@ Transform:
   - {fileID: 283723733}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2045294078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2045294079}
+  - component: {fileID: 2045294080}
+  m_Layer: 0
+  m_Name: PlayerRunTimeStatus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2045294079
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045294078}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.9601247, y: 0.34662843, z: -0.061988465}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1988490113}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2045294080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045294078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 317b847aed2c84116804a8d503629822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2085492017
 GameObject:
   m_ObjectHideFlags: 0

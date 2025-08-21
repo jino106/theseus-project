@@ -15,12 +15,13 @@ MonoBehaviour:
   normalFriction: 3.5
   normalAirResistance: 10
   normalMoveSpeed: 7.5
-  normalCanUnlock: 1
+  normalCanUnlock: 0
   normalJumpForce: 5
   normalCanPushHeavyObject: 0
   normalCanWalkOnFire: 0
   normalCanShootWater: 0
-  normalCanWalkSilently: 0
+  normalCanChargeWater: 0
+  normalCanDoubleJump: 0
   normalCanThrowKnife: 0
   theifFriction: 10
   theifAirResistance: 30
@@ -30,5 +31,6 @@ MonoBehaviour:
   muscleCanPushHeavyObject: 1
   fireCanWalkOnFire: 1
   fireCanShootWater: 1
-  assassinCanWalkSilently: 1
+  fireCanChargeWater: 1
+  assassinCanDoubleJump: 1
   assassinCanThrowKnife: 1
