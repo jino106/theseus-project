@@ -1471,7 +1471,6 @@ GameObject:
   - component: {fileID: 4052428102983489102}
   - component: {fileID: 5875560241736392228}
   - component: {fileID: 7264714527295121552}
-  - component: {fileID: 9147348484092723529}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1785,36 +1784,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverManager: {fileID: 0}
---- !u!114 &9147348484092723529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4643351868056088954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecb7e76ad090d4a898ea03cfd2732e59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  partsTag: Parts
-  partsManager: {fileID: 0}
-  leverTag: RustyLever
-  stopButtonTag: StopButton
-  waterTankTag: WaterTank
-  interactAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Interact
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 4de34339-de2b-401e-a63e-8b4ee009e10b
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  showDebugLogs: 1
 --- !u!1 &4663161344459595143
 GameObject:
   m_ObjectHideFlags: 0

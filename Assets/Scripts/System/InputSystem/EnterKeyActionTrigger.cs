@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 /// <summary>
 /// Enteキーで発生するイベントを呼び出すスクリプト
 /// </summary>
-public class EnterKeyActionTrigger : MonoBehaviour
+public class ObjectInteractionTrigger : MonoBehaviour
 {
     // マップに落ちているパーツオブジェクトのタグ
     [SerializeField] private string partsTag = "Parts";
