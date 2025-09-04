@@ -324,6 +324,50 @@ public class GameLifetimeScope : LifetimeScope
             });
             if (enableDebugLog) Debug.Log($"{fallingCeilingScripts.Length}個のFallingCeilingScriptを登録 & 注入予約");
         }
+        else
+        {
+            Debug.LogWarning("FallingCeilingScriptコンポーネントが見つかりません");
+        }
+        // PressMachoinePlate
+        var pressMachinePlates = Object.FindObjectsByType<PressMachinePlate>(FindObjectsSortMode.None);
+        if (pressMachinePlates.Length > 0)
+        {
+            // 1. リストを登録
+            builder.RegisterInstance<IReadOnlyList<PressMachinePlate>>(pressMachinePlates);
+            // 2. 構築後にDIを実行
+            builder.RegisterBuildCallback(resolver =>
+            {
+                foreach (var pressMachinePlate in pressMachinePlates)
+                {
+                    resolver.Inject(pressMachinePlate);
+                }
+            });
+            if (enableDebugLog) Debug.Log($"{pressMachinePlates.Length}個のPressMachinePlateを登録 & 注入予約");
+        }
+        else
+        {
+            Debug.LogWarning("PressMachinePlateコンポーネントが見つかりません");
+        }
+        // PressMachineBase
+        var pressMachineBases = Object.FindObjectsByType<PressMachineBase>(FindObjectsSortMode.None);
+        if (pressMachineBases.Length > 0)
+        {
+            // 1. リストを登録
+            builder.RegisterInstance<IReadOnlyList<PressMachineBase>>(pressMachineBases);
+            // 2. 構築後にDIを実行
+            builder.RegisterBuildCallback(resolver =>
+            {
+                foreach (var pressMachineBase in pressMachineBases)
+                {
+                    resolver.Inject(pressMachineBase);
+                }
+            });
+            if (enableDebugLog) Debug.Log($"{pressMachineBases.Length}個のPressMachine  Baseを登録 & 注入予約");
+        }
+        else
+        {
+            Debug.LogWarning("PressMachineBaseコンポーネントが見つかりません");
+        }
 
         // Controller
         var controller = player.GetComponent<Controller>();
