@@ -50,10 +50,11 @@ public class GameLifetimeScope : LifetimeScope
             Debug.LogError("GameOverManagerが見つかりません");
         }
 
-        // PlayerStatusをSingletons/PlayerDataから取得
+        // Singletons/PlayerDataから取得するオブジェクト
         var playerDataObject = GameObject.Find("Singletons/PlayerData");
         if (playerDataObject != null)
         {
+            //PlayerStatusの登録
             var playerStatus = playerDataObject.GetComponentInChildren<PlayerStatus>();
             if (playerStatus != null)
             {
@@ -64,65 +65,132 @@ public class GameLifetimeScope : LifetimeScope
             {
                 Debug.LogError("Singletons/PlayerDataの子オブジェクトにPlayerStatusコンポーネントが見つかりません");
             }
+            // PlayerRunTimeStatusの登録
+            var playerRunTimeStatus = playerDataObject.GetComponentInChildren<PlayerRunTimeStatus>();
+            if (playerRunTimeStatus != null)
+            {
+                builder.RegisterInstance(playerRunTimeStatus);
+                Debug.Log($"PlayerRunTimeStatusが正常に登録されました: {playerRunTimeStatus.name}");
+            }
+            else
+            {
+                Debug.LogError("Singletons/PlayerDataの子オブジェクトにPlayerRunTimeStatusコンポーネントが見つかりません");
+            }
         }
         else
         {
             Debug.LogError("Singletons/PlayerDataオブジェクトが見つかりません");
         }
+
+        // PlayerPartsを登録
+        var playerParts = Object.FindAnyObjectByType<PlayerParts>();
+        if (playerParts != null)
+        {
+            builder.RegisterInstance(playerParts);
+            Debug.Log($"PlayerPartsが正常に登録されました: {playerParts.name}");
+        }
+        else
+        {
+            Debug.LogError("PlayerオブジェクトにPlayerPartsコンポーネントが見つかりません");
+        }
+
+        // PlayerAnimationManagerを登録
+        var playerAnimationManager = Object.FindAnyObjectByType<PlayerAnimationManager>();
+        if (playerAnimationManager != null)
+        {
+            builder.RegisterInstance(playerAnimationManager);
+            Debug.Log($"PlayerAnimationManagerが正常に登録されました: {playerAnimationManager.name}");
+        }
+        else
+        {
+            Debug.LogError("PlayerオブジェクトにPlayerAnimationManagerコンポーネントが見つかりません");
+        }
+
+        // PlayerAirCheckerを登録（Playerオブジェクトから取得）
+        var playerAirChecker = player.GetComponent<PlayerAirChecker>();
+        if (playerAirChecker != null)
+        {
+            builder.RegisterInstance(playerAirChecker);
+            Debug.Log($"PlayerAirCheckerが正常に登録されました: {playerAirChecker.name}");
+        }
+        else
+        {
+            Debug.LogError("PlayerオブジェクトにPlayerAirCheckerコンポーネントが見つかりません");
+        }
         #endregion
 
         // HeavyObject
-    var heavyObjects = Object.FindObjectsByType<HeavyObject>(FindObjectsSortMode.None);
-    if (heavyObjects.Length > 0)
-    {
-        // 1. 他のクラスが注入できるよう、リストだけを登録する
-        builder.RegisterInstance<IReadOnlyList<HeavyObject>>(heavyObjects);
-
-        // 2. コンテナ構築後に、各インスタンスへDIを実行するよう予約する
-        builder.RegisterBuildCallback(resolver =>
+        var heavyObjects = Object.FindObjectsByType<HeavyObject>(FindObjectsSortMode.None);
+        if (heavyObjects.Length > 0)
         {
-            foreach (var heavyObject in heavyObjects)
-            {
-                // resolver.Inject(instance)で、既存インスタンスにDIを実行
-                resolver.Inject(heavyObject);
-            }
-        });
-        Debug.Log($"{heavyObjects.Length}個のHeavyObjectを登録 & 注入予約");
-    }
+            // 1. 他のクラスが注入できるよう、リストだけを登録する
+            builder.RegisterInstance<IReadOnlyList<HeavyObject>>(heavyObjects);
 
-    // DoorKey
-    var doorKeys = Object.FindObjectsByType<DoorKey>(FindObjectsSortMode.None);
-    if (doorKeys.Length > 0)
-    {
-        // 1. リストを登録
-        builder.RegisterInstance<IReadOnlyList<DoorKey>>(doorKeys);
-        // 2. 構築後にDIを実行
-        builder.RegisterBuildCallback(resolver =>
-        {
-            foreach (var doorKey in doorKeys)
+            // 2. コンテナ構築後に、各インスタンスへDIを実行するよう予約する
+            builder.RegisterBuildCallback(resolver =>
             {
-                resolver.Inject(doorKey);
-            }
-        });
-        Debug.Log($"{doorKeys.Length}個のDoorKeyを登録 & 注入予約");
-    }
+                foreach (var heavyObject in heavyObjects)
+                {
+                    // resolver.Inject(instance)で、既存インスタンスにDIを実行
+                    resolver.Inject(heavyObject);
+                }
+            });
+            Debug.Log($"{heavyObjects.Length}個のHeavyObjectを登録 & 注入予約");
+        }
 
-    // FallingCeilingScript
-    var fallingCeilingScripts = Object.FindObjectsByType<FallingCeilingScript>(FindObjectsSortMode.None);
-    if (fallingCeilingScripts.Length > 0)
-    {
-        // 1. リストを登録
-        builder.RegisterInstance<IReadOnlyList<FallingCeilingScript>>(fallingCeilingScripts);
-        // 2. 構築後にDIを実行
-        builder.RegisterBuildCallback(resolver =>
+        // DoorKey
+        var doorKeys = Object.FindObjectsByType<DoorKey>(FindObjectsSortMode.None);
+        if (doorKeys.Length > 0)
         {
-            foreach (var fallingCeiling in fallingCeilingScripts)
+            // 1. リストを登録
+            builder.RegisterInstance<IReadOnlyList<DoorKey>>(doorKeys);
+            // 2. 構築後にDIを実行
+            builder.RegisterBuildCallback(resolver =>
             {
-                resolver.Inject(fallingCeiling);
-            }
-        });
-        Debug.Log($"{fallingCeilingScripts.Length}個のFallingCeilingScriptを登録 & 注入予約");
-    }
+                foreach (var doorKey in doorKeys)
+                {
+                    resolver.Inject(doorKey);
+                }
+            });
+            Debug.Log($"{doorKeys.Length}個のDoorKeyを登録 & 注入予約");
+        }
+
+        // FallingCeilingScript
+        var fallingCeilingScripts = Object.FindObjectsByType<FallingCeilingScript>(FindObjectsSortMode.None);
+        if (fallingCeilingScripts.Length > 0)
+        {
+            // 1. リストを登録
+            builder.RegisterInstance<IReadOnlyList<FallingCeilingScript>>(fallingCeilingScripts);
+            // 2. 構築後にDIを実行
+            builder.RegisterBuildCallback(resolver =>
+            {
+                foreach (var fallingCeiling in fallingCeilingScripts)
+                {
+                    resolver.Inject(fallingCeiling);
+                }
+            });
+            Debug.Log($"{fallingCeilingScripts.Length}個のFallingCeilingScriptを登録 & 注入予約");
+        }
+
+        // Controller
+        var controller = player.GetComponent<Controller>();
+        if (controller != null)
+        {
+            // 1. インスタンスを登録
+            builder.RegisterInstance(controller);
+            // 2. 構築後にDIを実行
+            builder.RegisterBuildCallback(resolver =>
+            {
+                resolver.Inject(controller);
+            });
+            Debug.Log("Controllerに注入予約しました");
+        }
+        else
+        {
+            Debug.LogError("PlayerオブジェクトにControllerコンポーネントが見つかりません");
+        }
+        
         Debug.Log("GameLifetimeScope 登録完了");
     }
+
 }
