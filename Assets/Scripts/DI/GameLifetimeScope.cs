@@ -144,7 +144,15 @@ public class GameLifetimeScope : LifetimeScope
         var partsManager = Object.FindAnyObjectByType<PartsManager>();
         if (partsManager != null)
         {
+            // 1. インスタンスを登録
             builder.RegisterInstance(partsManager);
+            
+            // 2. 構築後にDIを実行（これが不足していました）
+            builder.RegisterBuildCallback(resolver =>
+            {
+                resolver.Inject(partsManager);
+            });
+            
             if (enableDebugLog) Debug.Log($"PartsManagerが正常に登録されました: {partsManager.name}");
         }
         else
@@ -163,28 +171,46 @@ public class GameLifetimeScope : LifetimeScope
         {
             Debug.LogError("PlayerオブジェクトにPlayerAnimationManagerコンポーネントが見つかりません");
         }
-        
-        // PlayerFallAction
-        var playerFallAction = player.GetComponent<PlayerFallAction>(); 
-        if (playerFallAction != null)
+
+        // PlayerCustomizerを登録
+        var playerCustomizer = Object.FindAnyObjectByType<PlayerCustomizer>();
+        if (playerCustomizer != null)
         {
             // 1. インスタンスを登録
-            builder.RegisterInstance(playerFallAction);
+            builder.RegisterInstance(playerCustomizer);
             // 2. 構築後にDIを実行
             builder.RegisterBuildCallback(resolver =>
             {
-                resolver.Inject(playerFallAction);
+                resolver.Inject(playerCustomizer);
             });
-            if (enableDebugLog) Debug.Log("PlayerFallActionに注入予約しました");
+            if (enableDebugLog) Debug.Log("PlayerCustomizerに注入予約しました");
         }
         else
         {
-            Debug.LogError("PlayerオブジェクトにPlayerFallActionコンポーネントが見つかりません");
-        }
+            Debug.LogError("PlayerオブジェクトにPlayerCustomizerコンポーネントが見つかりません");
+        }   
 
         // Playerにattachされているコンポーネントの登録
         if (player != null)
-        {
+        {   
+            // PlayerFallAction
+            var playerFallAction = player.GetComponent<PlayerFallAction>(); 
+            if (playerFallAction != null)
+            {
+                // 1. インスタンスを登録
+                builder.RegisterInstance(playerFallAction);
+                // 2. 構築後にDIを実行
+                builder.RegisterBuildCallback(resolver =>
+                {
+                    resolver.Inject(playerFallAction);
+                });
+                if (enableDebugLog) Debug.Log("PlayerFallActionに注入予約しました");
+            }
+            else
+            {
+                Debug.LogError("PlayerオブジェクトにPlayerFallActionコンポーネントが見つかりません");
+            }
+
             // PlayerAirCheckerを登録（Playerオブジェクトから取得）
             var playerAirChecker = player.GetComponent<PlayerAirChecker>();
             if (playerAirChecker != null)
