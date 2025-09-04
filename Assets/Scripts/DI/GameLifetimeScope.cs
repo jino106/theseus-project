@@ -119,6 +119,24 @@ public class GameLifetimeScope : LifetimeScope
         {
             Debug.LogError("PlayerオブジェクトにPlayerAnimationManagerコンポーネントが見つかりません");
         }
+        
+        // PlayerFallAction
+        var playerFallAction = player.GetComponent<PlayerFallAction>(); 
+        if (playerFallAction != null)
+        {
+            // 1. インスタンスを登録
+            builder.RegisterInstance(playerFallAction);
+            // 2. 構築後にDIを実行
+            builder.RegisterBuildCallback(resolver =>
+            {
+                resolver.Inject(playerFallAction);
+            });
+            if (enableDebugLog) Debug.Log("PlayerFallActionに注入予約しました");
+        }
+        else
+        {
+            Debug.LogError("PlayerオブジェクトにPlayerFallActionコンポーネントが見つかりません");
+        }
 
         // Playerにattachされているコンポーネントの登録
         if (player != null)
@@ -127,14 +145,21 @@ public class GameLifetimeScope : LifetimeScope
             var playerAirChecker = player.GetComponent<PlayerAirChecker>();
             if (playerAirChecker != null)
             {
+                // 1. インスタンスを登録
                 builder.RegisterInstance(playerAirChecker);
                 if (enableDebugLog) Debug.Log($"PlayerAirCheckerが正常に登録されました: {playerAirChecker.name}");
+                // 2. 構築後にDIを実行
+                builder.RegisterBuildCallback(resolver =>
+                {
+                    resolver.Inject(playerAirChecker);
+                });
+                if (enableDebugLog) Debug.Log("PlayerFallActionに注入予約しました");
             }
             else
             {
                 Debug.LogError("PlayerオブジェクトにPlayerAirCheckerコンポーネントが見つかりません");
             }
-             
+
         }
         #endregion
 
@@ -209,25 +234,6 @@ public class GameLifetimeScope : LifetimeScope
             Debug.LogError("PlayerオブジェクトにControllerコンポーネントが見つかりません");
         }
 
-        // PlayerFallAction
-        var playerFallAction = player.GetComponent<PlayerFallAction>(); 
-        if (playerFallAction != null)
-        {
-            // 1. インスタンスを登録
-            builder.RegisterInstance(playerFallAction);
-            // 2. 構築後にDIを実行
-            builder.RegisterBuildCallback(resolver =>
-            {
-                resolver.Inject(playerFallAction);
-            });
-            if (enableDebugLog) Debug.Log("PlayerFallActionに注入予約しました");
-        }
-        else
-        {
-            Debug.LogError("PlayerオブジェクトにPlayerFallActionコンポーネントが見つかりません");
-        }
-
-
         // EnterKeyActionTrigger
         var enterKeyActionTrigger = player.GetComponent<EnterKeyActionTrigger>();
         if (enterKeyActionTrigger != null)
@@ -244,7 +250,7 @@ public class GameLifetimeScope : LifetimeScope
         else
         {
             Debug.LogError("PlayerオブジェクトにEnterKeyActionTriggerコンポーネントが見つかりません");
-        }      
+        }
         
         if (enableDebugLog) Debug.Log("GameLifetimeScope 登録完了");
     }
