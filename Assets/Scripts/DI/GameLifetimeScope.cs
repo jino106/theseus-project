@@ -2,7 +2,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 using System.Collections.Generic;
-
+using UnityEngine.AddressableAssets;
 /// <summary>
 /// ゲーム全体のライフタイムスコープを設定するクラス
 /// </summary>
@@ -16,11 +16,11 @@ public class GameLifetimeScope : LifetimeScope
 
         // Player, Ground, GameOverManager, PlayerStatusの登録（ここは変更なし）
         #region Singleton_Objects
-        // プレイヤーを自動検索
+        // プレイヤーを自動検索（名前付きで登録）
         var player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            builder.RegisterInstance(player);
+            builder.RegisterInstance(player).WithParameter("Player");
             if (enableDebugLog) Debug.Log($"Playerが正常に登録されました: {player.name}");
         }
         else
@@ -38,6 +38,32 @@ public class GameLifetimeScope : LifetimeScope
         else
         {
             Debug.LogError("Groundコンポーネントが見つかりません");
+        }
+
+        // KnifePrefabを自動検索（ファクトリーとして登録）
+        Debug.Log("KnifePrefab読み込み開始...");
+        var handle = Addressables.LoadAssetAsync<GameObject>("KnifePrefab");
+        var knifePrefabGo = handle.WaitForCompletion();
+        
+        if (knifePrefabGo != null)
+        {
+            Debug.Log($"読み込んだオブジェクト名: {knifePrefabGo.name}");
+            
+            var knifeComponent = knifePrefabGo.GetComponent<Knife>();
+            if (knifeComponent != null)
+            {
+                // KnifeFactoryとして登録
+                builder.Register<IKnifeFactory>(container => new KnifeFactory(knifePrefabGo), Lifetime.Singleton);
+                Debug.Log($"Knife Factory の登録に成功しました: {knifePrefabGo.name}");
+            }
+            else
+            {
+                Debug.LogError($"読み込んだオブジェクト '{knifePrefabGo.name}' にKnifeコンポーネントが見つかりません");
+            }
+        }
+        else
+        {
+            Debug.LogError("アドレス 'KnifePrefab' のアセットが見つかりません。");
         }
 
         // GameOverManagerを自動検索
@@ -250,6 +276,24 @@ public class GameLifetimeScope : LifetimeScope
         else
         {
             Debug.LogError("PlayerオブジェクトにEnterKeyActionTriggerコンポーネントが見つかりません");
+        }
+
+        // ThrowKnifeController
+        var throwKnifeController = player.GetComponent<ThrowKnifeController>();
+        if (throwKnifeController != null)
+        {
+            // 1. インスタンスを登録
+            builder.RegisterInstance(throwKnifeController);
+            // 2. 構築後にDIを実行
+            builder.RegisterBuildCallback(resolver =>
+            {
+                resolver.Inject(throwKnifeController);
+            });
+            if (enableDebugLog) Debug.Log("ThrowKnifeControllerに注入予約しました");
+        }
+        else
+        {
+            Debug.LogError("PlayerオブジェクトにThrowKnifeControllerコンポーネントが見つかりません");
         }
         
         if (enableDebugLog) Debug.Log("GameLifetimeScope 登録完了");
