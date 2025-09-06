@@ -14,7 +14,7 @@ public class GameLifetimeScope : LifetimeScope
     {
         if (enableDebugLog) Debug.Log("GameLifetimeScope 登録開始");
 
-        
+
         #region Singleton_Objects
         // プレイヤーを自動検索（名前付きで登録）
         var player = GameObject.FindGameObjectWithTag("Player");
@@ -44,11 +44,11 @@ public class GameLifetimeScope : LifetimeScope
         Debug.Log("PlayerStatusData読み込み開始...");
         var statusDataHandle = Addressables.LoadAssetAsync<PlayerStatusData>("PlayerStatus");
         var statusData = statusDataHandle.WaitForCompletion();
-        
+
         if (statusData != null)
         {
             Debug.Log($"読み込んだPlayerStatusData名: {statusData.name}");
-            
+
             // PlayerStatusDataを登録
             builder.RegisterInstance(statusData);
             Debug.Log($"PlayerStatusData の登録に成功しました: {statusData.name}");
@@ -58,15 +58,32 @@ public class GameLifetimeScope : LifetimeScope
             Debug.LogError("アドレス 'PlayerStatus' のPlayerStatusDataアセットが見つかりません。");
         }
 
+        // ItemDataを自動検索（Addressableから)
+        Debug.Log("ItemData読み込み開始...");
+        var ItemDataHandle = Addressables.LoadAssetAsync<ItemData>("ItemData");
+        var ItemData = ItemDataHandle.WaitForCompletion();
+        if (ItemData != null)
+        {
+            Debug.Log($"読み込んだItemData名: {ItemData.name}");
+
+            // ItemDataを登録
+            builder.RegisterInstance(ItemData);
+            Debug.Log($"ItemData の登録に成功しました: {ItemData.name}");
+        }
+        else
+        {
+            Debug.LogError("アドレス 'PlayerParts' のItemDataアセットが見つかりません。");
+        }
+
         // KnifePrefabを自動検索（ファクトリーとして登録）
         Debug.Log("KnifePrefab読み込み開始...");
         var handle = Addressables.LoadAssetAsync<GameObject>("KnifePrefab");
         var knifePrefabGo = handle.WaitForCompletion();
-        
+
         if (knifePrefabGo != null)
         {
             Debug.Log($"読み込んだオブジェクト名: {knifePrefabGo.name}");
-            
+
             var knifeComponent = knifePrefabGo.GetComponent<Knife>();
             if (knifeComponent != null)
             {
@@ -88,11 +105,11 @@ public class GameLifetimeScope : LifetimeScope
         Debug.Log("WaterPrefab読み込み開始...");
         var waterHandle = Addressables.LoadAssetAsync<GameObject>("WaterPrefab");
         var waterPrefabGo = waterHandle.WaitForCompletion();
-        
+
         if (waterPrefabGo != null)
         {
             Debug.Log($"読み込んだWaterオブジェクト名: {waterPrefabGo.name}");
-            
+
             // WaterFactoryとして登録（GameObjectとしては登録しない）
             builder.Register<IWaterFactory>(container => new WaterFactory(waterPrefabGo), Lifetime.Singleton);
             Debug.Log($"Water Factory の登録に成功しました: {waterPrefabGo.name}");
@@ -146,6 +163,27 @@ public class GameLifetimeScope : LifetimeScope
             Debug.LogError("Singletons/PlayerDataオブジェクトが見つかりません");
         }
 
+        // Singletons/ItemDataから取得するオブジェクト
+        var itemDataObject = GameObject.Find("Singletons/ItemData");
+        if (itemDataObject != null)
+        {
+            // InventoryDataの登録
+            var inventoryData = itemDataObject.GetComponentInChildren<InventoryData>();
+            if (inventoryData != null)
+            {
+                builder.RegisterInstance(inventoryData);
+                if (enableDebugLog) Debug.Log($"InventoryDataが正常に登録されました: {inventoryData.name}");
+            }
+            else
+            {
+                Debug.LogError("Singletons/ItemDataの子オブジェクトにInventoryDataコンポーネントが見つかりません");
+            }
+        }
+        else
+        {
+            Debug.LogError("Singletons/ItemDataオブジェクトが見つかりません");
+        }
+
         // PlayerPartsを登録
         var playerParts = Object.FindAnyObjectByType<PlayerParts>();
         if (playerParts != null)
@@ -164,19 +202,19 @@ public class GameLifetimeScope : LifetimeScope
         {
             // 1. インスタンスを登録
             builder.RegisterInstance(partsManager);
-            
+
             // 2. 構築後にDIを実行（これが不足していました）
             builder.RegisterBuildCallback(resolver =>
             {
                 resolver.Inject(partsManager);
             });
-            
+
             if (enableDebugLog) Debug.Log($"PartsManagerが正常に登録されました: {partsManager.name}");
         }
         else
         {
             Debug.LogError("PartsManagerコンポーネントが見つかりません");
-        }       
+        }
 
         // PlayerAnimationManagerを登録
         var playerAnimationManager = Object.FindAnyObjectByType<PlayerAnimationManager>();
@@ -206,13 +244,31 @@ public class GameLifetimeScope : LifetimeScope
         else
         {
             Debug.LogError("PlayerオブジェクトにPlayerCustomizerコンポーネントが見つかりません");
-        }   
+        }
+
+        // ItemManagerを登録
+        var itemManager = Object.FindAnyObjectByType<ItemManager>();
+        if (itemManager != null)
+        {
+            // 1. インスタンスを登録
+            builder.RegisterInstance(itemManager);
+            // 2. 構築後にDIを実行
+            builder.RegisterBuildCallback(resolver =>
+            {
+                resolver.Inject(itemManager);
+            });
+            if (enableDebugLog) Debug.Log("ItemManagerに注入予約しました");
+        }
+        else
+        {
+            Debug.LogError("ItemManagerコンポーネントが見つかりません");
+        }
 
         // Playerにattachされているコンポーネントの登録
         if (player != null)
-        {   
+        {
             // PlayerFallAction
-            var playerFallAction = player.GetComponent<PlayerFallAction>(); 
+            var playerFallAction = player.GetComponent<PlayerFallAction>();
             if (playerFallAction != null)
             {
                 // 1. インスタンスを登録
@@ -297,7 +353,7 @@ public class GameLifetimeScope : LifetimeScope
             builder.RegisterBuildCallback(resolver =>
             {
                 foreach (var lockedDoor in lockedDoors)
-                {   
+                {
                     resolver.Inject(lockedDoor);
                 }
             });
@@ -306,7 +362,7 @@ public class GameLifetimeScope : LifetimeScope
         else
         {
             Debug.LogWarning("LockedDoorコンポーネントが見つかりません");
-        }   
+        }
 
         // FallingCeilingScript
         var fallingCeilingScripts = Object.FindObjectsByType<FallingCeilingScript>(FindObjectsSortMode.None);
@@ -375,11 +431,11 @@ public class GameLifetimeScope : LifetimeScope
         {
             // 1. リストを登録
             builder.RegisterInstance<IReadOnlyList<Laser>>(lasers);
-            
+
             // 2. LaserFactoryを登録
-            builder.Register<ILaserFactory>(container => 
+            builder.Register<ILaserFactory>(container =>
                 new LaserFactory(lasers), Lifetime.Singleton);
-            
+
             // 3. 構築後にDIを実行
             builder.RegisterBuildCallback(resolver =>
             {
@@ -401,11 +457,11 @@ public class GameLifetimeScope : LifetimeScope
         {
             // 1. リストを登録
             builder.RegisterInstance<IReadOnlyList<LaserTarget>>(laserTargets);
-            
+
             // 2. LaserTargetファクトリーを登録
-            builder.Register<ILaserTargetFactory>(container => 
+            builder.Register<ILaserTargetFactory>(container =>
                 new LaserTargetFactory(laserTargets), Lifetime.Singleton);
-            
+
             // 3. 構築後にDIを実行
             builder.RegisterBuildCallback(resolver =>
             {
@@ -444,7 +500,7 @@ public class GameLifetimeScope : LifetimeScope
         if (enterKeyActionTrigger != null)
         {
             // 1. インスタンスを登録
-            builder.RegisterInstance(enterKeyActionTrigger);        
+            builder.RegisterInstance(enterKeyActionTrigger);
             // 2. 構築後にDIを実行
             builder.RegisterBuildCallback(resolver =>
             {
@@ -474,7 +530,7 @@ public class GameLifetimeScope : LifetimeScope
         {
             Debug.LogError("PlayerオブジェクトにThrowKnifeControllerコンポーネントが見つかりません");
         }
-        
+
         if (enableDebugLog) Debug.Log("GameLifetimeScope 登録完了");
 
         // ShootWaterController
@@ -524,7 +580,7 @@ public class GameLifetimeScope : LifetimeScope
             {
                 resolver.Inject(waterTank);
             });
-            if (enableDebugLog) Debug.Log("WaterTankに注入予約しました");   
+            if (enableDebugLog) Debug.Log("WaterTankに注入予約しました");
         }
         else
         {
@@ -562,7 +618,7 @@ public class GameLifetimeScope : LifetimeScope
             {
                 foreach (var burningFireCheckZone in burningFireCheckZones)
                 {
-                    resolver.Inject(burningFireCheckZone); 
+                    resolver.Inject(burningFireCheckZone);
                 }
             });
             if (enableDebugLog) Debug.Log($"{burningFireCheckZones.Length}個のBurningFireCheckZoneを登録 & 注入予約");
@@ -571,6 +627,27 @@ public class GameLifetimeScope : LifetimeScope
         {
             Debug.LogWarning("BurningFireCheckZoneコンポーネントが見つかりません");
         }
+        
+        // CollectibleItem
+        var collectibleItems = Object.FindObjectsByType<CollectibleItem>(FindObjectsSortMode.None);
+        if (collectibleItems.Length > 0)
+        {
+            // 1. リストを登録
+            builder.RegisterInstance<IReadOnlyList<CollectibleItem>>(collectibleItems);
+            // 2. 構築後にDIを実行
+            builder.RegisterBuildCallback(resolver =>
+            {
+                foreach (var collectibleItem in collectibleItems)
+                {
+                    resolver.Inject(collectibleItem);
+                }
+            });
+            if (enableDebugLog) Debug.Log($"{collectibleItems.Length}個のCollectibleItemを登録 & 注入予約");
+        }
+        else
+        {
+            Debug.LogWarning("CollectibleItemコンポーネントが見つかりません");
+        }   
     }
 
 }
