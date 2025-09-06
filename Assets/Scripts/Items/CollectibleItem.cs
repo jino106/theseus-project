@@ -1,16 +1,22 @@
 using UnityEngine;
-
+using VContainer;
 public class CollectibleItem : MonoBehaviour
 {
     /// <summary>
     /// コレクター要素のあるアイテムの取得に関するスクリプト
     /// </summary>
     
+    //アイテムのID(外部キーの役割)
+    [SerializeField] private int itemID;
+    
+    // ItemManagerの参照
+    [Inject] private ItemManager itemManager;
+
     /*
 
     // このアイテムがどの「設計図」を持つかを設定する
     [SerializeField] private ItemData itemData;
-
+    
     private SpriteRenderer spriteRenderer;
 
     void Start()
@@ -39,13 +45,22 @@ public class CollectibleItem : MonoBehaviour
     }
     */
 
+    // アイテムを取得するメソッド
+    public void CollectItem()
+    {
+        itemManager.ObtainItem(itemID);
+    }
+
     // プレイヤーが触れた時の処理など
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             // Debug.Log(itemData.itemName + " を手に入れた！");
-            // ここで「取得済みリスト」に追加するなどの処理
+
+            // アイテム取得処理をItemManagerに依頼
+            CollectItem();
+
             // GameManager.Instance.AddItem(itemData.itemID);
             Destroy(gameObject);
         }
