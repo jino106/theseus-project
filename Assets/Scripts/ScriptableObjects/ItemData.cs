@@ -13,9 +13,8 @@ public class ItemData : ScriptableObject
     [SerializeField] public int playerReportID; // アイテムのID
     [SerializeField] public string playerReportName; // アイテムの名前
     [SerializeField] public ItemDescriptions playerReportDescriptions; // アイテムを説明するセリフ（各キャラクターの口調パターンを用意）
-
-    [SerializeField] public string playerReportText; // アイテムの中身のテキスト  
-
+    [SerializeField] public string playerReportText; // アイテムの中身のテキスト
+    
     // 泥棒の研究報告書
     [Header("泥棒の研究報告書")]
     [SerializeField] public int theifReportID; // アイテムのID
@@ -49,7 +48,7 @@ public class ItemData : ScriptableObject
     [SerializeField] public int playerDiaryID; // アイテムのID
     [SerializeField] public string playerDiaryName; // アイテムの名前
     [SerializeField] public ItemDescriptions playerDiaryDescriptions; // アイテムを説明するセリフ（各キャラクターの口調パターンを用意）
-    [SerializeField] public string playerDiaryText; // アイテムの中身のテキスト     
+    [SerializeField] public string playerDiaryText; // アイテムの中身のテキスト
     
     // 泥棒の日記
     [Header("泥棒の日記")]
@@ -84,22 +83,27 @@ public class ItemData : ScriptableObject
     public string PlayerReportName => playerReportName;
     public ItemDescriptions PlayerReportDescriptions => playerReportDescriptions;
     public string PlayerReportText => playerReportText;
+    
     public int TheifReportID => theifReportID;
     public string TheifReportName => theifReportName;
     public ItemDescriptions TheifReportDescriptions => theifReportDescriptions;
     public string TheifReportText => theifReportText;
+    
     public int MuscleReportID => muscleReportID;
     public string MuscleReportName => muscleReportName;
     public ItemDescriptions MuscleReportDescriptions => muscleReportDescriptions;
     public string MuscleReportText => muscleReportText;
+    
     public int FireReportID => fireReportID;
     public string FireReportName => fireReportName;
     public ItemDescriptions FireReportDescriptions => fireReportDescriptions;
     public string FireReportText => fireReportText;
+    
     public int AssassinReportID => assassinReportID;
     public string AssassinReportName => assassinReportName;
     public ItemDescriptions AssassinReportDescriptions => assassinReportDescriptions;
-    public string AssassinReportText => assassinReportText;       
+    public string AssassinReportText => assassinReportText;
+    
     public int PlayerDiaryID => playerDiaryID;
     public string PlayerDiaryName => playerDiaryName;
     public ItemDescriptions PlayerDiaryDescriptions => playerDiaryDescriptions;
@@ -129,18 +133,24 @@ public class ItemData : ScriptableObject
 [Serializable]
 public class ItemDescriptions
 {
-    [Tooltip("プレイヤー視点での説明")]
-    public string playerTone; 
-    
-    [Tooltip("泥棒視点での説明")]
+    [Tooltip("プレイヤー口調での説明")]
+    public string playerTone;
+
+    [Tooltip("泥棒口調での説明")]
     public string theifTone;
-    
-    [Tooltip("マッチョ視点での説明")]
+
+    [Tooltip("マッチョ口調での説明")]
     public string muscleTone;
-    
+
     [Tooltip("消防士視点での説明")]
     public string fireTone;
-    
-    [Tooltip("アサシン視点での説明")]
+
+    [Tooltip("アサシン口調での説明")]
     public string assassinTone;
+    [Tooltip("各パーツ占有率25%のときの説明")]
+    public string allQuartersTone;
+    [Tooltip("自身のパーツ占有率75%のときの説明")]
+    public string ownThreeQuartersTone;
+    [Tooltip("自身のパーツ占有率100%のときの説明")]
+    public string ownFullTone;
 }
