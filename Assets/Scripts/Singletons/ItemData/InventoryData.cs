@@ -60,6 +60,46 @@ public class InventoryData : MonoBehaviour
     public void SetFireDiaryObtained(bool obtained) => FireDiaryObtained = obtained;
     public void SetAssassinDiaryObtained(bool obtained) => AssassinDiaryObtained = obtained;
 
+    // IDベースでアイテム取得状態を設定するメソッド
+    public void SetItemObtained(int itemID, bool obtained)
+    {
+        switch (itemID)
+        {
+            case 1: SetPlayerReportObtained(obtained); break;
+            case 2: SetTheifReportObtained(obtained); break;
+            case 3: SetMuscleReportObtained(obtained); break;
+            case 4: SetFireReportObtained(obtained); break;
+            case 5: SetAssassinReportObtained(obtained); break;
+            case 6: SetPlayerDiaryObtained(obtained); break;
+            case 7: SetTheifDiaryObtained(obtained); break;
+            case 8: SetMuscleDiaryObtained(obtained); break;
+            case 9: SetFireDiaryObtained(obtained); break;
+            case 10: SetAssassinDiaryObtained(obtained); break;
+            default: Debug.LogWarning($"対応していないアイテムID: {itemID}"); break;
+        }
+    }
+
+    // IDベースでアイテム取得状態を取得するメソッド
+    public bool GetItemObtained(int itemID)
+    {
+        switch (itemID)
+        {
+            case 1: return PlayerReportObtained;
+            case 2: return TheifReportObtained;
+            case 3: return MuscleReportObtained;
+            case 4: return FireReportObtained;
+            case 5: return AssassinReportObtained;
+            case 6: return PlayerDiaryObtained;
+            case 7: return TheifDiaryObtained;
+            case 8: return MuscleDiaryObtained;
+            case 9: return FireDiaryObtained;
+            case 10: return AssassinDiaryObtained;
+            default:
+                Debug.LogWarning($"対応していないアイテムID: {itemID}");
+                return false;
+        }
+    }
+
     // すべてのアイテムをリセットするメソッド
     public void ResetAllItems()
     {
