@@ -12,123 +12,134 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47354db7baa064570b872ce9a190ce8c, type: 3}
   m_Name: ItemData
   m_EditorClassIdentifier: 
-  playerReportID: 1
-  playerReportName: "\u5C11\u5973\u306E\u7814\u7A76\u5831\u544A\u66F8"
-  playerReportDescriptions:
-    playerTone: 
-    theifTone: 
-    muscleTone: 
-    fireTone: 
-    assassinTone: 
-    allQuartersTone: 
-    ownThreeQuartersTone: 
-    ownFullTone: 
-  playerReportText: "\u5C11\u5973\u306E\u7814\u7A76\u5831\u544A\u66F8\u306E\u8A73\u7D30"
-  theifReportID: 0
-  theifReportName: 
-  theifReportDescriptions:
-    playerTone: 
-    theifTone: 
-    muscleTone: 
-    fireTone: 
-    assassinTone: 
-    allQuartersTone: 
-    ownThreeQuartersTone: 
-    ownFullTone: 
-  theifReportText: 
-  muscleReportID: 0
-  muscleReportName: 
-  muscleReportDescriptions:
-    playerTone: 
-    theifTone: 
-    muscleTone: 
-    fireTone: 
-    assassinTone: 
-    allQuartersTone: 
-    ownThreeQuartersTone: 
-    ownFullTone: 
-  muscleReportText: 
-  fireReportID: 0
-  fireReportName: 
-  fireReportDescriptions:
-    playerTone: 
-    theifTone: 
-    muscleTone: 
-    fireTone: 
-    assassinTone: 
-    allQuartersTone: 
-    ownThreeQuartersTone: 
-    ownFullTone: 
-  fireReportText: 
-  assassinReportID: 0
-  assassinReportName: 
-  assassinReportDescriptions:
-    playerTone: 
-    theifTone: 
-    muscleTone: 
-    fireTone: 
-    assassinTone: 
-    allQuartersTone: 
-    ownThreeQuartersTone: 
-    ownFullTone: 
-  assassinReportText: 
-  playerDiaryID: 0
-  playerDiaryName: 
-  playerDiaryDescriptions:
-    playerTone: 
-    theifTone: 
-    muscleTone: 
-    fireTone: 
-    assassinTone: 
-    allQuartersTone: 
-    ownThreeQuartersTone: 
-    ownFullTone: 
-  playerDiaryText: 
-  theifDiaryID: 0
-  theifDiaryName: 
-  theifDiaryDescriptions:
-    playerTone: 
-    theifTone: 
-    muscleTone: 
-    fireTone: 
-    assassinTone: 
-    allQuartersTone: 
-    ownThreeQuartersTone: 
-    ownFullTone: 
-  theifDiaryText: 
-  muscleDiaryID: 0
-  muscleDiaryName: 
-  muscleDiaryDescriptions:
-    playerTone: 
-    theifTone: 
-    muscleTone: 
-    fireTone: 
-    assassinTone: 
-    allQuartersTone: 
-    ownThreeQuartersTone: 
-    ownFullTone: 
-  muscleDiaryText: 
-  fireDiaryID: 0
-  fireDiaryName: 
-  fireDiaryDescriptions:
-    playerTone: 
-    theifTone: 
-    muscleTone: 
-    fireTone: 
-    assassinTone: 
-    allQuartersTone: 
-    ownThreeQuartersTone: 
-    ownFullTone: 
-  fireDiaryText: 
-  assassinDiaryID: 0
-  assassinDiaryName: 
-  assassinDiaryDescriptions:
-    playerTone: 
-    theifTone: 
-    muscleTone: 
-    fireTone: 
-    assassinTone: 
-    allQuartersTone: 
-    ownThreeQuartersTone: 
-    ownFullTone: 
-  assassinDiaryText: 
+  items:
+  - id: 1
+    name: "\u5C11\u5973\u306E\u7814\u7A76\u5831\u544A\u66F8"
+    text: "\u8A73\u7D30"
+    descriptions:
+      playerTone: 
+      theifTone: 
+      muscleTone: 
+      fireTone: 
+      assassinTone: 
+      allQuartersTone: 
+      ownThreeQuartersTone: 
+      ownFullTone: 
+    itemType: 0
+  - id: 2
+    name: "\u6CE5\u68D2\u306E\u7814\u7A76\u5831\u544A\u66F8"
+    text: "\u8A73\u7D30"
+    descriptions:
+      playerTone: 
+      theifTone: 
+      muscleTone: 
+      fireTone: 
+      assassinTone: 
+      allQuartersTone: 
+      ownThreeQuartersTone: 
+      ownFullTone: 
+    itemType: 0
+  - id: 3
+    name: "\u8ECD\u4EBA\u306E\u7814\u7A76\u5831\u544A\u66F8"
+    text: "\u8A73\u7D30"
+    descriptions:
+      playerTone: 
+      theifTone: 
+      muscleTone: 
+      fireTone: 
+      assassinTone: 
+      allQuartersTone: 
+      ownThreeQuartersTone: 
+      ownFullTone: 
+    itemType: 0
+  - id: 4
+    name: "\u6D88\u9632\u58EB\u306E\u7814\u7A76\u5831\u544A\u66F8"
+    text: "\u8A73\u7D30"
+    descriptions:
+      playerTone: 
+      theifTone: 
+      muscleTone: 
+      fireTone: 
+      assassinTone: 
+      allQuartersTone: 
+      ownThreeQuartersTone: 
+      ownFullTone: 
+    itemType: 0
+  - id: 5
+    name: "\u30A2\u30B5\u30B7\u30F3\u306E\u7814\u7A76\u5831\u544A\u66F8"
+    text: "\u8A73\u7D30"
+    descriptions:
+      playerTone: 
+      theifTone: 
+      muscleTone: 
+      fireTone: 
+      assassinTone: 
+      allQuartersTone: 
+      ownThreeQuartersTone: 
+      ownFullTone: 
+    itemType: 0
+  - id: 6
+    name: "\u5C11\u5973\u306E\u65E5\u8A18"
+    text: "\u8A73\u7D30"
+    descriptions:
+      playerTone: 
+      theifTone: 
+      muscleTone: 
+      fireTone: 
+      assassinTone: 
+      allQuartersTone: 
+      ownThreeQuartersTone: 
+      ownFullTone: 
+    itemType: 1
+  - id: 7
+    name: "\u6CE5\u68D2\u306E\u65E5\u8A18"
+    text: "\u8A73\u7D30"
+    descriptions:
+      playerTone: 
+      theifTone: 
+      muscleTone: 
+      fireTone: 
+      assassinTone: 
+      allQuartersTone: 
+      ownThreeQuartersTone: 
+      ownFullTone: 
+    itemType: 0
+  - id: 8
+    name: "\u8ECD\u4EBA\u306E\u65E5\u8A18"
+    text: "\u8A73\u7D30"
+    descriptions:
+      playerTone: 
+      theifTone: 
+      muscleTone: 
+      fireTone: 
+      assassinTone: 
+      allQuartersTone: 
+      ownThreeQuartersTone: 
+      ownFullTone: 
+    itemType: 1
+  - id: 9
+    name: "\u6D88\u9632\u58EB\u306E\u65E5\u8A18"
+    text: "\u8A73\u7D30"
+    descriptions:
+      playerTone: 
+      theifTone: 
+      muscleTone: 
+      fireTone: 
+      assassinTone: 
+      allQuartersTone: 
+      ownThreeQuartersTone: 
+      ownFullTone: 
+    itemType: 1
+  - id: 10
+    name: "\u30A2\u30B5\u30B7\u30F3\u306E\u65E5\u8A18"
+    text: "\u8A73\u7D30"
+    descriptions:
+      playerTone: 
+      theifTone: 
+      muscleTone: 
+      fireTone: 
+      assassinTone: 
+      allQuartersTone: 
+      ownThreeQuartersTone: 
+      ownFullTone: 
+    itemType: 1

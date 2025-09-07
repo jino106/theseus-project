@@ -192,6 +192,15 @@ public class EnterKeyActionTrigger : MonoBehaviour
             // インタラクションがなかった場合、ナイフを投げる
             if (!interacted)
             {
+                // アニメーションの準備
+                //PrepareForAnimation();
+
+                // ナイフを投げるアニメーションを開始
+                //playerAnimationManager.AniThrowKnifeTrue();
+
+                // アニメーション完了を監視する非同期処理を開始
+                //WaitForAnimationCompletion().Forget();
+
                 if (showDebugLogs) Debug.Log("インタラクションなし: ナイフを投げます");
                 // プレイヤーのThrowKnifeメソッドを呼び出す
                 throwKnife.ThrowKnife();
@@ -254,31 +263,38 @@ public class EnterKeyActionTrigger : MonoBehaviour
         }
     }
 
-    // インタラクトアニメーションを実行するメソッド
-    private void IntractAnimation()
+    // アニメーション開始の準備
+    private void PrepareForAnimation()
     {
         // 入力を無効化
         if (controller != null)
             controller.isInputEnabled = false;
-        
+
         if (playerRigidbody != null)
         {
             // 現在の速度をゼロに
             playerRigidbody.linearVelocity = Vector2.zero;
-            
+
             // 現在位置を記録
             fixedPosition = player.transform.position;
-            
+
             // キネマティックモードに設定
             playerRigidbody.isKinematic = true;
-            
+
             // 位置固定フラグを有効化
             keepPositionFixed = true;
         }
-        
+    }
+
+    // インタラクトアニメーションを実行するメソッド
+    private void IntractAnimation()
+    {
+        // アニメーション開始の準備
+        PrepareForAnimation();
+
         // インタラクトのアニメーションを開始
         playerAnimationManager.AniInteractTrue();
-        
+
         // アニメーション完了を監視する非同期処理を開始
         WaitForAnimationCompletion().Forget();
     }
