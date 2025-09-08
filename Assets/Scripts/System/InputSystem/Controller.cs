@@ -36,10 +36,20 @@ public class Controller : MonoBehaviour
     private float friction;
     private float airResistance;
 
+    // 直前に向いていた方向を格納する変数
+    private bool isFacingRight = true;
+
     public bool isInputEnabled = true; // 入力を受け付けるかどうかのフラグ
 
     private void Start()
     {
+        // isFacingRightの初期化
+        if (Mathf.Approximately(transform.eulerAngles.y, 180f)) {
+            isFacingRight = false;
+        } else {
+            isFacingRight = true;
+        }
+
         Debug.Log("=== Controller 依存性注入確認 ===");
         
         // [Inject]による注入の確認
@@ -216,9 +226,13 @@ public class Controller : MonoBehaviour
             {
                 // 移動方向に応じてプレイヤー画像を反転させる
                 // 右向きならY軸の角度を0、左向きなら180にする
-                if (moveInput.x == 1) {
+                if (moveInput.x == 1 && !isFacingRight) {
+                    // 右向きにする
+                    isFacingRight = true;
                     transform.rotation = Quaternion.Euler(0, 0, 0);
-                } else if (moveInput.x == -1) {
+                } else if (moveInput.x == -1 && isFacingRight) {
+                    // 左向きにする
+                    isFacingRight = false;
                     transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
 
