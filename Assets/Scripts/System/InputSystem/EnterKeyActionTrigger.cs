@@ -9,12 +9,19 @@ using VContainer;
 /// </summary>
 public class EnterKeyActionTrigger : MonoBehaviour
 {
-    // マップに落ちているパーツオブジェクトのタグ
-    [SerializeField] private string partsTag = "Parts";
-    // PlartsManagerの参照
-    [Inject] private PartsManager partsManager;
+   
     // プレイヤーの参照
     [Inject] private GameObject player;
+    // PlayerStatusの参照
+    [Inject] private PlayerStatus playerStatus;
+    // PlartsManagerの参照
+    [Inject] private PartsManager partsManager;
+    // AnimationManagerの参照
+    [Inject] private PlayerAnimationManager playerAnimationManager;
+    // PlayerRunTimeStatusの参照
+    [Inject] private PlayerRunTimeStatus playerRunTimeStatus;
+     // マップに落ちているパーツオブジェクトのタグ
+    [SerializeField] private string partsTag = "Parts";
     // 錆びたレバーのタグ
     [SerializeField] private string leverTag = "RustyLever";
     // ストップボタンのタグ
@@ -23,10 +30,6 @@ public class EnterKeyActionTrigger : MonoBehaviour
     [SerializeField] private string waterTankTag = "WaterTank";
     // 燃え盛る炎のタグ
     [SerializeField] private string burningFireTag = "BurningFire";
-    // AnimationManagerの参照
-    [Inject] private PlayerAnimationManager playerAnimationManager;
-    // PlayerRunTimeStatusの参照
-    [Inject] private PlayerRunTimeStatus playerRunTimeStatus;
 
     // アニメーション待機時間の設定（SerializeField）
     [Header("アニメーション待機時間設定")]
@@ -139,7 +142,7 @@ public class EnterKeyActionTrigger : MonoBehaviour
                 else if (touchingCollision.gameObject.CompareTag(leverTag))
                 {
                     var component = touchingCollision.gameObject.GetComponent<RustyLever>();
-                    if (component != null)
+                    if (component != null && playerStatus.CanPushHeavyObject)
                     {
                         HandleLeverInteraction(component).Forget();
                         interacted = true;
@@ -185,7 +188,8 @@ public class EnterKeyActionTrigger : MonoBehaviour
                 {
                     // ジャンプアニメーションをキャンセル
                     playerAnimationManager.AniJumpFalse();
-                       
+                    playerAnimationManager.AniDoubleJumpFalse();
+
                 }
                 HandleKnifeThrow().Forget();
                 if (showDebugLogs) Debug.Log("インタラクションなし: ナイフを投げます");
