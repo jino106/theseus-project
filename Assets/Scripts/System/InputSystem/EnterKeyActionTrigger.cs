@@ -181,6 +181,12 @@ public class EnterKeyActionTrigger : MonoBehaviour
             // インタラクションがなかった場合、ナイフを投げる
             if (!interacted)
             {
+                if (isGrounded == false)
+                {
+                    // ジャンプアニメーションをキャンセル
+                    playerAnimationManager.AniJumpFalse();
+                       
+                }
                 HandleKnifeThrow().Forget();
                 if (showDebugLogs) Debug.Log("インタラクションなし: ナイフを投げます");
             }
