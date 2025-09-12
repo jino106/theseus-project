@@ -12,7 +12,7 @@ public class ShootWaterController : MonoBehaviour
     [Inject] private IWaterFactory waterFactory;
 
     [SerializeField] private float displayDistance = 1.5f; // 前方に表示する距離
-    [SerializeField] private float waterWait = 0.5f; // 水の発射待機時間
+    [SerializeField] public float waterWait = 0.5f; // 水の発射待機時間
     [SerializeField] private float waterDuration = 1.0f; // 表示時間（秒）
     
     private Rigidbody2D playerRigidbody; // プレイヤーのRigidbody2D
@@ -70,8 +70,9 @@ public class ShootWaterController : MonoBehaviour
         float direction = 1f; // まず右向き(1)で初期化
         playerDirectionRight = true;
         
-        // Y軸の回転が180度に近いかどうかで左向きかを判定する
-        if (Mathf.Approximately(transform.eulerAngles.y, 180f))
+        // Y軸の回転を正規化して判定（-180〜180度の範囲に変換）
+        float normalizedYRotation = Mathf.DeltaAngle(0f, transform.eulerAngles.y);
+        if (Mathf.Abs(normalizedYRotation) > 90f)
         {
             direction = -1f; // 左向き(-1)にする
             playerDirectionRight = false;
