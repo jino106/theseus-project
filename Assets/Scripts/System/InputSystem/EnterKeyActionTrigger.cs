@@ -362,6 +362,12 @@ public class EnterKeyActionTrigger : MonoBehaviour
     {
         try
         {
+            if (!playerStatus.CanChargeWater)
+            {
+                if (showDebugLogs) Debug.Log("水をチャージできない");
+                isInteracting = false;
+                return;
+            }
             PrepareForAnimation();
             playerAnimationManager.AniInteractTrue();
             component.ChargeWater();
@@ -384,9 +390,15 @@ public class EnterKeyActionTrigger : MonoBehaviour
     {
         try
         {
+            if (!playerRunTimeStatus.CanShootWater)
+            {
+                if (showDebugLogs) Debug.Log("水を発射できない");
+                isInteracting = false;
+                return;
+            }
             PrepareForAnimation();
             playerAnimationManager.AniShootWaterTrue();
-            component.FireExtinguished();
+            component.FireExtinguishedAsync();
             await WaitForAnimationCompletion(shootWaterAnimationDuration);
             ResteControllerInput();
         }

@@ -8,12 +8,12 @@ using VContainer;
 public class ShootWaterController : MonoBehaviour
 {   
     [Inject] private GameObject player; // プレイヤーオブジェクト
-    [Inject] private PlayerStatus playerStatus; // プレイヤーのステータス
+    [Inject] private PlayerRunTimeStatus playerRunTimeStatus; // プレイヤーのステータス
     [Inject] private IWaterFactory waterFactory;
 
     [SerializeField] private float displayDistance = 1.5f; // 前方に表示する距離
     [SerializeField] public float waterWait = 0.5f; // 水の発射待機時間
-    [SerializeField] private float waterDuration = 1.0f; // 表示時間（秒）
+    [SerializeField] public float waterDuration = 1.0f; // 表示時間（秒）
     
     private Rigidbody2D playerRigidbody; // プレイヤーのRigidbody2D
     
@@ -49,7 +49,7 @@ public class ShootWaterController : MonoBehaviour
     public void ShootWater()
     {
         // CanShootWaterがtrueの場合のみ水を表示
-        if (playerStatus != null && playerStatus.CanShootWater)
+        if (playerRunTimeStatus != null && playerRunTimeStatus.CanShootWater)
         {
             StartCoroutine(ShootWaterCoroutine());
         }
@@ -58,7 +58,7 @@ public class ShootWaterController : MonoBehaviour
     private IEnumerator ShootWaterCoroutine()
     {
         // 水を発射したら再度発射できないようにする
-        playerStatus.CanShootWater = false;
+        playerRunTimeStatus.CanShootWater = false;
         
         // プレイヤーの移動を制限
         RestrictPlayerMovement();

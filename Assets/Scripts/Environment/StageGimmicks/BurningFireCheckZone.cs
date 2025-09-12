@@ -13,8 +13,9 @@ public class BurningFireCheckZone : MonoBehaviour
     [SerializeField] private Collider2D fireFieldColliderOpposite; // 反対側の炎フィールドの物理コライダー
     [SerializeField] private GameObject burnibgFire; // 炎オブジェクト（消火後に非表示にするため）
     [SerializeField] public bool isRightCheckZone; // 右側の炎ゾーンかどうか
-    [SerializeField] private float extinguishDelay = 1.0f; // 水発射後、炎消火までの追加待機時間
     private float fireWait; // 水を発射するまでの待機時間(秒)
+    private float extinguishDelay; // 水発射後、炎消火までの追加待機時間
+
     private void Start()
     {
         // 初期状態では炎のコライダーを常に有効化
@@ -74,13 +75,6 @@ public class BurningFireCheckZone : MonoBehaviour
         ShootWaterController shootWater = player.GetComponent<ShootWaterController>();
         shootWater.ShootWater();
         
-        /*
-        // 水発射のアニメーション待機時間を取得
-        fireWait = shootWater.waterWait;
-        
-        // 水発射のアニメーション完了まで待機
-        yield return new WaitForSeconds(fireWait);
-        */
         // 炎オブジェクトを非表示にする（消火完了）
         if (burnibgFire != null)
         {
@@ -109,6 +103,7 @@ public class BurningFireCheckZone : MonoBehaviour
         
         // 水発射のアニメーション待機時間を取得
         fireWait = shootWater.waterWait;
+        extinguishDelay = shootWater.waterDuration;
         
         // 水発射のアニメーション完了まで待機
         await UniTask.Delay(System.TimeSpan.FromSeconds(fireWait));
