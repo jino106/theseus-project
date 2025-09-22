@@ -2534,7 +2534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356f4e32259594e318e53d24579ace57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotType: 1
+  slotType: 3
   charaType: 4
 --- !u!4 &2043468821
 Transform:
