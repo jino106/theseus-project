@@ -166,7 +166,8 @@ public class LaserTarget : MonoBehaviour
     // 物理衝突を検出する（Rigidbodyを使用している場合）
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 衝突したオブジェクトがナイフタグを持っているか確認
+        Debug.Log("LaserTarget: OnCollisionEnter2Dが呼び出されました");
+        // 衝.突したオブジェクトがナイフタグを持っているか確認
         if (collision.gameObject.CompareTag(knifeTag))
         {
             // Laserギミックを停止
