@@ -24,9 +24,10 @@ public class MovingLift : StoppableGimick
     [Header("単振動の初期位相（度）")]
     // 初期位相（単位は度数）
     [SerializeField] private float initialPhaseDeg;
-    [Header("リフトのマテリアル切り替え")]
     [SerializeField] private Material stopMaterial;
     [SerializeField] private Material runMaterial;
+    [SerializeField] private Sprite stopImage;
+    [SerializeField] private Sprite runImage;
     private SpriteRenderer _spriteRenderer;
 
     void Start()
@@ -85,10 +86,11 @@ public class MovingLift : StoppableGimick
     {
         // アニメーションを開始
         liftAnimation.Restart();
-        // 動作開始時にrunMaterialへ
-        if (_spriteRenderer != null && runMaterial != null)
+        // 動作開始時にrunMaterialとrunImageへ
+        if (_spriteRenderer != null)
         {
-            _spriteRenderer.material = runMaterial;
+            if (runMaterial != null) _spriteRenderer.material = runMaterial;
+            if (runImage != null) _spriteRenderer.sprite = runImage;
         }
     }
 
@@ -98,10 +100,11 @@ public class MovingLift : StoppableGimick
         liftAnimation.Pause();
         // リフトをスタート時の位置に戻す
         rigidBody2D.DOMove(posStart, duration/4).Play();
-        // 停止時にstopMaterialへ
-        if (_spriteRenderer != null && stopMaterial != null)
+        // 停止時にstopMaterialとstopImageへ
+        if (_spriteRenderer != null)
         {
-            _spriteRenderer.material = stopMaterial;
+            if (stopMaterial != null) _spriteRenderer.material = stopMaterial;
+            if (stopImage != null) _spriteRenderer.sprite = stopImage;
         }
     }
 }
