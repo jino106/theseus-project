@@ -5,6 +5,8 @@ public class StopButton : MonoBehaviour
     [SerializeField] private StoppableGimick[] stoppableGimicks;
     [SerializeField] private Material stopMaterial;
     [SerializeField] private Material runMaterial;
+    [SerializeField] private Sprite stopImage;
+    [SerializeField] private Sprite runImage;  
 
     private SpriteRenderer _spriteRenderer;
     [SerializeField] private bool isStop;
@@ -26,11 +28,13 @@ public class StopButton : MonoBehaviour
         {
             Debug.Log("Switching to runMaterial");
             _spriteRenderer.material = runMaterial;
+            _spriteRenderer.sprite = runImage;
         }
         else
         {
             Debug.Log("Switching to stopMaterial");
             _spriteRenderer.material = stopMaterial;
+            _spriteRenderer.sprite = stopImage;
         }
         isStop = !isStop;
 
