@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2000562346284602601}
   - component: {fileID: 2206589488150666926}
   m_Layer: 5
-  m_Name: SaveDataSlot
+  m_Name: LoadDataSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
