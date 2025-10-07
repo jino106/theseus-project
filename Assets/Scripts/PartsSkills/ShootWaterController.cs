@@ -14,6 +14,7 @@ public class ShootWaterController : MonoBehaviour
     [SerializeField] private float displayDistance = 1.5f; // 前方に表示する距離
     [SerializeField] public float waterWait = 0.5f; // 水の発射待機時間
     [SerializeField] public float waterDuration = 1.0f; // 表示時間（秒）
+    [SerializeField] private GameObject waterEffect; // WaterEffectオブジェクトをInspectorでセット
     
     private Rigidbody2D playerRigidbody; // プレイヤーのRigidbody2D
     
@@ -82,14 +83,35 @@ public class ShootWaterController : MonoBehaviour
         Vector3 waterPosition = new Vector3(
             transform.position.x + (displayDistance * direction),
             transform.position.y,
-            1.0f // Z座標を1に固定
+            0.0f // Z座標を0に
         );
 
-        // ファクトリーから水インスタンスを生成
-        GameObject water = waterFactory.CreateWater(waterPosition);
+        // 向きに応じて回転を決定（Prefabが右向きの場合）
+        Quaternion rotation = Quaternion.identity;
+        if (direction < 0f)
+        {
+            rotation = Quaternion.Euler(0, 180, 0); // 左向き
+        }
+
+        GameObject water = null;
+        if (waterEffect != null)
+        {
+            water = Instantiate(waterEffect, waterPosition, rotation);
+
+            // 必要なら長さ（X方向）を調整
+            // 例：2倍にしたい場合
+            //water.transform.localScale = new Vector3(2f, 1f, 1f);
+
+            Debug.Log("WaterEffect生成: " + waterPosition);
+        }
+        else
+        {
+            Debug.LogWarning("waterEffectがInspectorでセットされていません");
+        }
 
         // 指定時間後に水オブジェクトを破棄し、プレイヤーの移動を再開
         StartCoroutine(DestroyWaterAndAllowMovement(water, waterDuration));
+        StartCoroutine(HideWaterEffectAfterDelay(water, waterDuration));
     }
 
     // プレイヤーの移動を制限する
@@ -145,5 +167,15 @@ public class ShootWaterController : MonoBehaviour
         
         // プレイヤーの移動を許可
         AllowPlayerMovement();
+    }
+
+    // WaterEffectを非表示にするコルーチン
+    private IEnumerator HideWaterEffectAfterDelay(GameObject water, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (water != null)
+        {
+            water.SetActive(false);
+        }
     }
 }

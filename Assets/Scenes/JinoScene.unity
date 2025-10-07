@@ -2438,8 +2438,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8829725367227509910, guid: 9cb206c82ac534a638a9cf6c00ec5bb3, type: 3}
+      propertyPath: waterEffect
+      value: 
+      objectReference: {fileID: 8816350088154833309, guid: bd4f4c66e3c2540ac9d859bf9ca9812e, type: 3}
+    - target: {fileID: 8829725367227509910, guid: 9cb206c82ac534a638a9cf6c00ec5bb3, type: 3}
       propertyPath: waterDuration
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8829725367227509910, guid: 9cb206c82ac534a638a9cf6c00ec5bb3, type: 3}
       propertyPath: playerDirectionRight
@@ -2609,7 +2613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6805545063374084368, guid: 650b39dafc27f47b49c1337eb40c45c7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -39.41
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 6805545063374084368, guid: 650b39dafc27f47b49c1337eb40c45c7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2662,7 +2666,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3507607349688312187, guid: f400b49cad3cf4b40b672f65d0c98107, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.076727
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 3507607349688312187, guid: f400b49cad3cf4b40b672f65d0c98107, type: 3}
       propertyPath: m_LocalPosition.y
