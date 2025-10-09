@@ -82,14 +82,30 @@ public class ShootWaterController : MonoBehaviour
         Vector3 waterPosition = new Vector3(
             transform.position.x + (displayDistance * direction),
             transform.position.y,
-            1.0f // Z座標を1に固定
+            0.0f // Z座標を0に
         );
 
-        // ファクトリーから水インスタンスを生成
-        GameObject water = waterFactory.CreateWater(waterPosition);
+        // 向きに応じて回転を決定（Prefabが右向きの場合）
+        Quaternion rotation = Quaternion.identity;
+        if (direction < 0f)
+        {
+            rotation = Quaternion.Euler(0, 180, 0); // 左向き
+        }
+
+        GameObject water = null;
+        if (waterFactory != null)
+        {
+            water = waterFactory.CreateWaterEffect(waterPosition, rotation);
+            Debug.Log("WaterEffect生成: " + waterPosition);
+        }
+        else
+        {
+            Debug.LogWarning("waterFactoryがInjectされていません");
+        }
 
         // 指定時間後に水オブジェクトを破棄し、プレイヤーの移動を再開
         StartCoroutine(DestroyWaterAndAllowMovement(water, waterDuration));
+        StartCoroutine(HideWaterEffectAfterDelay(water, waterDuration));
     }
 
     // プレイヤーの移動を制限する
@@ -145,5 +161,15 @@ public class ShootWaterController : MonoBehaviour
         
         // プレイヤーの移動を許可
         AllowPlayerMovement();
+    }
+
+    // WaterEffectを非表示にするコルーチン
+    private IEnumerator HideWaterEffectAfterDelay(GameObject water, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (water != null)
+        {
+            water.SetActive(false);
+        }
     }
 }
