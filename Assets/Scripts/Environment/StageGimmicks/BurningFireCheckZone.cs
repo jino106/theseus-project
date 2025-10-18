@@ -2,12 +2,18 @@ using UnityEngine;
 using VContainer;
 using System.Collections;
 using Cysharp.Threading.Tasks;
- /// <summary>
- /// 燃え盛る炎を通れない警告するゾーン（常に通り抜けられない）
- /// </summary>
+
+/// <summary>
+/// 燃え盛る炎を通れない警告するゾーン（常に通り抜けられない）
+/// </summary>
 public class BurningFireCheckZone : MonoBehaviour
 {
     [Inject] private GameObject player;
+    [Inject] private GameTextDisplay textDisplay;
+    [Inject] private PlayerPartsRatio partsRatio;
+    [Inject] private ObjectTextData objectTextData;
+    
+    [SerializeField] private int burningFireID = 1; // BurningFireのID
     [SerializeField] private Collider2D fireFieldCollider; // 炎フィールドの物理コライダー
     [SerializeField] private Collider2D fireFieldColliderOpposite; // 反対側の炎フィールドの物理コライダー
     [SerializeField] private GameObject burnibgFire; // 炎オブジェクト（消火後に非表示にするため）
@@ -15,8 +21,16 @@ public class BurningFireCheckZone : MonoBehaviour
     [SerializeField] private ParticleSystem fireParticleSystem; // 炎のParticleSystem
     [SerializeField] private float fadeOutDuration = 2f; // 炎が消えるまでの時間(秒)
     
+    [Header("テキスト表示設定")]
+    [SerializeField] private float delayBetweenTexts = 2f; // 複数テキスト間の待機時間
+    
+    [Header("デバッグ")]
+    [SerializeField] private bool showDebugLogs = true;
+    
     private float fireWait; // 水を発射するまでの待機時間(秒)
     private float extinguishDelay; // 水発射後、炎消火までの追加待機時間
+    private bool isPlayerInZone = false;
+    private bool hasShownText = false; // テキストを表示済みかどうか
 
     private void Start()
     {
@@ -36,8 +50,23 @@ public class BurningFireCheckZone : MonoBehaviour
     {
         if (player != null && collision.gameObject == player)
         {
+            // 既にゾーン内にいる場合は何もしない
+            if (isPlayerInZone)
+            {
+                return;
+            }
+            
+            isPlayerInZone = true;
+            
             // 常に通過できない
-            Debug.Log("この炎は消火しないと通れない！");
+            if (showDebugLogs) Debug.Log("この炎は消火しないと通れない！");
+
+            // テキスト表示（まだ表示していない場合のみ）
+            if (!hasShownText)
+            {
+                ShowBurningFireWarningText();
+                hasShownText = true;
+            }
 
             // 炎フィールドの物理コライダーを常に有効化
             if (fireFieldCollider != null)
@@ -52,13 +81,42 @@ public class BurningFireCheckZone : MonoBehaviour
         }
     }
     
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        // ゾーン内にいる間は何もしない（複数回の呼び出しを防ぐ）
+        if (player != null && collision.gameObject == player)
+        {
+            isPlayerInZone = true;
+        }
+    }
+    
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (player != null && collision.gameObject == player)
         {
-            // 警告UIを非表示に（オプション）
-            Debug.Log("炎ゾーンから退出");
+            if (showDebugLogs) Debug.Log("炎ゾーンから退出");
+            
+            isPlayerInZone = false;
+            hasShownText = false; // フラグをリセット
+            
+            // テキストを閉じる
+            if (textDisplay != null && textDisplay.IsDisplaying)
+            {
+                textDisplay.HideText();
+            }
         }
+    }
+
+    private void ShowBurningFireWarningText()
+    {
+        // 拡張メソッドを使用してテキストを表示
+        textDisplay.ShowTextByPartsRatio(
+            partsRatio,
+            objectTextData,
+            burningFireID,
+            delayBetweenTexts,
+            showDebugLogs
+        );
     }
 
     // 炎が消火された時に呼び出すメソッド
