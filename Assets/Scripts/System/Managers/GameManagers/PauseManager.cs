@@ -7,6 +7,9 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private PlayerInput playerInput;
 
+    // uiボタンのリセット用スクリプトのアタッチ
+    [SerializeField] private SelectFirstButton pauseMenuUIScript;
+
     // 現在ポーズ中かどうかを保持するフラグ
     private bool isPaused = false;
 
@@ -25,7 +28,10 @@ public class PauseManager : MonoBehaviour
             // isPausedの状態を反転させる
             if (isPaused)
             {
-                Resume();
+                if (pauseMenuUI.activeSelf) 
+                {
+                    Resume();
+                }
             }
             else
             {
@@ -41,6 +47,7 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1f; // 時間の流れを元に戻す
         playerInput.SwitchCurrentActionMap("Player");
         isPaused = false;
+        pauseMenuUIScript.ResetLastSelected();
     }
 
     // ゲームをポーズするメソッド
