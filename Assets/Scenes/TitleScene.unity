@@ -2270,6 +2270,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadDataSlot2
       objectReference: {fileID: 0}
+    - target: {fileID: 2761839346031790338, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2296,7 +2300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 800
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2349,6 +2353,10 @@ PrefabInstance:
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7312283972503374060, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_Alpha
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2974,6 +2982,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadDataSlot4
       objectReference: {fileID: 0}
+    - target: {fileID: 2761839346031790338, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3000,7 +3012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 800
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3054,6 +3066,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7312283972503374060, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3083,6 +3099,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadDataSlot6
       objectReference: {fileID: 0}
+    - target: {fileID: 2761839346031790338, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3109,7 +3129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 800
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3162,6 +3182,10 @@ PrefabInstance:
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7312283972503374060, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_Alpha
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5164,6 +5188,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadDataSlot5
       objectReference: {fileID: 0}
+    - target: {fileID: 2761839346031790338, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5190,7 +5218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 800
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_SizeDelta.y
@@ -5244,6 +5272,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7312283972503374060, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5273,6 +5305,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadDataSlot3
       objectReference: {fileID: 0}
+    - target: {fileID: 2761839346031790338, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5299,7 +5335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 800
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_SizeDelta.y
@@ -5352,6 +5388,10 @@ PrefabInstance:
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7312283972503374060, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_Alpha
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5672,6 +5712,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2000562346284602601, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000562346284602601, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_Navigation.m_SelectOnUp
       value: 
       objectReference: {fileID: 1976684039}
@@ -5699,6 +5743,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadDataSlot1
       objectReference: {fileID: 0}
+    - target: {fileID: 2761839346031790338, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3063148978958057322, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: cd3c4c8d256d645e283ca754e7dba4bd, type: 3}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5725,7 +5777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 800
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_SizeDelta.y
@@ -5777,6 +5829,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4597170438716275385, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5688571906819730601, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6792299705469388458, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6792299705469388458, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: c5bc0b4a18a484b6f86106923d045d13, type: 3}
+    - target: {fileID: 7239263777445761466, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7312283972503374060, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7312283972503374060, guid: 7a239e0718e59724c9eb8a4961e70297, type: 3}
+      propertyPath: m_BlocksRaycasts
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
