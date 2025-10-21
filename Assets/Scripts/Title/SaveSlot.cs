@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI; // Textを使うため
 
@@ -14,7 +15,8 @@ public class SaveSlot : Button
 
     [Header("データがない場合に表示するUI")]
     [SerializeField] private GameObject noDataGroup;
-
+    [Header("確認用UIを取得")]
+    [SerializeField] private SaveDataConfirmation confirmation;
 
     private void Awake()
     {
@@ -41,5 +43,6 @@ public class SaveSlot : Button
     public override void OnClick()
     {
         Debug.Log("ファイル" + saveDataNum + "を読み込んだ");
+        confirmation.ShowConfirmationDialog(saveDataNum);
     }
 }
