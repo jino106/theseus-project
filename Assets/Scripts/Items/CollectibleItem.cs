@@ -1,18 +1,34 @@
 using UnityEngine;
 using VContainer;
+using Cysharp.Threading.Tasks;
+
+
+public enum PartsOwnerType
+{
+    Player,
+    Thief,
+    Muscle,
+    Fire,
+    Assassin
+}
+
 public class CollectibleItem : MonoBehaviour
 {
     /// <summary>
     /// コレクター要素のあるアイテムの取得に関するスクリプト
     /// </summary>
-    
+
     //アイテムのID(外部キーの役割)
     [SerializeField] private int itemID;
-    
+
     // ItemManagerの参照
     [Inject] private ItemManager itemManager;
     // ItemDataの参照 
     [Inject] private ItemData itemData;
+    // PlayerPartsRatioの参照
+    [Inject] private PlayerPartsRatio partsRatio;
+    // GameTextDisplayの参照
+    [Inject] private GameTextDisplay gameTextDisplay;
 
     // アイテム名
     private string itemName;
@@ -20,39 +36,6 @@ public class CollectibleItem : MonoBehaviour
     private string itemDescription;
     // アイテムのスプライト
     private string itemText;
-
-    /*
-
-    // このアイテムがどの「設計図」を持つかを設定する
-    [SerializeField] private ItemData itemData;
-    
-    private SpriteRenderer spriteRenderer;
-
-    void Start()
-    {
-        // 自分のSpriteRendererコンポーネントを取得
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        
-        // ItemDataに基づいて自分の見た目を設定する
-        ApplyItemData();
-    }
-
-    // 設計図の情報を自分に反映させるメソッド
-    public void ApplyItemData()
-    {
-        if (itemData == null)
-        {
-            Debug.LogError("ItemDataが設定されていません！");
-            return;
-        }
-
-        // 設計図からスプライトを取得し、自分の見た目に設定
-        spriteRenderer.sprite = itemData.itemSprite;
-        
-        // 名前も設計図に合わせて変更しておく（デバッグに便利）
-        this.gameObject.name = itemData.itemName;
-    }
-    */
 
     // アイテムを取得情報をインベントリに保存するメソッド
     public void CollectItem()
@@ -65,32 +48,75 @@ public class CollectibleItem : MonoBehaviour
     {
         return itemData.GetItemNameByID(itemID);
     }
+
     // アイテムのテキストを表示するメソッド
     public string GetItemText()
     {
         return itemData.GetItemTextByID(itemID);
     }
-    /*
-    // アイテムの説明文を取得するメソッド
-    public ItemDescriptions GetItemDescription()
-    {
-        return itemData.GetItemDescriptionsByID(itemID);
-    }
-    */
 
     // プレイヤーが触れた時の処理など
-    void OnTriggerEnter2D(Collider2D other)
+    async void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            // アイテム情報をログに出力
             Debug.Log($"取得したアイテム: {GetItemName()}");
             Debug.Log($"アイテムテキスト: {GetItemText()}");
 
-            // アイテム取得処理をItemManagerに依頼
+            var item = itemData.GetItemByID(itemID);
+            var descriptions = item?.descriptions;
+            if (item == null || descriptions == null)
+            {
+                Debug.LogWarning("アイテム情報または説明文がありません");
+                return;
+            }
+
+            // 最大占有率のキャラを取得
+            var maxPartsChara = (PartsOwnerType)partsRatio.GetDominantParts();
+            float maxRatio = partsRatio.GetPartsRatio((PartsOwnerType)maxPartsChara);
+
+            string description = "";
+
+            // 100%かつアイテム所有者と一致
+            if (Mathf.Approximately(maxRatio, 100f) && maxPartsChara.ToString() == item.ownerType.ToString())
+            {
+                description = descriptions.ownFullTone;
+            }
+            else
+            {
+                // 最大占有率キャラの口調
+                switch (maxPartsChara)
+                {
+                    case PartsOwnerType.Player:
+                        description = descriptions.playerTone;
+                        break;
+                    case PartsOwnerType.Thief:
+                        description = descriptions.theifTone;
+                        break;
+                    case PartsOwnerType.Muscle:
+                        description = descriptions.muscleTone;
+                        break;
+                    case PartsOwnerType.Fire:
+                        description = descriptions.fireTone;
+                        break;
+                    case PartsOwnerType.Assassin:
+                        description = descriptions.assassinTone;
+                        break;
+                    default:
+                        description = descriptions.playerTone;
+                        break;
+                }
+            }
+
+            Debug.Log($"説明文: {description}");
+
             CollectItem();
 
-            // GameManager.Instance.AddItem(itemData.itemID);
+            if (gameTextDisplay != null)
+            {
+                await gameTextDisplay.ShowText(description);
+            }
+
             Destroy(gameObject);
         }
     }

@@ -18,18 +18,18 @@ public class ObjectTextData : ScriptableObject
     }
 
     // オブジェクトIDとキャラクタータイプに基づいてテキストを取得するメソッド
-    public string GetTextByIDAndCharacter(int objectID, Parts.Types.PartsChara chara)
+    public string GetTextByIDAndCharacter(int objectID, PartsOwnerType ownerType)
     {
         var objectText = GetObjectTextByID(objectID);
         if (objectText == null) return "Unknown Object";
 
-        return chara switch
+        return ownerType switch
         {
-            Parts.Types.PartsChara.Normal => objectText.characterDialogues.playerTone,
-            Parts.Types.PartsChara.Theif => objectText.characterDialogues.thiefTone,
-            Parts.Types.PartsChara.Muscle => objectText.characterDialogues.soldierTone,
-            Parts.Types.PartsChara.Fire => objectText.characterDialogues.firefighterTone,
-            Parts.Types.PartsChara.Assassin => objectText.characterDialogues.assassinTone,
+            PartsOwnerType.Player => objectText.characterDialogues.playerTone,
+            PartsOwnerType.Thief => objectText.characterDialogues.thiefTone,
+            PartsOwnerType.Muscle => objectText.characterDialogues.soldierTone,
+            PartsOwnerType.Fire => objectText.characterDialogues.firefighterTone,
+            PartsOwnerType.Assassin => objectText.characterDialogues.assassinTone,
             _ => "Unknown Character"
         };
     }

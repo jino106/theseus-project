@@ -365,14 +365,10 @@ public class GameTextDisplay : MonoBehaviour
     }
 }
 
-/// <summary>
 /// GameTextDisplayの拡張メソッド
-/// </summary>
 public static class GameTextDisplayExtensions
 {
-    /// <summary>
     /// パーツ占有率に基づいてテキストを表示
-    /// </summary>
     public static async UniTaskVoid ShowTextByPartsRatio(
         this GameTextDisplay textDisplay,
         PlayerPartsRatio partsRatio,
@@ -434,13 +430,14 @@ public static class GameTextDisplayExtensions
         var textList = new List<string>();
         foreach (var parts in dominantParts)
         {
+            // partsはPartsOwnerType型
             string text = objectTextData.GetTextByIDAndCharacter(objectID, parts);
-            
+
             if (showDebugLogs)
             {
                 Debug.Log($"{parts}のテキスト: \"{text}\"");
             }
-            
+
             if (!string.IsNullOrEmpty(text))
             {
                 textList.Add(text);
@@ -457,9 +454,7 @@ public static class GameTextDisplayExtensions
         await ShowTextsSequentially(textDisplay, textList, delayBetweenTexts, showDebugLogs);
     }
     
-    /// <summary>
-    /// 複数のテキストを順次表示
-    /// </summary>
+    // 複数のテキストを順次表示
     private static async UniTask ShowTextsSequentially(
         GameTextDisplay textDisplay,
         List<string> textList,
