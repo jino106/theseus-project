@@ -118,7 +118,7 @@ public class PlayerVisualCustomizer : MonoBehaviour
             {
                 case PartsChara.Normal:
                     return NormalArmL;
-                case PartsChara.Theif:
+                case PartsChara.Thief:
                     return TheifArmL;
                 case PartsChara.Muscle:
                     return MuscleArmL;
@@ -136,7 +136,7 @@ public class PlayerVisualCustomizer : MonoBehaviour
             {
                 case PartsChara.Normal:
                     return NormalArmR;
-                case PartsChara.Theif:
+                case PartsChara.Thief:
                     return TheifArmR;
                 case PartsChara.Muscle:
                     return MuscleArmR;
@@ -154,7 +154,7 @@ public class PlayerVisualCustomizer : MonoBehaviour
             {
                 case PartsChara.Normal:
                     return NormalLegL;
-                case PartsChara.Theif:
+                case PartsChara.Thief:
                     return TheifLegL;
                 case PartsChara.Muscle:
                     return MuscleLegL;
@@ -172,7 +172,7 @@ public class PlayerVisualCustomizer : MonoBehaviour
             {
                 case PartsChara.Normal:
                     return NormalLegR;
-                case PartsChara.Theif:
+                case PartsChara.Thief:
                     return TheifLegR;
                 case PartsChara.Muscle:
                     return MuscleLegR;
