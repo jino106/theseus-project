@@ -41,6 +41,7 @@ public class GameDataManager : MonoBehaviour
     private string saveFilePath; // セーブファイルのパス
 
     private bool isInitialized = false;
+    private int currentSlot = 1; // デフォルトは1番スロット
 
     void Awake()
     {
@@ -50,6 +51,8 @@ public class GameDataManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("playerParts: " + playerParts);
+        Debug.Log("inventoryData: " + inventoryData);
         // 依存関係の注入確認
         if (playerParts == null || inventoryData == null)
         {
@@ -58,6 +61,13 @@ public class GameDataManager : MonoBehaviour
         }
         
         isInitialized = true;
+    }
+
+    // スロット番号をセットするメソッド
+    public void SetCurrentSlot(int saveSlotNumber)
+    {
+        currentSlot = saveSlotNumber;
+        saveFilePath = Application.persistentDataPath + $"/save_{currentSlot}.json";
     }
 
     // ゲームをセーブするメソッド
@@ -131,6 +141,9 @@ public class GameDataManager : MonoBehaviour
             playerParts.LeftLeg = saveData.LeftLeg;
             playerParts.RightLeg = saveData.RightLeg;
             // = saveData.stageNumber;// ゲームの進行状況も反映
+
+            Debug.Log("Loaded Parts - LeftArm: " + playerParts.LeftArm + ", RightArm: " + playerParts.RightArm +
+                      ", LeftLeg: " + playerParts.LeftLeg + ", RightLeg: " + playerParts.RightLeg);
 
             /*
             inventoryData.PlayerReportObtained = saveData.playerReportObtained;

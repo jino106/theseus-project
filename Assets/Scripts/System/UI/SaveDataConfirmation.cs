@@ -46,6 +46,7 @@ public class SaveDataConfirmation : MonoBehaviour
     {
         Debug.Log("セーブを実行します。");
         // ここで実際のセーブ処理を呼び出す
+        gameDataManager.SetCurrentSlot(saveCurrentSlot);
         gameDataManager.SaveGame();
         CloseDialog();
     }
@@ -54,6 +55,7 @@ public class SaveDataConfirmation : MonoBehaviour
     {
         Debug.Log("ロードを実行します。");
         // ここで実際のロード処理を呼び出す
+        gameDataManager.SetCurrentSlot(saveCurrentSlot);
         gameDataManager.LoadGame();
         CloseDialog(); // 実際は閉じずにゲームを起動する
     }

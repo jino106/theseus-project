@@ -395,17 +395,6 @@ public class GameLifetimeScope : LifetimeScope
             Debug.LogError("PlayerPartsRatioコンポーネントが見つかりません");
         }
 
-        var saveDataConfirmation = Object.FindAnyObjectByType<SaveDataConfirmation>();
-        if (saveDataConfirmation != null)
-        {
-            builder.RegisterInstance(saveDataConfirmation);
-            builder.RegisterBuildCallback(resolver => resolver.Inject(saveDataConfirmation));
-        }
-        else
-        {
-            Debug.LogError("SaveDataConfirmationが見つかりません");
-        }
-
         #endregion
 
         // HeavyObject
@@ -706,7 +695,7 @@ public class GameLifetimeScope : LifetimeScope
         }
         else
         {
-            Debug.LogError("WaterTankコンポーネントが見つかりません");
+            Debug.LogWarning("WaterTankコンポーネントが見つかりません");
         }
 
         // FireCheckZone
