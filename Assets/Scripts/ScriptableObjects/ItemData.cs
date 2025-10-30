@@ -39,6 +39,13 @@ public class ItemData : ScriptableObject
         return item?.descriptions;
     }
 
+    // アイテムIDに基づいてアイコンを取得するメソッド
+    public Sprite GetItemIconByID(int itemID)
+    {
+        var item = GetItemByID(itemID);
+        return item != null ? item.itemIcon : null;
+    }
+
     // パーツタイプとアイテム所有者が一致するかチェック
     private bool IsOwnerMatch(string partsType, ItemOwnerType ownerType)
     {
@@ -69,11 +76,14 @@ public class Item
     public string name;                     // アイテムの名前
     [TextArea(3, 5)]
     public string text;                     // アイテムの中身のテキスト
-    
+
+    [Header("アイコン")]
+    public Sprite itemIcon;                 // アイテムのアイコン
+
     [Header("所有者情報")]
     [Tooltip("このアイテムの元の所有者")]
     public ItemOwnerType ownerType = ItemOwnerType.Normal;     // アイテムの所有者
-    
+
     [Header("説明文")]
     public ItemDescriptions descriptions;   // アイテムを説明するセリフ
 
@@ -88,6 +98,7 @@ public class Item
         this.itemType = itemType;
         this.ownerType = ownerType;
         this.descriptions = new ItemDescriptions();
+        this.itemIcon = null;
     }
 }
 

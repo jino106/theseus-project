@@ -19,6 +19,7 @@ public class TitleLifeTiimeScope : LifetimeScope
             var inventoryData = itemDataObject.GetComponentInChildren<InventoryData>();
             if (inventoryData != null)
             {
+                Debug.Log("InventoryDataが見つかりました。");
                 builder.RegisterInstance(inventoryData);
             }
             else
@@ -65,6 +66,7 @@ public class TitleLifeTiimeScope : LifetimeScope
                 foreach (var slot in itemSlots)
                 {
                     resolver.Inject(slot);
+                    slot.Initialize(); // 依存注入後に初期化
                 }
             });
         }

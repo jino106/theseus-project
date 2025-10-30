@@ -16,6 +16,7 @@ MonoBehaviour:
   - id: 1
     name: "\u5C11\u5973\u306E\u7814\u7A76\u5831\u544A\u66F8"
     text: "\u8A73\u7D30"
+    itemIcon: {fileID: 21300000, guid: ada43657a4bb8d14abdeabd092f8dd6a, type: 3}
     ownerType: 0
     descriptions:
       playerTone: "\u3053\u308C\u306F...\u30EC\u30DD\u30FC\u30C8\uFF1F\u3067\u3082\u540D\u524D\u306B\u898B\u899A\u3048\u304C\u3042\u308B..."
@@ -29,6 +30,7 @@ MonoBehaviour:
   - id: 2
     name: "\u6CE5\u68D2\u306E\u7814\u7A76\u5831\u544A\u66F8"
     text: "\u8A73\u7D30"
+    itemIcon: {fileID: 21300000, guid: ada43657a4bb8d14abdeabd092f8dd6a, type: 3}
     ownerType: 1
     descriptions:
       playerTone: "\u3053\u308C\u306F...\u30EC\u30DD\u30FC\u30C8\uFF1F\u3072\u3069\u3044..."
@@ -42,6 +44,7 @@ MonoBehaviour:
   - id: 3
     name: "\u8ECD\u4EBA\u306E\u7814\u7A76\u5831\u544A\u66F8"
     text: "\u8A73\u7D30"
+    itemIcon: {fileID: 21300000, guid: ada43657a4bb8d14abdeabd092f8dd6a, type: 3}
     ownerType: 2
     descriptions:
       playerTone: "\u3053\u308C\u306F...\u30EC\u30DD\u30FC\u30C8\uFF1F\u3072\u3069\u3044..."
@@ -55,6 +58,7 @@ MonoBehaviour:
   - id: 4
     name: "\u6D88\u9632\u58EB\u306E\u7814\u7A76\u5831\u544A\u66F8"
     text: "\u8A73\u7D30"
+    itemIcon: {fileID: 21300000, guid: ada43657a4bb8d14abdeabd092f8dd6a, type: 3}
     ownerType: 3
     descriptions:
       playerTone: "\u3053\u308C\u306F...\u30EC\u30DD\u30FC\u30C8\uFF1F\u3072\u3069\u3044..."
@@ -68,6 +72,7 @@ MonoBehaviour:
   - id: 5
     name: "\u30A2\u30B5\u30B7\u30F3\u306E\u7814\u7A76\u5831\u544A\u66F8"
     text: "\u8A73\u7D30"
+    itemIcon: {fileID: 21300000, guid: ada43657a4bb8d14abdeabd092f8dd6a, type: 3}
     ownerType: 4
     descriptions:
       playerTone: "\u3053\u308C\u306F...\u30EC\u30DD\u30FC\u30C8\uFF1F\u3072\u3069\u3044..."
@@ -81,6 +86,7 @@ MonoBehaviour:
   - id: 6
     name: "\u5C11\u5973\u306E\u65E5\u8A18"
     text: "\u8A73\u7D30"
+    itemIcon: {fileID: 0}
     ownerType: 0
     descriptions:
       playerTone: 
@@ -94,6 +100,7 @@ MonoBehaviour:
   - id: 7
     name: "\u6CE5\u68D2\u306E\u65E5\u8A18"
     text: "\u8A73\u7D30"
+    itemIcon: {fileID: 0}
     ownerType: 0
     descriptions:
       playerTone: "\u3053\u308C\u306F...\u30DC\u30A4\u30B9\u30EC\u30B3\u30FC\u30C0\u30FC\uFF1F\u5FC5\u6B7B\u306A\u69D8\u5B50\u306E\u5973\u306E\u5B50\u306E\u58F0\u304C\u805E\u3053\u3048\u308B...\u3002"
@@ -107,6 +114,7 @@ MonoBehaviour:
   - id: 8
     name: "\u8ECD\u4EBA\u306E\u65E5\u8A18"
     text: "\u8A73\u7D30"
+    itemIcon: {fileID: 0}
     ownerType: 0
     descriptions:
       playerTone: 
@@ -120,6 +128,7 @@ MonoBehaviour:
   - id: 9
     name: "\u6D88\u9632\u58EB\u306E\u65E5\u8A18"
     text: "\u8A73\u7D30"
+    itemIcon: {fileID: 0}
     ownerType: 0
     descriptions:
       playerTone: 
@@ -133,6 +142,7 @@ MonoBehaviour:
   - id: 10
     name: "\u30A2\u30B5\u30B7\u30F3\u306E\u65E5\u8A18"
     text: "\u8A73\u7D30"
+    itemIcon: {fileID: 0}
     ownerType: 0
     descriptions:
       playerTone: 
