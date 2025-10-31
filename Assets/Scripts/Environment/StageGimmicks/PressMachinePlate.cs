@@ -29,7 +29,7 @@ public class PressMachinePlate : MonoBehaviour
         if (collision.gameObject.name == playerName)
         {
             // Playerと衝突したら、親オブジェクトのPressMachineBaseスクリプトから関数を呼び出す
-            transform.root.gameObject.GetComponent<PressMachineBase>().OnPlateCollisionEnter();
+            transform.parent.gameObject.GetComponent<PressMachineBase>().OnPlateCollisionEnter();
         }
     }
 
@@ -38,7 +38,7 @@ public class PressMachinePlate : MonoBehaviour
         if (collision.gameObject.name == playerName)
         {
             // Playerが離れたら、親オブジェクトのPressMachineBaseスクリプトから関数を呼び出す
-            transform.root.gameObject.GetComponent<PressMachineBase>().OnPlateCollisionExit();
+            transform.parent.gameObject.GetComponent<PressMachineBase>().OnPlateCollisionExit();
         }
     }
 }

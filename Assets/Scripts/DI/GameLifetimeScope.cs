@@ -27,11 +27,12 @@ public class GameLifetimeScope : LifetimeScope
         {
             Debug.LogError("Playerタグの付いたGameObjectが見つかりません");
         }
-
+        /*
         // Groundを自動検索
         var ground = Object.FindAnyObjectByType<Ground>();
         if (ground != null)
         {
+            Debug.Log(ground);
             builder.RegisterInstance(ground);
             if (enableDebugLog) Debug.Log($"Groundコンポーネントが正常に登録されました: {ground.name}");
         }
@@ -39,7 +40,7 @@ public class GameLifetimeScope : LifetimeScope
         {
             Debug.LogError("Groundコンポーネントが見つかりません");
         }
-
+        */
         // PlayerStatusDataを自動検索（Addressableから）
         Debug.Log("PlayerStatusData読み込み開始...");
         var statusDataHandle = Addressables.LoadAssetAsync<PlayerStatusData>("PlayerStatus");

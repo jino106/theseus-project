@@ -14,7 +14,7 @@ public class PlayerAirChecker : MonoBehaviour
 
     private Collider2D col; // Collider2Dを追加
     [SerializeField] private LayerMask groundLayer; // 地面のレイヤーを指定
-    [SerializeField] private Vector2 sizeModifier = new Vector2(1.0f, 0.1f); // レイを飛ばす際のコライダーサイズ 例：幅は90%、高さは20%
+    [SerializeField] private Vector2 sizeModifier = new Vector2(0.8f, 0.1f); // レイを飛ばす際のコライダーサイズ 例：幅は90%、高さは20%
     [SerializeField] private float groundCheckBuffer = 0f; // コライダーの底辺から伸ばすレイの長さ
     [Inject] private PlayerRunTimeStatus runTimeStatus; // 二段ジャンプのプロパティを取得
     [Inject] private PlayerStatus playerStatus; // 二段ジャンプできるかどうかを取得する
@@ -119,7 +119,7 @@ public class PlayerAirChecker : MonoBehaviour
         return hit;
     }
 
-    /*
+    
     // Gizmoを描画するためのメソッド
     void OnDrawGizmos()
     {
@@ -155,5 +155,5 @@ public class PlayerAirChecker : MonoBehaviour
             Gizmos.color = Color.green;
         }
     }
-    */
+    
 }
