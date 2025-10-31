@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Parts.Types;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework;
 public class CollectibleItem : MonoBehaviour
 {
     /// <summary>
@@ -32,6 +33,9 @@ public class CollectibleItem : MonoBehaviour
     // アイテムのスプライト
     private string itemText;
 
+    // アイテム獲得フラグ
+    private bool isCollected = false;
+
     // アイテムを取得情報をインベントリに保存するメソッド
     public void CollectItem()
     {
@@ -55,6 +59,10 @@ public class CollectibleItem : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (isCollected) return;
+
+            isCollected = true;
+
             Debug.Log($"取得したアイテム: {GetItemName()}");
             Debug.Log($"アイテムテキスト: {GetItemText()}");
 

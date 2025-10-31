@@ -695,6 +695,7 @@ public class GameLifetimeScope : LifetimeScope
         }
 
         // TrackingCamera
+        /*
         var trackingCamera = Object.FindObjectOfType<TrackingCamera>();
         if (trackingCamera != null)
         {
@@ -711,6 +712,7 @@ public class GameLifetimeScope : LifetimeScope
         {
             Debug.LogError("TrackingCameraコンポーネントが見つかりません");
         }
+        */
 
         // WaterTank
         var waterTank = Object.FindAnyObjectByType<WaterTank>();
