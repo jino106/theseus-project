@@ -28,7 +28,7 @@ public class GameStartManager : MonoBehaviour
         animationTime = dashTime + stopTime;
 
         // 黒画像をフェードインさせる
-        fadeController.FadeOut(animationTime).Forget();
+        fadeController.FadeIn(animationTime).Forget();
 
         // 入力を止める
         controller.isInputEnabled = false;
