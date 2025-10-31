@@ -77,11 +77,23 @@ public class TitleLifeTiimeScope : LifetimeScope
         {
             builder.RegisterInstance(gameDataManager);
             builder.RegisterBuildCallback(resolver => resolver.Inject(gameDataManager)); // ← 依存注入を追加
-            
+
         }
         else
         {
             Debug.LogError("GameDataManagerが見つかりません");
+        }
+        
+        // PlayerPartsRatioを自動検索
+        var partsRatio = Object.FindAnyObjectByType<PlayerPartsRatio>();
+        if (partsRatio != null)
+        {
+            builder.RegisterInstance(partsRatio);
+            builder.RegisterBuildCallback(resolver => resolver.Inject(partsRatio)); // ← 依存注入を追加
+        }
+        else
+        {
+            Debug.LogError("PlayerPartsRatioが見つかりません");
         }
     }
 }

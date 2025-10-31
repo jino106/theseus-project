@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Parts.Types;
 
 /// <summary>
 /// アイテムの情報を保持するスクリプタブルオブジェクト
@@ -65,6 +66,40 @@ public class ItemData : ScriptableObject
             "Assassin" => descriptions.assassinTone ?? "",
             _ => descriptions.playerTone ?? "説明文がありません"
         };
+    }
+
+    public string GetToneTextByPartsChara(int itemID, PartsChara chara)
+    {
+        var descriptions = GetItemDescriptionsByID(itemID);
+        if (descriptions == null) return "説明文がありません";
+
+        switch (chara)
+        {
+            case PartsChara.Normal:
+                return descriptions.playerTone ?? "";
+            case PartsChara.Thief:
+                return descriptions.theifTone ?? "";
+            case PartsChara.Muscle:
+                return descriptions.muscleTone ?? "";
+            case PartsChara.Fire:
+                return descriptions.fireTone ?? "";
+            case PartsChara.Assassin:
+                return descriptions.assassinTone ?? "";
+            default:
+                return descriptions.playerTone ?? "説明文がありません";
+        }
+    }
+
+    public string GetAllQuartersTone(int itemID)
+    {
+        var descriptions = GetItemDescriptionsByID(itemID);
+        return descriptions != null ? descriptions.allQuartersTone ?? "" : "説明文がありません";
+    }
+
+    public string GetOwnFullTone(int itemID)
+    {
+        var descriptions = GetItemDescriptionsByID(itemID);
+        return descriptions != null ? descriptions.ownFullTone ?? "" : "説明文がありません";
     }
 }
 
