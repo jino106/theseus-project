@@ -153,6 +153,7 @@ public class LaserTarget : MonoBehaviour
             // Laserギミックを停止
             if (laser != null)
             {
+                laser.KillLaser();
                 laser.StopGimick();
                 Debug.Log("LaserTarget: ナイフとの衝突を検知し、レーザーギミックを停止しました");
             }
@@ -174,6 +175,7 @@ public class LaserTarget : MonoBehaviour
             if (laser != null)
             {
                 laser.StopGimick();
+                laser.KillLaser();
                 Debug.Log("LaserTarget: ナイフとの衝突を検知し、レーザーギミックを停止しました");
             }
             else

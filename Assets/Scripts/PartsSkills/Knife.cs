@@ -9,6 +9,8 @@ public class Knife : MonoBehaviour
     // 何かに当たった時の処理
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log(other);
+
         if (other.CompareTag("PlayerDetection"))
         {
         return; // プレイヤー検知用の当たり判定と衝突した場合は消滅を回避

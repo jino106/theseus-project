@@ -12,11 +12,12 @@ public class Laser : StoppableGimick
     [Inject] private GameObject player; // プレイヤーオブジェクト
     [SerializeField] private LaserTarget target; // GameObject → LaserTargetに変更
 
-    private bool isActive = true;
+    [SerializeField] private bool isActive = true;
+    private bool isKilled = false;
 
     void Start()
     {
-        // 必要に応じて初期化処理を記述
+        if (!isActive) StopGimick();
     }
 
     void Update()
@@ -40,6 +41,10 @@ public class Laser : StoppableGimick
 
     public override void StartGimick()
     {
+        if (isKilled)
+        {
+            return;
+        }
         // StopableGimmickのStartGimickメソッドをオーバーライド
         isActive = true;
         laserBeam.SetActive(true); // レーザー本体を表示する
@@ -54,5 +59,10 @@ public class Laser : StoppableGimick
         isActive = false;
         laserBeam.SetActive(false); // レーザー本体を非表示にする
         target.StopTarget(); // ターゲットの動作を停止
+    }
+
+    public void KillLaser()
+    {
+        isKilled = true;
     }
 }
