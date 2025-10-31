@@ -29,6 +29,8 @@ public class HeavyObject : MonoBehaviour
     [Header("デバッグ")]
     [SerializeField] private bool showDebugLogs = false;
     
+    [SerializeField] private int pushSEIndex = 1; // 押しSEのインデックス
+
     private bool isPushing = false;
     private Rigidbody2D rb;
     private Rigidbody2D playerRb;
@@ -134,6 +136,12 @@ public class HeavyObject : MonoBehaviour
 
         // アニメーションを開始
         playerAnimationManager.AniPushTrue();
+
+        // 押しSEをループ再生
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySE(pushSEIndex, true); // ループ再生
+        }
         
         // 既存のループをキャンセル
         moveCts?.Cancel();
@@ -151,6 +159,12 @@ public class HeavyObject : MonoBehaviour
 
         // アニメーションを停止
         playerAnimationManager.AniPushFalse();
+
+        // 押しSEを停止
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.StopSE();
+        }
         
         // ループをキャンセル
         moveCts?.Cancel();

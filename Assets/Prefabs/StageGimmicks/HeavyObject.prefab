@@ -102,7 +102,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de39cc4f05ba349e09fb9c320dce604e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heavyObjectID: 3
   maxSpeed: 1
+  delayBetweenTexts: 2
+  showDebugLogs: 0
+  pushSEIndex: 1
 --- !u!61 &5603760789305627056
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -147,7 +151,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 9, y: 9}
   m_EdgeRadius: 0
 --- !u!50 &6944588054713425503
 Rigidbody2D:
