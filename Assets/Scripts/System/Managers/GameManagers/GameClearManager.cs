@@ -7,6 +7,7 @@ public class GameClearManager : MonoBehaviour
     [SerializeField] private Controller controller;
     [SerializeField] private PlayerAnimationManager playerAnimationManager;
     [SerializeField] private GameObject GoalObg;
+    [SerializeField] private GameSceneManager gameSceneManager;
 
     // プレイヤーの速度(単位はs)
     private float dashTime = 2.0f;
@@ -60,6 +61,8 @@ public class GameClearManager : MonoBehaviour
 
             // 入力を再開する
             controller.isInputEnabled = true;
+
+            gameSceneManager.LoadTitle();
         }
     }
 }
