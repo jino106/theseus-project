@@ -9,8 +9,7 @@ public class GameClearManager : MonoBehaviour
     [SerializeField] private GameObject GoalObg;
 
     // プレイヤーの速度(単位はs)
-    private float dashTime = 2.0f;
-    private float stopTime = 1.0f;
+    private float dashTime = 3.0f;
 
     // アニメーション時間
     private float animationTime;
@@ -18,7 +17,7 @@ public class GameClearManager : MonoBehaviour
     // 一度だけ実行するためのフラグ（目印）
     private bool hasTriggered = false;
 
-    private async void OnTriggerEnter2D(Collider2D other)
+    async void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("test");
 
@@ -28,10 +27,10 @@ public class GameClearManager : MonoBehaviour
 
             GoalObg.SetActive(false);
 
-            animationTime = dashTime + stopTime;
+            animationTime = dashTime;
 
             // 黒画像をフェードアウトさせる
-            fadeController.FadeOut(animationTime).Forget();
+            fadeController.FadeOut(4.0f).Forget();
 
             // 入力を止める
             controller.isInputEnabled = false;
@@ -49,9 +48,6 @@ public class GameClearManager : MonoBehaviour
             }
             controller.StartAndGoalSetFrictionAdd();
             playerAnimationManager.AniWalkFalse();
-
-
-            await UniTask.Delay((int)(stopTime * 1000));
 
             // プレイヤーを止める
 
