@@ -13,6 +13,7 @@ public class FadeController : MonoBehaviour
     {
         // コンポーネントを取得
         fadeImage = GetComponent<Image>();
+
         // コンポーネントがアタッチされているかチェック
         if (fadeImage == null)
         {
@@ -35,8 +36,15 @@ public class FadeController : MonoBehaviour
     {
         if (fadeImage != null)
         {
-            // fadeImageの透明度をduration秒かけて0にする
-            await fadeImage.DOFade(0.0f, duration);
+            float startTime = Time.time;
+            float alpha = 0.0f;
+            while (Time.time - startTime < duration)
+            {
+                alpha += Time.deltaTime / duration;
+                fadeImage.color = new Color(0, 0, 0, 1 - alpha);
+                await UniTask.Yield(PlayerLoopTiming.Update); // 毎フレーム待機
+            }
+            fadeImage.color = new Color(0, 0, 0, 0);
         }
     }
 
@@ -45,8 +53,15 @@ public class FadeController : MonoBehaviour
     {
         if (fadeImage != null)
         {
-            // fadeImageの透明度をduration秒かけて1にする
-            await fadeImage.DOFade(1.0f, duration);
+            float startTime = Time.time;
+            float alpha = 0.0f;
+            while (Time.time - startTime < duration)
+            {
+                alpha += Time.deltaTime / duration;
+                fadeImage.color = new Color(0, 0, 0, alpha);
+                await UniTask.Yield(PlayerLoopTiming.Update); // 毎フレーム待機
+            }
+            fadeImage.color = new Color(0, 0, 0, 1);
         }
     }
 
