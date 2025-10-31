@@ -46,6 +46,7 @@ public class ItemResetConfirmation : MonoBehaviour
     {
         Debug.Log("アイテムリセットを実行します。");
         // ここで実際のアイテムリセット処理を呼び出す
+        SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
         inventoryData.ResetAllItems();
         stageInventoryData.ResetAllItems();
 
@@ -56,14 +57,15 @@ public class ItemResetConfirmation : MonoBehaviour
     public void OnNoButtonClicked()
     {
         Debug.Log("アイテムリセットをキャンセルしました。");
+        SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
         CloseDialog();
     }
 
     // ダイアログを閉じる処理を共通化
     private void CloseDialog()
     {
+        SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
         confirmationDialogPanel.SetActive(false);
-
         //  記憶しておいたボタンにフォーカスを戻す
         EventSystem.current.SetSelectedGameObject(lastSelectedButton);
     }

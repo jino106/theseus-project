@@ -13,6 +13,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource seSource;
     [SerializeField] private AudioClip[] seClips;
 
+    public float SEVolume => seSource != null ? seSource.volume : 0f;
+
     private void Awake()
     {
         if (Instance == null)

@@ -11,6 +11,7 @@ public class ItemReset : Button
 
     public override void OnClick()
     {
+        base.OnClick(); // 決定音を鳴らす
         resetConfirm.ShowConfirmationDialog();
     }
 }

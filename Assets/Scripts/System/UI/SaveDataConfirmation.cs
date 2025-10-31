@@ -46,6 +46,7 @@ public class SaveDataConfirmation : MonoBehaviour
     {
         Debug.Log("セーブを実行します。");
         // ここで実際のセーブ処理を呼び出す
+        SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
         gameDataManager.SetCurrentSlot(saveCurrentSlot);
         gameDataManager.SaveGame();
         CloseDialog();
@@ -55,6 +56,7 @@ public class SaveDataConfirmation : MonoBehaviour
     {
         Debug.Log("ロードを実行します。");
         // ここで実際のロード処理を呼び出す
+        SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
         gameDataManager.SetCurrentSlot(saveCurrentSlot);
         gameDataManager.LoadGame();
         CloseDialog(); // 実際は閉じずにゲームを起動する
@@ -64,6 +66,7 @@ public class SaveDataConfirmation : MonoBehaviour
     public void OnNoButtonClicked()
     {
         Debug.Log("セーブをキャンセルしました。");
+        SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
         CloseDialog();
     }
 
@@ -73,6 +76,7 @@ public class SaveDataConfirmation : MonoBehaviour
         confirmationDialogPanel.SetActive(false);
 
         //  記憶しておいたボタンにフォーカスを戻す
+        SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
         EventSystem.current.SetSelectedGameObject(lastSelectedButton);
     }
 }

@@ -12,6 +12,7 @@ public class SwitchPanelButton : Button
     // 画面遷移の関数
     public override void OnClick()
     {
+        base.OnClick(); // 決定音を鳴らす
         currentPanel.SetActive(false);
         returnPanel.SetActive(true);
     }

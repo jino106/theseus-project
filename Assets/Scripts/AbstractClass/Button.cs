@@ -13,20 +13,40 @@ public abstract class Button : MonoBehaviour, ISelectHandler, IPointerEnterHandl
     // カーソルが入ってるか出ているか判定する変数
     private bool isPointer = false;
 
-    // 選択された際の音以外の処理を施す抽象メソッド
-    protected virtual void TriggerSelectionEffects() 
-    {
-        return;
-    }
 
     // 決定時の処理を施す抽象メソッド
-    public abstract void OnClick();
+    public virtual void OnClick()
+    {
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySE(11); // 決定音
+        }
+    }
+
+    // 決定時に音を鳴らす処理
+    private void TriggerClickSounds()
+    {
+        // 効果音を鳴らす
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
+        }
+    }
 
     // 選択された際に音を鳴らす処理
     private void TriggerSelectionSounds()
     {
         // 効果音を鳴らす
-        Debug.Log("カチっと音が鳴った");
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySE(12); // 12はUI選択音のインデックス
+        }
+    }
+
+    // 選択された際の音以外の処理を施す抽象メソッド
+    protected virtual void TriggerSelectionEffects() 
+    {
+        return;
     }
 
     // キーボードで選択された場合
@@ -52,6 +72,7 @@ public abstract class Button : MonoBehaviour, ISelectHandler, IPointerEnterHandl
         isPointer = true;
         TriggerSelectionSounds();
         TriggerSelectionEffects();
+
     }
 
     // マウスカーソルがこのUI要素の範囲から「出た」瞬間に呼ばれる
