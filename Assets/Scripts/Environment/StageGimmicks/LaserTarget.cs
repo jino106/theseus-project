@@ -133,6 +133,12 @@ public class LaserTarget : MonoBehaviour
             moveSequence.Pause();
             Debug.Log("LaserTarget: ターゲットを停止しました");
 
+            // 破壊SE（id:5）を再生
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySE(5);
+            }
+
             // ターゲットを非表示にする
             gameObject.SetActive(false);
         }

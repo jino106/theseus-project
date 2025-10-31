@@ -77,6 +77,7 @@ public class ItemSlot : Button
 
     public override void OnClick()
     {
+        base.OnClick(); // 決定音を鳴らす
         // アイテム説明用UIのボタンを表示
         ButtonsSetTrue();
         // 現在選択されているUI要素を記憶する
@@ -144,6 +145,7 @@ public class ItemSlot : Button
         }
         if (currentPage < pageTexts.Count - 1)
         {
+            SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
             currentPage++;
             ShowCurrentPage();
         }
@@ -159,6 +161,7 @@ public class ItemSlot : Button
         }
         if (currentPage > 0)
         {
+            SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
             currentPage--;
             ShowCurrentPage();
         }
@@ -176,9 +179,9 @@ public class ItemSlot : Button
 
     public void ReturnSelectedButton()
     {
+        SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
         pageTexts = new List<string>();
         Debug.Log("ReturnSelectedButton lastSelectedButton: " + lastSelectedButton);
-        //  記憶しておいたボタンにフォーカスを戻す
         selectedButtonManager.ReturnSelectedButton();
         ButtonsSetFalse();
     }

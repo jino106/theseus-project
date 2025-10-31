@@ -337,10 +337,16 @@ public class EnterKeyActionTrigger : MonoBehaviour
         try
         {
             Debug.Log("=== パーツインタラクション開始 ===");
-            
+
             PrepareForAnimation();
             playerAnimationManager.AniInteractTrue();
-            
+
+            // パーツチェンジSE（id:4）を再生
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySE(4);
+            }
+
             Debug.Log("アニメーション待機中...");
             await WaitForAnimationCompletion(interactAnimationDuration);
             Debug.Log("アニメーション完了");
@@ -390,10 +396,16 @@ public class EnterKeyActionTrigger : MonoBehaviour
         {
             PrepareForAnimation();
             playerAnimationManager.AniButtonTrue();
+
+            // ボタンを押すSE（id:8）を再生
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySE(8);
+            }
+
             component.PressButton();
             await WaitForAnimationCompletion(buttonAnimationDuration);
             ResteControllerInput();
-            //await textDisplay.ShowText(buttonUseMessage);
             textDisplay.ShowTextByPartsRatio(
                 partsRatio,
                 objectTextData,
@@ -430,17 +442,16 @@ public class EnterKeyActionTrigger : MonoBehaviour
                         showDebugLogs
                     );
                 }
-                
+
                 isInteracting = false;
                 return;
             }
-            
+
             PrepareForAnimation();
             playerAnimationManager.AniInteractTrue();
             component.ChargeWater();
             await WaitForAnimationCompletion(interactAnimationDuration);
             ResteControllerInput();
-            //await textDisplay.ShowText(waterChargeMessage);
             textDisplay.ShowTextByPartsRatio(
                 partsRatio,
                 objectTextData,
@@ -479,7 +490,20 @@ public class EnterKeyActionTrigger : MonoBehaviour
             PrepareForAnimation();
             playerAnimationManager.AniShootWaterTrue();
             component.FireExtinguishedAsync();
+            // 放射のためモーションを待機(1.17秒)
+            await WaitForAnimationCompletion(1.17f);
+
+            // 水を発射するSE（id:7）を再生
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySE(7);
+            }
             await WaitForAnimationCompletion(shootWaterAnimationDuration);
+            // 消火SEを停止
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.StopSE();
+            }
             ResteControllerInput();
             //await textDisplay.ShowText(fireExtinguishMessage);
             textDisplay.ShowTextByPartsRatio(
@@ -511,11 +535,17 @@ public class EnterKeyActionTrigger : MonoBehaviour
                 if (showDebugLogs) Debug.Log("ナイフを投げるパーツが装備されていません");
                 isInteracting = false;
                 return;
-            }   
+            }
             controller.isInputEnabled = false;
+
+            // ナイフを投げるSE（id:9）を再生
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySE(9);
+            }
+
             throwKnife.ThrowKnife();
             playerAnimationManager.AniKnifeTrue();
-            // 設定可能な待機時間を使用
             await WaitForAnimationCompletion(knifeAnimationDuration);
             controller.isInputEnabled = true;
 
