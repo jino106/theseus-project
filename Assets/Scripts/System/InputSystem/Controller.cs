@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using Cysharp.Threading.Tasks;
 using Parts.Types;
 using VContainer;
+using System.Threading;
 
 /// <summary>
 /// プレイヤーが操作するコントローラーのスクリプト
@@ -43,8 +44,12 @@ public class Controller : MonoBehaviour
 
     // 着地判定用フラグ
     private bool wasGrounded = true;
+    private CancellationTokenSource cancellationTokenSource; // CancellationTokenを管理するクラス
     private void Awake()
     {
+        // オブジェクトが破棄されたときにキャンセルされるトークンソースを作成
+        cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(this.GetCancellationTokenOnDestroy());
+
         // isFacingRightの初期化
         if (Mathf.Approximately(transform.eulerAngles.y, 180f)) {
             isFacingRight = false;
@@ -199,7 +204,7 @@ public class Controller : MonoBehaviour
                     Debug.LogError("playerAnimationManager is null in OnMove");
                 }
 
-                MoveLoop().Forget(); // 非同期ループを開始
+                MoveLoop(cancellationTokenSource.Token).Forget(); // 非同期ループを開始
             }
         }
         else if (context.canceled)
@@ -226,46 +231,57 @@ public class Controller : MonoBehaviour
         }
     }
 
-    private async UniTaskVoid MoveLoop()
+    private async UniTaskVoid MoveLoop(CancellationToken token)
     {
-        while (isMoving)
+        while (!token.IsCancellationRequested && isMoving)
         {
-            float targetVelocityX, forceX = 0f;
-
-            if (rb != null)
+            try
             {
-                // 移動方向に応じてプレイヤー画像を反転させる
-                // 右向きならY軸の角度を0、左向きなら180にする
-                if (moveInput.x == 1 && !isFacingRight) {
-                    // 右向きにする
-                    isFacingRight = true;
-                    transform.rotation = Quaternion.Euler(0, 0, 0);
-                } else if (moveInput.x == -1 && isFacingRight) {
-                    // 左向きにする
-                    isFacingRight = false;
-                    transform.rotation = Quaternion.Euler(0, 180, 0);
-                }
+                float targetVelocityX, forceX = 0f;
 
-                // 入力方向(moveInput.x)に最大速度を掛け合わせる
-                targetVelocityX = maxSpeed * moveInput.x;
-                // (目標速度 - 現在の速度) / 時間 = 必要な加速度
-                // これに質量を掛けたものが力になる (AddForceは質量を考慮してくれる)
-                forceX = (targetVelocityX - rb.linearVelocity.x);
-                if (airChecker != null && !airChecker.IsGround)
+                if (rb != null)
                 {
-                    //SoundManager.Instance.StopSE(); // 歩行SEを停止
-                    // 空中にいる場合は移動の強さを弱める
-                    forceX /= airResistance;
+                    // 移動方向に応じてプレイヤー画像を反転させる
+                    // 右向きならY軸の角度を0、左向きなら180にする
+                    if (moveInput.x == 1 && !isFacingRight)
+                    {
+                        // 右向きにする
+                        isFacingRight = true;
+                        transform.rotation = Quaternion.Euler(0, 0, 0);
+                    }
+                    else if (moveInput.x == -1 && isFacingRight)
+                    {
+                        // 左向きにする
+                        isFacingRight = false;
+                        transform.rotation = Quaternion.Euler(0, 180, 0);
+                    }
+
+                    // 入力方向(moveInput.x)に最大速度を掛け合わせる
+                    targetVelocityX = maxSpeed * moveInput.x;
+                    // (目標速度 - 現在の速度) / 時間 = 必要な加速度
+                    // これに質量を掛けたものが力になる (AddForceは質量を考慮してくれる)
+                    forceX = (targetVelocityX - rb.linearVelocity.x);
+                    if (airChecker != null && !airChecker.IsGround)
+                    {
+                        //SoundManager.Instance.StopSE(); // 歩行SEを停止
+                        // 空中にいる場合は移動の強さを弱める
+                        forceX /= airResistance;
+                    }
+                    else if (airChecker == null)
+                    {
+                        Debug.LogError("airChecker is null in MoveLoop");
+                    }
                 }
-                else if (airChecker == null)
-                {
-                    Debug.LogError("airChecker is null in MoveLoop");
-                }
+                // 水平方向に力を加える (垂直方向の動きには影響を与えない)
+                rb.AddForce(new Vector2(forceX, 0f));
+
+                await UniTask.Yield(PlayerLoopTiming.Update); // 毎フレーム待機
+            } catch (System.OperationCanceledException)
+            {
+                // オブジェクトが破棄されてキャンセルされた場合、ここに飛ぶ
+                Debug.Log("MoveLoopがキャンセルされました。");
+                break; // ループを抜ける
             }
-            // 水平方向に力を加える (垂直方向の動きには影響を与えない)
-            rb.AddForce(new Vector2(forceX, 0f));
-
-            await UniTask.Yield(PlayerLoopTiming.Update); // 毎フレーム待機
         }
     }
 
