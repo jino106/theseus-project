@@ -37,6 +37,13 @@ public class DoorKey : MonoBehaviour
         {
             // 鍵を取得
             KeyManager.GetKey(keyID);
+
+            // ドアを開けたSE（id:9）を再生
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySE(9);
+            }
+
             // 鍵のオブジェクトを非表示にする
             this.gameObject.SetActive(false);
         }
