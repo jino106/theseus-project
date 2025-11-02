@@ -21,7 +21,6 @@ public class GameClearManager : MonoBehaviour
 
     private async void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("test");
 
         if (other.gameObject.tag == "Player" && !hasTriggered)
         {
@@ -39,7 +38,11 @@ public class GameClearManager : MonoBehaviour
 
             // プレイヤーを動かす
             playerAnimationManager.AniWalkTrue();
-
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySE(6, true);
+            }
+        
             controller.StartAndGoalSetFrictionZero();
 
             controller.StartAndGoalVelocity();
@@ -53,6 +56,11 @@ public class GameClearManager : MonoBehaviour
             await UniTask.Delay((int)(stopTime * 1000));
 
             // プレイヤーを止める
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.StopSE();
+            }
+        
 
             // スタートに障害物を置く
             GoalObg.SetActive(true);
