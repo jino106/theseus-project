@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("SE音源")]
     [SerializeField] private AudioSource seSource;
+    [SerializeField] private AudioSource seSourceLoop;
     [SerializeField] private AudioClip[] seClips;
 
     public float SEVolume => seSource != null ? seSource.volume : 0f;
@@ -57,10 +58,10 @@ public class SoundManager : MonoBehaviour
         {
             if (loop)
             {
-                seSource.clip = seClips[index];
-                seSource.loop = true;
-                seSource.volume = VolumeData.Instance.seVolume;
-                seSource.Play();
+                seSourceLoop.clip = seClips[index];
+                seSourceLoop.loop = true;
+                seSourceLoop.volume = VolumeData.Instance.seVolume;
+                seSourceLoop.Play();
             }
             else
             {
@@ -77,9 +78,8 @@ public class SoundManager : MonoBehaviour
     {
         if (seSource != null)
         {
-            seSource.Stop();
-            seSource.loop = false;
-            seSource.clip = null;
+            seSourceLoop.Stop();
+            seSourceLoop.clip = null;
         }
     }
 
@@ -90,10 +90,10 @@ public class SoundManager : MonoBehaviour
         {
             if (loop)
             {
-                seSource.clip = clip;
-                seSource.loop = true;
-                seSource.volume = VolumeData.Instance.seVolume;
-                seSource.Play();
+                seSourceLoop.clip = clip;
+                seSourceLoop.loop = true;
+                seSourceLoop.volume = VolumeData.Instance.seVolume;
+                seSourceLoop.Play();
             }
             else
             {
