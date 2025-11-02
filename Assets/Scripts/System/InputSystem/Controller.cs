@@ -375,10 +375,13 @@ public class Controller : MonoBehaviour
     // スタートゴール時のみのアニーメーション速度を設定する
     public void StartAndGoalVelocity()
     {
-        float forceX;
-        forceX = 7.5f - rb.linearVelocity.x; // 7.5はノーマル状態のMaxSpeed
-        forceX /= 10; // 10はノーマル状態の空気抵抗
-        rb.AddForce(new Vector2(forceX, 0f));
+        float forceX = 7.5f; // 通常時のマックススピード
+
+        Vector3 newVelocity = rb.linearVelocity;
+
+        newVelocity.x = forceX;
+
+        rb.linearVelocity = newVelocity;
     }
 
     public float GetVelocity()
