@@ -35,7 +35,7 @@ public class LaserTarget : MonoBehaviour
     private float topPosition;
     private float bottomPosition;
     
-    void Start()
+    void Awake()
     {
         // オブジェクトの初期化チェック
         if (laserStand == null || underStand == null)

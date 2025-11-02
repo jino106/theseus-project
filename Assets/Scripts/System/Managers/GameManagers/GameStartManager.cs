@@ -38,12 +38,10 @@ public class GameStartManager : MonoBehaviour
 
         controller.StartAndGoalSetFrictionZero();
 
-        float startTime = Time.time;
-        while (Time.time - startTime < dashTime)
-        {
-            controller.StartAndGoalVelocity();
-            await UniTask.Yield(PlayerLoopTiming.Update); // 毎フレーム待機
-        }
+        controller.StartAndGoalVelocity();
+
+        await UniTask.Delay((int)(dashTime * 1000));
+
         controller.StartAndGoalSetFrictionAdd();
         playerAnimationManager.AniWalkFalse();
 
