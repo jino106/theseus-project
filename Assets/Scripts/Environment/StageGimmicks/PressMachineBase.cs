@@ -54,6 +54,9 @@ public class PressMachineBase : StoppableGimick
     // アニメーションが動作中か判定する変数
     // プレス機が動いているならtrue
 
+    // 子オブジェクトの取得
+    [SerializeField] private PressMachineSound sound;
+
     void Start()
     {
         // オブジェクトがアタッチされているかチェック
@@ -128,7 +131,10 @@ public class PressMachineBase : StoppableGimick
             duration: 1.0f
         ).SetEase(Ease.InQuint))   // 動きを5次関数に変更（中身を変えたらコメントも変えること）
         .OnStart(() => { isFalling = true; })   // 落下開始時にisFallingをtrueにする
-        .OnComplete(() => { isFalling = false; });  // 落下終了時にisFallingをfalseにする
+        .OnComplete(() => {
+            isFalling = false;
+            if(sound.isPlayer) SoundManager.Instance.PlaySE(11); // なんか動かないからソータさんに任せよう
+             });  // 落下終了時にisFallingをfalseにする
         // 落下位置へ移動したらちょっと待つ
         MoveSequence.AppendInterval(1.5f);
         // Plateを再びスタート位置へ移動

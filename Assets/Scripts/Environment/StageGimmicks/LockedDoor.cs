@@ -51,6 +51,10 @@ public class LockedDoor : MonoBehaviour
     void OpenDoor()
     {
         if (showDebugLogs) Debug.Log("ドアを開きました");
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySE(10);
+        }
         
         // ドアを非表示にする
         gameObject.SetActive(false);

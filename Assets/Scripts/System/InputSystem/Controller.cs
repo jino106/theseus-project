@@ -46,6 +46,9 @@ public class Controller : MonoBehaviour
     // 着地判定用フラグ
     private bool wasGrounded = true;
     private CancellationTokenSource cancellationTokenSource; // CancellationTokenを管理するクラス
+
+    // 歩行SEのフラグ
+    private bool isWalkSoundPlaying = false;
     private void Awake()
     {
         // オブジェクトが破棄されたときにキャンセルされるトークンソースを作成
@@ -190,13 +193,6 @@ public class Controller : MonoBehaviour
 
                 isMoving = true;
 
-                
-                // 地上にいたら、移動SE（id:6）を再生
-                if (SoundManager.Instance != null && airChecker != null && airChecker.IsGround)
-                {
-                    SoundManager.Instance.PlaySE(6);
-                }
-
                 // Walkアニメーションの開始
                 if (playerAnimationManager != null)
                 {
@@ -212,6 +208,9 @@ public class Controller : MonoBehaviour
         }
         else if (context.canceled)
         {
+            SoundManager.Instance.StopSE(); // 歩行SEを止める
+            isWalkSoundPlaying = false;
+
             // 止まってる場合は摩擦を有効化する
             col.sharedMaterial.friction = friction;
             // physicsマテリアルの更新
@@ -224,7 +223,6 @@ public class Controller : MonoBehaviour
             // Walkアニメーションの停止
             if (playerAnimationManager != null)
             {
-                SoundManager.Instance.StopSE(); // 歩行SEを停止
                 playerAnimationManager.AniWalkFalse();
             }
             else
@@ -240,6 +238,8 @@ public class Controller : MonoBehaviour
         {
             try
             {
+                HandleWalkSound(); // 歩行SEを鳴らす
+
                 float targetVelocityX, forceX = 0f;
 
                 if (rb != null)
@@ -295,7 +295,8 @@ public class Controller : MonoBehaviour
         {
             if (airChecker != null && airChecker.IsGround)
             {
-                SoundManager.Instance.StopSE(); // 歩行SEを停止
+                SoundManager.Instance.StopSE();
+                isWalkSoundPlaying = false;
                 
                 // 地面にいる場合のみジャンプ処理を実行
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -321,6 +322,9 @@ public class Controller : MonoBehaviour
                 // 二段ジャンプの処理
                 if (runTimeStatus != null && runTimeStatus.CanDoubleJump)
                 {
+                    SoundManager.Instance.StopSE();
+                    isWalkSoundPlaying = false;
+                
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0); // y成分の速さを0にしてからジャンプの力を入れる
                     rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                     runTimeStatus.CanDoubleJump = false;
@@ -391,18 +395,23 @@ public class Controller : MonoBehaviour
     {
         return rb.linearVelocity.x;
     }
-    public void StartAndGoalStop()
+    
+    private void HandleWalkSound()
     {
+        // SoundManagerが存在しない場合は何もしない
+        if (SoundManager.Instance == null) return;
 
-    }
-    // 着地時に歩行SEを鳴らすメソッド
-    public void PlayWalkSEOnLanding()
-    {
-        // 地面に着地した瞬間かつ移動入力がある場合のみ歩行SEを再生
-        if (moveInput.x != 0 && SoundManager.Instance != null)
+        // ◆ 再生すべき条件：地上にいて、移動していて、かつ現在再生されていない
+        if (airChecker.IsGround && isMoving && !isWalkSoundPlaying)
         {
-            Debug.Log("PlayWalkSEOnLanding: 地面に着地しました。歩行SEを再生します。");
-            SoundManager.Instance.PlaySE(6, true); // 歩行SE（ループ再生）
+            SoundManager.Instance.PlaySE(6, true);
+            isWalkSoundPlaying = true; // 再生中にフラグを立てる
+        }
+        // ◆ 停止すべき条件：（空中にいる、または移動していない）かつ現在再生されている
+        else if ((!airChecker.IsGround || !isMoving) && isWalkSoundPlaying)
+        {
+            SoundManager.Instance.StopSE();
+            isWalkSoundPlaying = false; // 停止したらフラグを降ろす
         }
     }
 }

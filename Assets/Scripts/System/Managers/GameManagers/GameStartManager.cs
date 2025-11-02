@@ -22,6 +22,11 @@ public class GameStartManager : MonoBehaviour
 
     async UniTaskVoid Start()
     {
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySE(6, true);
+        }
+                
 
         startObg.SetActive(false);
 
@@ -44,6 +49,11 @@ public class GameStartManager : MonoBehaviour
 
         controller.StartAndGoalSetFrictionAdd();
         playerAnimationManager.AniWalkFalse();
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.StopSE();
+        }
 
 
         await UniTask.Delay((int)(stopTime * 1000));

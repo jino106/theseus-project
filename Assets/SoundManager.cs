@@ -6,11 +6,13 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; private set; }
 
     [Header("BGM音源")]
-    [SerializeField]private AudioSource bgmSource;
+    [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioClip[] bgmClips;
 
     [Header("SE音源")]
     [SerializeField] private AudioSource seSource;
+    [SerializeField] private AudioSource seSourceLoop;
+    [SerializeField] private AudioSource seSourceLoop2;
     [SerializeField] private AudioClip[] seClips;
 
     public float SEVolume => seSource != null ? seSource.volume : 0f;
@@ -57,10 +59,10 @@ public class SoundManager : MonoBehaviour
         {
             if (loop)
             {
-                seSource.clip = seClips[index];
-                seSource.loop = true;
-                seSource.volume = VolumeData.Instance.seVolume;
-                seSource.Play();
+                seSourceLoop.clip = seClips[index];
+                seSourceLoop.loop = true;
+                seSourceLoop.volume = VolumeData.Instance.seVolume;
+                seSourceLoop.Play();
             }
             else
             {
@@ -77,9 +79,8 @@ public class SoundManager : MonoBehaviour
     {
         if (seSource != null)
         {
-            seSource.Stop();
-            seSource.loop = false;
-            seSource.clip = null;
+            seSourceLoop.Stop();
+            seSourceLoop.clip = null;
         }
     }
 
@@ -90,10 +91,10 @@ public class SoundManager : MonoBehaviour
         {
             if (loop)
             {
-                seSource.clip = clip;
-                seSource.loop = true;
-                seSource.volume = VolumeData.Instance.seVolume;
-                seSource.Play();
+                seSourceLoop.clip = clip;
+                seSourceLoop.loop = true;
+                seSourceLoop.volume = VolumeData.Instance.seVolume;
+                seSourceLoop.Play();
             }
             else
             {
@@ -101,6 +102,26 @@ public class SoundManager : MonoBehaviour
                 seSource.volume = VolumeData.Instance.seVolume;
                 seSource.PlayOneShot(clip);
             }
+        }
+    }
+
+    public void PlayLoopSE2(int index)
+    {
+        UnityEngine.Debug.Log("PlaySE called with index: " + index);
+        if (seClips != null && index >= 0 && index < seClips.Length)
+
+            seSourceLoop2.clip = seClips[index];
+        seSourceLoop2.loop = true;
+        seSourceLoop2.volume = VolumeData.Instance.seVolume;
+        seSourceLoop2.Play();
+    }
+
+    public void StopLoopSE2()
+    {
+        if (seSource != null)
+        {
+            seSourceLoop2.Stop();
+            seSourceLoop2.clip = null;
         }
     }
 }
