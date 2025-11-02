@@ -41,6 +41,7 @@ public class Controller : MonoBehaviour
     private bool isFacingRight = true;
 
     public bool isInputEnabled = true; // 入力を受け付けるかどうかのフラグ
+    public bool isStartGoal = true; // スタート中かゴール中かのフラグ
 
     // 着地判定用フラグ
     private bool wasGrounded = true;
@@ -173,9 +174,11 @@ public class Controller : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (!isInputEnabled) return; // 入力が無効な場合は何もしない
+        if (isStartGoal) return;
         if (context.performed)
         {
+            if (!isInputEnabled) return;
+
             moveInput = context.ReadValue<Vector2>();
             if (!isMoving)
             {

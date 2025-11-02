@@ -12040,6 +12040,14 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -10
       objectReference: {fileID: 0}
+    - target: {fileID: 7968210677872030315, guid: 61cb52c24983f4af7a149cde18cacedb, type: 3}
+      propertyPath: m_Size.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7968210677872030315, guid: 61cb52c24983f4af7a149cde18cacedb, type: 3}
+      propertyPath: m_Size.y
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -43584,11 +43592,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: ce8e78469714c4ff6bd18cec5ada9656, type: 2}
     - target: {fileID: 7968210677872030315, guid: 61cb52c24983f4af7a149cde18cacedb, type: 3}
       propertyPath: m_Size.x
-      value: 5.58
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7968210677872030315, guid: 61cb52c24983f4af7a149cde18cacedb, type: 3}
       propertyPath: m_Size.y
-      value: 8.32
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7968210677872030315, guid: 61cb52c24983f4af7a149cde18cacedb, type: 3}
       propertyPath: m_IsTrigger
