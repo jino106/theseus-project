@@ -13,7 +13,7 @@ public class CollectibleItem : MonoBehaviour
 
     //アイテムのID(外部キーの役割)
     [SerializeField] private int itemID;
-    [SerializeField] private float textDisplayDuration = 1f; // テキスト表示秒数
+    [SerializeField] private float textDisplayDuration = 2f; // テキスト表示秒数
     // アイテムのスプライトレンダラー
     [SerializeField] private SpriteRenderer spriteRenderer;
 
@@ -60,6 +60,11 @@ public class CollectibleItem : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             if (isCollected) return;
+
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySE(4);
+            }
 
             isCollected = true;
 
@@ -193,7 +198,7 @@ public class CollectibleItem : MonoBehaviour
     private async UniTask ShowTextsSequentiallyFromItemData(
         GameTextDisplay textDisplay,
         List<PartsChara> charaList,
-        float delayBetweenTexts = 2f,
+        float delayBetweenTexts = 0f,
         bool showDebugLogs = false
     )
     {
@@ -240,7 +245,7 @@ public class CollectibleItem : MonoBehaviour
             {
                 await UniTask.WaitUntil(() => !textDisplay.IsFading);
                 // テキスト間のディレイ
-                await UniTask.Delay(System.TimeSpan.FromSeconds(delayBetweenTexts));
+                // await UniTask.Delay(System.TimeSpan.FromSeconds(delayBetweenTexts));
             }
         }
     }
@@ -262,7 +267,7 @@ public class CollectibleItem : MonoBehaviour
             if (i < textList.Count - 1)
             {
                 await UniTask.WaitUntil(() => !textDisplay.IsFading);
-                await UniTask.Delay(System.TimeSpan.FromSeconds(delayBetweenTexts));
+                // await UniTask.Delay(System.TimeSpan.FromSeconds(delayBetweenTexts));
             }
         }
     }
