@@ -31,7 +31,7 @@ public class GameStartManager : MonoBehaviour
         fadeController.FadeIn(animationTime).Forget();
 
         // 入力を止める
-        controller.isInputEnabled = false;
+        controller.isStartGoal = true;
 
         // プレイヤーを動かす
         playerAnimationManager.AniWalkTrue();
@@ -54,6 +54,6 @@ public class GameStartManager : MonoBehaviour
         startObg.SetActive(true);
 
         // 入力を再開する
-        controller.isInputEnabled = true;
+        controller.isStartGoal = false;
     }
 }
