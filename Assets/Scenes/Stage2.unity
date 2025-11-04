@@ -4142,6 +4142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63a7de1510b04e858acd0ea79c8e2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverEffect: {fileID: 0}
+  player: {fileID: 0}
+  gameSceneManager: {fileID: 0}
 --- !u!1 &809509364
 GameObject:
   m_ObjectHideFlags: 0
@@ -13867,16 +13870,7 @@ MonoBehaviour:
     RightArm: 0
     LeftLeg: 0
     RightLeg: 0
-    playerReportObtained: 0
-    theifReportObtained: 0
-    muscleReportObtained: 0
-    fireReportObtained: 0
-    assassinReportObtained: 0
-    playerDiaryObtained: 0
-    theifDiaryObtained: 0
-    muscleDiaryObtained: 0
-    fireDiaryObtained: 0
-    assassinDiaryObtained: 0
+    stageNumber: 0
 --- !u!1 &1567172666
 GameObject:
   m_ObjectHideFlags: 0
@@ -16906,6 +16900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a010000a43a574a5c9e2bd4f0c23d877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerVisualCustomizer: {fileID: 0}
 --- !u!1 &2045294078
 GameObject:
   m_ObjectHideFlags: 0
@@ -17128,6 +17123,10 @@ PrefabInstance:
     - target: {fileID: 8829725367227509910, guid: 9cb206c82ac534a638a9cf6c00ec5bb3, type: 3}
       propertyPath: playerDirectionRight
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928962267395532305, guid: 9cb206c82ac534a638a9cf6c00ec5bb3, type: 3}
+      propertyPath: m_GravityScale
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17355,7 +17354,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textPanel: {fileID: 1179927577}
-  messageText: {fileID: 1057671375}
+  messageText1: {fileID: 0}
+  messageText2: {fileID: 0}
+  textBackground: {fileID: 0}
   fadeInDuration: 0.3
   fadeOutDuration: 0.3
   characterDisplayInterval: 0.05
