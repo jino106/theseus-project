@@ -59,6 +59,9 @@ public class SaveDataConfirmation : MonoBehaviour
     public void OnYesButtonClickedLoad()
     {
         Debug.Log("ロードを実行します。");
+        Debug.Log($"GameDataManager: {gameDataManager != null}");
+        Debug.Log($"ItemManager: {itemManager != null}");
+        Debug.Log($"CurrentSlot: {saveCurrentSlot}");
         // ここで実際のロード処理を呼び出す
         SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
         gameDataManager.SetCurrentSlot(saveCurrentSlot);

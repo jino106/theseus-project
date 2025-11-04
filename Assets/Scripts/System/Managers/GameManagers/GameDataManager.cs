@@ -2,6 +2,7 @@ using UnityEngine;
 using System.IO; // ファイルの読み書きに必要
 using VContainer;
 using Parts.Types;
+using UnityEngine.SceneManagement;
 
 // セーブするデータのクラス
 // [System.Serializable] をつけないとJsonUtilityで変換できない
@@ -37,6 +38,9 @@ public class GameDataManager : MonoBehaviour
 {
     [Inject] private PlayerParts playerParts; // プレイヤーのパーツ情報を保持するシングルトン
     [Inject] private InventoryData inventoryData; // インベントリのデータを保持
+    [Inject] private StageNumber stageNumber; // 現在のステージを管理するシングルトン
+    [Inject] private GameSceneManager sceneManager; // GameSceneManagerのインスタンス
+    [Inject] private PlayerCustomizer playerCustomizer; // PlayerCustomizerのインスタンス
     public SaveData saveData; // セーブデータを保持するインスタンス
     private string saveFilePath; // セーブファイルのパス
 
@@ -90,7 +94,7 @@ public class GameDataManager : MonoBehaviour
         saveData.RightArm = playerParts.RightArm;
         saveData.LeftLeg = playerParts.LeftLeg;
         saveData.RightLeg = playerParts.RightLeg;
-        saveData.stageNumber = 1; //仮に1を設定
+        saveData.stageNumber = 2; //仮に2を設定
 
         /*
         saveData.playerReportObtained = inventoryData.PlayerReportObtained;
@@ -124,44 +128,49 @@ public class GameDataManager : MonoBehaviour
             return;
         }
 
-        // セーブファイルが存在するかチェック
+        // playerCustomizerのnullチェックを追加
+        if (playerCustomizer == null)
+        {
+            Debug.LogError("GameDataManager: PlayerCustomizerが注入されていません");
+            return;
+        }
+
         if (File.Exists(saveFilePath))
         {
-            // ファイルからJSON文字列を読み込む
-            string json = File.ReadAllText(saveFilePath);
+            try
+            {
+                string json = File.ReadAllText(saveFilePath);
+                saveData = JsonUtility.FromJson<SaveData>(json);
+                Debug.Log("セーブデータをロードしました");
+                
+                
+                // ステージへ移動
+                stageNumber.SetCurrentStage(2);
+                sceneManager.LoadStage(stageNumber.GetCurrentStage());
 
-            // JSON文字列をSaveDataクラスのインスタンスに変換
-            saveData = JsonUtility.FromJson<SaveData>(json);
-
-            Debug.Log("ロードしました");
-
-            // --- ロードしたデータをゲームに反映させる処理 ---
-            playerParts.LeftArm = saveData.LeftArm;
-            playerParts.RightArm = saveData.RightArm;
-            playerParts.LeftLeg = saveData.LeftLeg;
-            playerParts.RightLeg = saveData.RightLeg;
-            // = saveData.stageNumber;// ゲームの進行状況も反映
-
-            Debug.Log("Loaded Parts - LeftArm: " + playerParts.LeftArm + ", RightArm: " + playerParts.RightArm +
-                      ", LeftLeg: " + playerParts.LeftLeg + ", RightLeg: " + playerParts.RightLeg);
-
-            /*
-            inventoryData.PlayerReportObtained = saveData.playerReportObtained;
-            inventoryData.TheifReportObtained = saveData.theifReportObtained;
-            inventoryData.MuscleReportObtained = saveData.muscleReportObtained;
-            inventoryData.FireReportObtained = saveData.fireReportObtained;
-            inventoryData.AssassinReportObtained = saveData.assassinReportObtained;
-            inventoryData.PlayerDiaryObtained = saveData.playerDiaryObtained;
-            inventoryData.TheifDiaryObtained = saveData.theifDiaryObtained;
-            inventoryData.MuscleDiaryObtained = saveData.muscleDiaryObtained;
-            inventoryData.FireDiaryObtained = saveData.fireDiaryObtained;
-            inventoryData.AssassinDiaryObtained = saveData.assassinDiaryObtained;
-            */
+                // パーツ変更処理
+                try
+                {
+                    playerCustomizer.LoadPlayerParts(PartsSlot.LeftArm, saveData.LeftArm);
+                    playerCustomizer.LoadPlayerParts(PartsSlot.RightArm, saveData.RightArm);
+                    playerCustomizer.LoadPlayerParts(PartsSlot.LeftLeg, saveData.LeftLeg);
+                    playerCustomizer.LoadPlayerParts(PartsSlot.RightLeg, PartsChara.Assassin); // 仮にAssassinを設定
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError($"パーツロード中にエラーが発生: {e.Message}\n{e.StackTrace}");
+                    return;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"ロード処理中にエラーが発生: {e.Message}\n{e.StackTrace}");
+                return;
+            }
         }
         else
         {
-            Debug.LogWarning("セーブファイルが見つかりません。");
-            // セーブファイルがない場合、新しいデータで初期化する
+            Debug.LogWarning($"セーブファイルが見つかりません: {saveFilePath}");
             saveData = new SaveData();
         }
     }
