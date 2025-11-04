@@ -19,7 +19,7 @@ public abstract class Button : MonoBehaviour, ISelectHandler, IPointerEnterHandl
     {
         if (SoundManager.Instance != null)
         {
-            SoundManager.Instance.PlaySE(11); // 決定音
+            SoundManager.Instance.PlaySE(14); // 決定音
         }
     }
 
@@ -29,17 +29,18 @@ public abstract class Button : MonoBehaviour, ISelectHandler, IPointerEnterHandl
         // 効果音を鳴らす
         if (SoundManager.Instance != null)
         {
-            SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
+            SoundManager.Instance.PlaySE(14); // 14はUI決定音のインデックス
         }
     }
 
     // 選択された際に音を鳴らす処理
     private void TriggerSelectionSounds()
     {
+        Debug.Log("otosentaku");
         // 効果音を鳴らす
         if (SoundManager.Instance != null)
         {
-            SoundManager.Instance.PlaySE(12); // 12はUI選択音のインデックス
+            SoundManager.Instance.PlaySE(13); // 12はUI選択音のインデックス
         }
     }
 

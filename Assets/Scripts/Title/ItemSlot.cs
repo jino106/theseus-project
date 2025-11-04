@@ -145,7 +145,6 @@ public class ItemSlot : Button
         }
         if (currentPage < pageTexts.Count - 1)
         {
-            SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
             currentPage++;
             ShowCurrentPage();
         }
@@ -161,7 +160,6 @@ public class ItemSlot : Button
         }
         if (currentPage > 0)
         {
-            SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
             currentPage--;
             ShowCurrentPage();
         }
@@ -179,7 +177,6 @@ public class ItemSlot : Button
 
     public void ReturnSelectedButton()
     {
-        SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
         pageTexts = new List<string>();
         Debug.Log("ReturnSelectedButton lastSelectedButton: " + lastSelectedButton);
         selectedButtonManager.ReturnSelectedButton();
