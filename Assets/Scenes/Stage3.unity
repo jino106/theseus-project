@@ -608,7 +608,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.0032134354}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -618,7 +618,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.94364554}
   m_EdgeRadius: 0
 --- !u!4 &56518729
 Transform:
@@ -5891,6 +5891,38 @@ PrefabInstance:
     - target: {fileID: 1532666601811238776, guid: b6d5cd00a82304199b886077aebdc259, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205849716985983500, guid: b6d5cd00a82304199b886077aebdc259, type: 3}
+      propertyPath: m_Size.y
+      value: 3.0609274
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205849716985983500, guid: b6d5cd00a82304199b886077aebdc259, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.0304637
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645446787493680930, guid: b6d5cd00a82304199b886077aebdc259, type: 3}
+      propertyPath: m_Size.y
+      value: 2.4957657
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645446787493680930, guid: b6d5cd00a82304199b886077aebdc259, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.7478827
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801945802662466218, guid: b6d5cd00a82304199b886077aebdc259, type: 3}
+      propertyPath: m_Size.y
+      value: 3.060927
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801945802662466218, guid: b6d5cd00a82304199b886077aebdc259, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.0304635
+      objectReference: {fileID: 0}
+    - target: {fileID: 7744683746756118282, guid: b6d5cd00a82304199b886077aebdc259, type: 3}
+      propertyPath: m_Size.y
+      value: 2.5127633
+      objectReference: {fileID: 0}
+    - target: {fileID: 7744683746756118282, guid: b6d5cd00a82304199b886077aebdc259, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.75638163
       objectReference: {fileID: 0}
     - target: {fileID: 8688214183054122992, guid: b6d5cd00a82304199b886077aebdc259, type: 3}
       propertyPath: m_Name
@@ -34589,7 +34621,7 @@ Transform:
   m_GameObject: {fileID: 1586923810}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -40.72133, y: 3.0399992, z: -10}
+  m_LocalPosition: {x: -40.71749, y: 3.7889175, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
