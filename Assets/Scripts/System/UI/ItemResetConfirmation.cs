@@ -20,6 +20,8 @@ public class ItemResetConfirmation : MonoBehaviour
     [SerializeField] private InventoryData inventoryData;
     // StageInventoryDataの参照
     [SerializeField] private StageInventoryData stageInventoryData;
+    // ItemSlotの配列
+    [SerializeField] private ItemSlot[] itemSlots;  
 
     // ダイアログを開く直前に選択されていたボタンを記憶しておく変数
     private GameObject lastSelectedButton;
@@ -50,6 +52,16 @@ public class ItemResetConfirmation : MonoBehaviour
         SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
         inventoryData.ResetAllItems();
         stageInventoryData.ResetAllItems();
+
+        // 全てのItemSlotのアイコンを更新
+        foreach (var slot in itemSlots)
+        {
+            if (slot != null)
+            {
+                slot.UpdateIcon();
+                UnityEngine.Debug.Log($"ItemSlot {slot.name} のアイコン{slot.iconImage.enabled}");
+            }
+        }
 
         CloseDialog();
     }

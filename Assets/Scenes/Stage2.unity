@@ -1085,7 +1085,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1370787779}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.00007212162}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -3770,7 +3770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 1063366497}
-  returnPanel: {fileID: 0}
+  returnPanel: {fileID: 1147134625}
 --- !u!114 &475614329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4703,17 +4703,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resetConfirm: {fileID: 731289818}
-  itemSlots:
-  - {fileID: 1083382747}
-  - {fileID: 407402482}
-  - {fileID: 1709231558}
-  - {fileID: 2105978964}
-  - {fileID: 595481777}
-  - {fileID: 1350848921}
-  - {fileID: 799180264}
-  - {fileID: 1440481707}
-  - {fileID: 1306586378}
-  - {fileID: 845802163}
 --- !u!114 &577565194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5265,7 +5254,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: new text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 34529fac9dfd1441abbe58c253cdbe08, type: 2}
   m_sharedMaterial: {fileID: 5998509935022975256, guid: 34529fac9dfd1441abbe58c253cdbe08, type: 2}
@@ -6581,6 +6570,17 @@ MonoBehaviour:
   noButton: {fileID: 944760493}
   inventoryData: {fileID: 2114878911}
   stageInventoryData: {fileID: 2008658590}
+  itemSlots:
+  - {fileID: 1083382747}
+  - {fileID: 407402482}
+  - {fileID: 1709231558}
+  - {fileID: 2105978964}
+  - {fileID: 595481777}
+  - {fileID: 1350848921}
+  - {fileID: 799180264}
+  - {fileID: 1440481707}
+  - {fileID: 1306586378}
+  - {fileID: 845802163}
 --- !u!114 &731289819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10755,8 +10755,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 156533921}
   m_HandleRect: {fileID: 156533920}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.9999279
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11400,7 +11400,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1806743568}
   m_HandleRect: {fileID: 1806743567}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -18898,7 +18898,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000048257452}
+  m_AnchoredPosition: {x: 0, y: -0.00006674829}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1387267840
@@ -36806,7 +36806,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 70}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1547685701
 MonoBehaviour:
@@ -36828,10 +36828,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Item Reset?
+  m_text: "\u30A2\u30A4\u30C6\u30E0\u306E\u53D6\u5F97\u72B6\u6CC1\u3092\n\u30EA\u30BB\u30C3\u30C8\u3057\u307E\u3059\u304B\uFF1F"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 34529fac9dfd1441abbe58c253cdbe08, type: 2}
+  m_sharedMaterial: {fileID: 5998509935022975256, guid: 34529fac9dfd1441abbe58c253cdbe08, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -36896,7 +36896,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1547685702
@@ -42901,7 +42901,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1189984668}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.000000059604645, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.99999994, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
