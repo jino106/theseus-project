@@ -148,16 +148,20 @@ public class TitleLifeTiimeScope : LifetimeScope
             Debug.LogError("GameSceneManagerが見つかりません");
         }
         
-        // PlayerCustomizerを自動検索
+        // PlayerCustomizerを登録
         var playerCustomizer = Object.FindAnyObjectByType<PlayerCustomizer>();
         if (playerCustomizer != null)
         {
             builder.RegisterInstance(playerCustomizer);
-            builder.RegisterBuildCallback(resolver => resolver.Inject(playerCustomizer));
+            builder.RegisterBuildCallback(resolver =>
+            {
+                resolver.Inject(playerCustomizer);
+            });
+            Debug.Log("PlayerCustomizerを登録しました");
         }
         else
         {
-            Debug.LogError("PlayerCustomizerが見つかりません");
+            Debug.LogError("PlayerCustomizerコンポーネントが見つかりません");
         }
 
         // Controller

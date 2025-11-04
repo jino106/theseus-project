@@ -128,37 +128,49 @@ public class GameDataManager : MonoBehaviour
             return;
         }
 
-        // セーブファイルが存在するかチェック
+        // playerCustomizerのnullチェックを追加
+        if (playerCustomizer == null)
+        {
+            Debug.LogError("GameDataManager: PlayerCustomizerが注入されていません");
+            return;
+        }
+
         if (File.Exists(saveFilePath))
         {
-            // ファイルからJSON文字列を読み込む
-            string json = File.ReadAllText(saveFilePath);
+            try
+            {
+                string json = File.ReadAllText(saveFilePath);
+                saveData = JsonUtility.FromJson<SaveData>(json);
+                Debug.Log("セーブデータをロードしました");
+                
+                
+                // ステージへ移動
+                stageNumber.SetCurrentStage(2);
+                sceneManager.LoadStage(stageNumber.GetCurrentStage());
 
-            // JSON文字列をSaveDataクラスのインスタンスに変換
-            saveData = JsonUtility.FromJson<SaveData>(json);
-
-            Debug.Log("ロードしました");
-
-            // --- ロードしたデータをゲームに反映させる処理 ---
-            playerCustomizer.ChangePlayerParts(PartsSlot.LeftArm, PartsChara.Thief, null);// テスト用にthiefをセット
-            //playerCustomizer.ChangePlayerParts(PartsSlot.LeftArm, saveData.LeftArm, null);
-            playerCustomizer.ChangePlayerParts(PartsSlot.RightArm, saveData.RightArm, null);
-            playerCustomizer.ChangePlayerParts(PartsSlot.LeftLeg, saveData.LeftLeg, null);
-            playerCustomizer.ChangePlayerParts(PartsSlot.RightLeg, saveData.RightLeg, null);
-
-            //stageNumber.SetCurrentStage(saveData.stageNumber); // ゲームの進行状況も反映
-            stageNumber.SetCurrentStage(2); // テスト用にステージ番号をセット
-
-            Debug.Log("Loaded Parts - LeftArm: " + playerParts.LeftArm + ", RightArm: " + playerParts.RightArm +
-                      ", LeftLeg: " + playerParts.LeftLeg + ", RightLeg: " + playerParts.RightLeg + ", StageNumber: " + stageNumber.GetCurrentStage());  
-
-            // stageNumberのステージに遷移
-            sceneManager.LoadStage(stageNumber.GetCurrentStage());
+                // パーツ変更処理
+                try
+                {
+                    playerCustomizer.LoadPlayerParts(PartsSlot.LeftArm, saveData.LeftArm);
+                    playerCustomizer.LoadPlayerParts(PartsSlot.RightArm, saveData.RightArm);
+                    playerCustomizer.LoadPlayerParts(PartsSlot.LeftLeg, saveData.LeftLeg);
+                    playerCustomizer.LoadPlayerParts(PartsSlot.RightLeg, PartsChara.Assassin); // 仮にAssassinを設定
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError($"パーツロード中にエラーが発生: {e.Message}\n{e.StackTrace}");
+                    return;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"ロード処理中にエラーが発生: {e.Message}\n{e.StackTrace}");
+                return;
+            }
         }
         else
         {
-            Debug.LogWarning("セーブファイルが見つかりません。");
-            // セーブファイルがない場合、新しいデータで初期化する
+            Debug.LogWarning($"セーブファイルが見つかりません: {saveFilePath}");
             saveData = new SaveData();
         }
     }
