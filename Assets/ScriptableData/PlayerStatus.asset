@@ -16,10 +16,10 @@ MonoBehaviour:
   normalAirResistance: 10
   normalMoveSpeed: 7.5
   normalCanUnlock: 0
-  normalJumpForce: 5
+  normalJumpForce: 10
   normalCanPushHeavyObject: 0
   normalCanWalkOnFire: 0
-  normalCanShootWater: 0
+  normalCanShootWater: 1
   normalCanChargeWater: 0
   normalCanDoubleJump: 0
   normalCanThrowKnife: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
   theifAirResistance: 10
   thiefMoveSpeed: 12
   thiefCanUnlock: 1
-  muscleJumpForce: 10
+  muscleJumpForce: 13
   muscleCanPushHeavyObject: 1
   fireCanWalkOnFire: 1
   fireCanShootWater: 1
