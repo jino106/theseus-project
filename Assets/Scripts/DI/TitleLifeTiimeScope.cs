@@ -43,6 +43,17 @@ public class TitleLifeTiimeScope : LifetimeScope
             Debug.LogError("PlayerオブジェクトにPlayerPartsコンポーネントが見つかりません");
         }
 
+        // StageNumberを登録
+        var stageNumber = Object.FindAnyObjectByType<StageNumber>();
+        if (stageNumber != null)
+        {
+            builder.RegisterInstance(stageNumber);
+        }
+        else
+        {
+            Debug.LogError("StageNumberオブジェクトが見つかりません");
+        }
+
         // ItemDataを自動検索（Addressableから)
         var ItemDataHandle = Addressables.LoadAssetAsync<ItemData>("ItemData");
         var ItemData = ItemDataHandle.WaitForCompletion();
@@ -76,12 +87,24 @@ public class TitleLifeTiimeScope : LifetimeScope
         if (gameDataManager != null)
         {
             builder.RegisterInstance(gameDataManager);
-            builder.RegisterBuildCallback(resolver => resolver.Inject(gameDataManager)); // ← 依存注入を追加
+            builder.RegisterBuildCallback(resolver => resolver.Inject(gameDataManager));
 
         }
         else
         {
             Debug.LogError("GameDataManagerが見つかりません");
+        }
+        
+        // SceneManagerを自動検索
+        var sceneManager = Object.FindAnyObjectByType<GameSceneManager>();
+        if (sceneManager != null)
+        {
+            builder.RegisterInstance(sceneManager);
+            builder.RegisterBuildCallback(resolver => resolver.Inject(sceneManager));
+        }
+        else
+        {
+            Debug.LogError("GameSceneManagerが見つかりません");
         }
         
         // PlayerPartsRatioを自動検索

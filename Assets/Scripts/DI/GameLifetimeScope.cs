@@ -239,6 +239,17 @@ public class GameLifetimeScope : LifetimeScope
             Debug.LogError("PlayerオブジェクトにPlayerPartsコンポーネントが見つかりません");
         }
 
+        // StageNumberを登録
+        var stageNumber = Object.FindAnyObjectByType<StageNumber>();
+        if (stageNumber != null)
+        {
+            builder.RegisterInstance(stageNumber);
+        }
+        else
+        {
+            Debug.LogError("StageNumberオブジェクトが見つかりません");
+        }
+
         // PartsManagerを登録
         var partsManager = Object.FindAnyObjectByType<PartsManager>();
         if (partsManager != null)
@@ -327,9 +338,21 @@ public class GameLifetimeScope : LifetimeScope
             if (enableDebugLog) Debug.LogError("SoundManagerに注入予約しました");
         }
         else
-        {   
+        {
             Debug.LogError("SoundManagerコンポーネントが見つかりません");
         }   
+        
+        // SceneManagerを自動検索
+        var sceneManager = Object.FindAnyObjectByType<GameSceneManager>();
+        if (sceneManager != null)
+        {
+            builder.RegisterInstance(sceneManager);
+            builder.RegisterBuildCallback(resolver => resolver.Inject(sceneManager));
+        }
+        else
+        {
+            Debug.LogError("GameSceneManagerが見つかりません");
+        }
 
         // Playerにattachされているコンポーネントの登録
         if (player != null)

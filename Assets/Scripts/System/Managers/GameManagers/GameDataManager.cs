@@ -2,6 +2,7 @@ using UnityEngine;
 using System.IO; // ファイルの読み書きに必要
 using VContainer;
 using Parts.Types;
+using UnityEngine.SceneManagement;
 
 // セーブするデータのクラス
 // [System.Serializable] をつけないとJsonUtilityで変換できない
@@ -37,6 +38,8 @@ public class GameDataManager : MonoBehaviour
 {
     [Inject] private PlayerParts playerParts; // プレイヤーのパーツ情報を保持するシングルトン
     [Inject] private InventoryData inventoryData; // インベントリのデータを保持
+    [Inject] private StageNumber stageNumber; // 現在のステージを管理するシングルトン
+    [Inject] private GameSceneManager sceneManager; // GameSceneManagerのインスタンス
     public SaveData saveData; // セーブデータを保持するインスタンス
     private string saveFilePath; // セーブファイルのパス
 
@@ -90,7 +93,7 @@ public class GameDataManager : MonoBehaviour
         saveData.RightArm = playerParts.RightArm;
         saveData.LeftLeg = playerParts.LeftLeg;
         saveData.RightLeg = playerParts.RightLeg;
-        saveData.stageNumber = 1; //仮に1を設定
+        saveData.stageNumber = 2; //仮に2を設定
 
         /*
         saveData.playerReportObtained = inventoryData.PlayerReportObtained;
@@ -136,27 +139,19 @@ public class GameDataManager : MonoBehaviour
             Debug.Log("ロードしました");
 
             // --- ロードしたデータをゲームに反映させる処理 ---
-            playerParts.LeftArm = saveData.LeftArm;
+            //playerParts.LeftArm = saveData.LeftArm;
+            playerParts.LeftArm = PartsChara.Thief; // テスト用にthiefをセット
             playerParts.RightArm = saveData.RightArm;
             playerParts.LeftLeg = saveData.LeftLeg;
             playerParts.RightLeg = saveData.RightLeg;
-            // = saveData.stageNumber;// ゲームの進行状況も反映
+            //stageNumber.SetCurrentStage(saveData.stageNumber); // ゲームの進行状況も反映
+            stageNumber.SetCurrentStage(2); // テスト用にステージ番号をセット
 
             Debug.Log("Loaded Parts - LeftArm: " + playerParts.LeftArm + ", RightArm: " + playerParts.RightArm +
-                      ", LeftLeg: " + playerParts.LeftLeg + ", RightLeg: " + playerParts.RightLeg);
+                      ", LeftLeg: " + playerParts.LeftLeg + ", RightLeg: " + playerParts.RightLeg + ", StageNumber: " + stageNumber.GetCurrentStage());  
 
-            /*
-            inventoryData.PlayerReportObtained = saveData.playerReportObtained;
-            inventoryData.TheifReportObtained = saveData.theifReportObtained;
-            inventoryData.MuscleReportObtained = saveData.muscleReportObtained;
-            inventoryData.FireReportObtained = saveData.fireReportObtained;
-            inventoryData.AssassinReportObtained = saveData.assassinReportObtained;
-            inventoryData.PlayerDiaryObtained = saveData.playerDiaryObtained;
-            inventoryData.TheifDiaryObtained = saveData.theifDiaryObtained;
-            inventoryData.MuscleDiaryObtained = saveData.muscleDiaryObtained;
-            inventoryData.FireDiaryObtained = saveData.fireDiaryObtained;
-            inventoryData.AssassinDiaryObtained = saveData.assassinDiaryObtained;
-            */
+            // stageNumberのステージに遷移
+            sceneManager.LoadStage(stageNumber.GetCurrentStage());
         }
         else
         {
