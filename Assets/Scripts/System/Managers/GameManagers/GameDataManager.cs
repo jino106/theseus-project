@@ -36,7 +36,7 @@ public class SaveData
 
 public class GameDataManager : MonoBehaviour
 {
-    [Inject] private PlayerParts playerParts; // プレイヤーのパーツ情報を保持するシングルトン
+    private PlayerParts playerParts; // プレイヤーのパーツ情報を保持するシングルトン
     [Inject] private InventoryData inventoryData; // インベントリのデータを保持
     [Inject] private StageNumber stageNumber; // 現在のステージを管理するシングルトン
     [Inject] private GameSceneManager sceneManager; // GameSceneManagerのインスタンス
@@ -55,6 +55,7 @@ public class GameDataManager : MonoBehaviour
 
     void Start()
     {
+        playerParts = GameObject.Find ("PlayerParts").GetComponent<PlayerParts>();
         Debug.Log("playerParts: " + playerParts);
         Debug.Log("inventoryData: " + inventoryData);
         // 依存関係の注入確認
@@ -75,7 +76,7 @@ public class GameDataManager : MonoBehaviour
     }
 
     // ゲームをセーブするメソッド
-    public void SaveGame()
+    public void SaveGame(int slot)
     {
         if (!isInitialized)
         {
@@ -94,7 +95,7 @@ public class GameDataManager : MonoBehaviour
         saveData.RightArm = playerParts.RightArm;
         saveData.LeftLeg = playerParts.LeftLeg;
         saveData.RightLeg = playerParts.RightLeg;
-        saveData.stageNumber = 2; //仮に2を設定
+        saveData.stageNumber = stageNumber.GetCurrentStage();
 
         /*
         saveData.playerReportObtained = inventoryData.PlayerReportObtained;
@@ -114,13 +115,14 @@ public class GameDataManager : MonoBehaviour
         string json = JsonUtility.ToJson(saveData);
 
         // JSON文字列をファイルに書き込む
+        SetCurrentSlot(slot);
         File.WriteAllText(saveFilePath, json);
 
         Debug.Log("セーブしました: " + saveFilePath);
     }
 
     // ゲームをロードするメソッド
-    public void LoadGame()
+    public void LoadGame(int slot)
     {
         if (!isInitialized)
         {
@@ -135,6 +137,8 @@ public class GameDataManager : MonoBehaviour
             return;
         }
 
+        SetCurrentSlot(slot);
+
         if (File.Exists(saveFilePath))
         {
             try
@@ -145,8 +149,7 @@ public class GameDataManager : MonoBehaviour
                 
                 
                 // ステージへ移動
-                stageNumber.SetCurrentStage(2);
-                sceneManager.LoadStage(stageNumber.GetCurrentStage());
+                sceneManager.LoadStage(saveData.stageNumber);
 
                 // パーツ変更処理
                 try
@@ -154,7 +157,7 @@ public class GameDataManager : MonoBehaviour
                     playerCustomizer.LoadPlayerParts(PartsSlot.LeftArm, saveData.LeftArm);
                     playerCustomizer.LoadPlayerParts(PartsSlot.RightArm, saveData.RightArm);
                     playerCustomizer.LoadPlayerParts(PartsSlot.LeftLeg, saveData.LeftLeg);
-                    playerCustomizer.LoadPlayerParts(PartsSlot.RightLeg, PartsChara.Assassin); // 仮にAssassinを設定
+                    playerCustomizer.LoadPlayerParts(PartsSlot.RightLeg, saveData.RightLeg);
                 }
                 catch (System.Exception e)
                 {
