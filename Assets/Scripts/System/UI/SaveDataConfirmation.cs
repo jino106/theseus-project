@@ -49,7 +49,7 @@ public class SaveDataConfirmation : MonoBehaviour
         // ここで実際のセーブ処理を呼び出す
         SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
         gameDataManager.SetCurrentSlot(saveCurrentSlot);
-        gameDataManager.SaveGame();
+        gameDataManager.SaveGame(saveCurrentSlot);
         itemManager.SyncStageToInventory(); // ステージのアイテムシングルトンとタイトル用のシングルトンを同期
         CloseDialog();
 
@@ -65,7 +65,7 @@ public class SaveDataConfirmation : MonoBehaviour
         // ここで実際のロード処理を呼び出す
         SoundManager.Instance.PlaySE(11); // 11はUI決定音のインデックス
         gameDataManager.SetCurrentSlot(saveCurrentSlot);
-        gameDataManager.LoadGame();
+        gameDataManager.LoadGame(saveCurrentSlot);
         CloseDialog(); // 実際は閉じずにゲームを起動する
     }
 
