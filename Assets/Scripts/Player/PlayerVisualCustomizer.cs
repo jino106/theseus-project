@@ -48,9 +48,14 @@ public class PlayerVisualCustomizer : MonoBehaviour
         playerParts = GameObject.Find ("PlayerParts").GetComponent<PlayerParts>();
         visuallizePlayerParts();
     }
-    
+
     // プレイヤーの装備しているパーツに応じて見た目を変更するメソッド
     public void visuallizePlayerParts()
+    {
+        ApplyPartsVisuals(playerParts.LeftArm, playerParts.RightArm, playerParts.LeftLeg, playerParts.RightLeg);
+    }
+    
+    public void ApplyPartsVisuals(PartsChara leftArm, PartsChara rightArm, PartsChara leftLeg, PartsChara rightLeg)
     {
         // 全てのパーツを格納したリストを構築
         List<GameObject> allParts = new List<GameObject>();
@@ -81,11 +86,11 @@ public class PlayerVisualCustomizer : MonoBehaviour
             obj.SetActive(false);
         }
 
-        // 装備しているパーツのオブジェクトリストを取得
-        List<GameObject> leftArms = getTargetObject(PartsSlot.LeftArm, playerParts.LeftArm);
-        List<GameObject> rightArms = getTargetObject(PartsSlot.RightArm, playerParts.RightArm);
-        List<GameObject> leftLegs = getTargetObject(PartsSlot.LeftLeg, playerParts.LeftLeg);
-        List<GameObject> rightLegs = getTargetObject(PartsSlot.RightLeg, playerParts.RightLeg);
+        // それぞれのパーツのオブジェクトリストを取得
+        List<GameObject> leftArms = getTargetObject(PartsSlot.LeftArm, leftArm);
+        List<GameObject> rightArms = getTargetObject(PartsSlot.RightArm, rightArm);
+        List<GameObject> leftLegs = getTargetObject(PartsSlot.LeftLeg, leftLeg);
+        List<GameObject> rightLegs = getTargetObject(PartsSlot.RightLeg, rightLeg);
 
         // 存在確認
         if (leftArms == null || rightArms == null || leftLegs == null || rightLegs == null)

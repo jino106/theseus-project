@@ -159,6 +159,48 @@ public class GameDataManager : MonoBehaviour
         }
     }
 
+    // セーブデータをロードするメソッド
+    public SaveData LoadSaveData(int slot)
+    {
+        if (!isInitialized)
+        {
+            Debug.LogError("GameDataManager: まだ初期化されていません");
+            return null;
+        }
+
+        // playerCustomizerのnullチェックを追加
+        if (playerCustomizer == null)
+        {
+            Debug.LogError("GameDataManager: PlayerCustomizerが注入されていません");
+            return null;
+        }
+
+        SetCurrentSlot(slot);
+
+        if (File.Exists(saveFilePath))
+        {
+            try
+            {
+                string json = File.ReadAllText(saveFilePath);
+                saveData = JsonUtility.FromJson<SaveData>(json);
+                Debug.Log("セーブデータをロードしました");
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"ロード処理中にエラーが発生: {e.Message}\n{e.StackTrace}");
+                return null;
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"セーブファイルが見つかりません: {saveFilePath}");
+            //saveData = new SaveData();
+            return null;
+        }
+
+        return saveData;
+    }
+
     // アイテムをセーブする
     public void SaveItemData()
     {
