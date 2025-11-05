@@ -2,6 +2,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using VContainer;
 using Unity.VisualScripting;
+using System;
 
 /// <summary>
 /// プレイヤーが重いものを押すためのスクリプト
@@ -108,11 +109,8 @@ public class HeavyObject : MonoBehaviour
             // プレイヤーとの距離をチェック
             //float distance = Vector2.Distance(rb.position, player.transform.position);
             float distance = Mathf.Abs(rb.position.x - player.transform.position.x);
-
-            Vector2 hitPos = collision.GetContact(0).point;
-            Vector2 direction = (hitPos - rb.position).normalized;
             
-            if (playerStatus.CanPushHeavyObject && canPushAgain && distance <= distanceThreshold && (Vector2.Dot(direction, Vector2.right) > 0.8f || Vector2.Dot(direction, Vector2.left) > 0.8f))
+            if (playerStatus.CanPushHeavyObject && canPushAgain && distance <= distanceThreshold && Mathf.Abs(collision.GetContact(0).normal.x) > 0.9f)
             {
                 // 距離が閾値内にあるときのみ押せるようにする
                 rb.constraints = RigidbodyConstraints2D.FreezeRotation;
