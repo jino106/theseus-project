@@ -71,7 +71,30 @@ public class MenuStatusDisplay : MonoBehaviour
         rightLegDescription.text = rightLegInfo.descriptionLeg;
     }
 
+    // プレイヤーのパーツを表示する関数
+    public void DisplayStatus(PartsChara leftArm, PartsChara rightArm, PartsChara leftLeg, PartsChara rightLeg)
+    {
+        // 左腕の形容詞と説明を表示
+        PartsInfo leftArmInfo = partsData.GetPartsInfoByPartsChara(leftArm);
+        leftArmName.text = leftArmInfo.adjective + "左腕";
+        leftArmDescription.text = leftArmInfo.descriptionArm;
+
+        // 右腕の形容詞と説明を表示
+        PartsInfo rightArmInfo = partsData.GetPartsInfoByPartsChara(rightArm);
+        rightArmName.text = rightArmInfo.adjective + "右腕";
+        rightArmDescription.text = rightArmInfo.descriptionArm;
+
+        // 左脚の形容詞と説明を表示
+        PartsInfo leftLegInfo = partsData.GetPartsInfoByPartsChara(leftLeg);
+        leftLegName.text = leftLegInfo.adjective + "左足";
+        leftLegDescription.text = leftLegInfo.descriptionLeg;   
     
+        // 右脚の形容詞と説明を表示
+        PartsInfo rightLegInfo = partsData.GetPartsInfoByPartsChara(rightLeg);
+        rightLegName.text = rightLegInfo.adjective + "右足";
+        rightLegDescription.text = rightLegInfo.descriptionLeg;
+    }
+
     // VContainerの注入完了時に呼ばれるメソッド
     [Inject]
     public void Construct(PlayerParts injectedPlayerParts)
