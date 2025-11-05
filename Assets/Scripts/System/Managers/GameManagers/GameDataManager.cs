@@ -50,10 +50,7 @@ public class GameDataManager : MonoBehaviour
     {
         // セーブファイルのパスを決定する（OSごとに適切な場所を指定してくれる）
         saveFilePath = Application.persistentDataPath + "/save.json";
-    }
 
-    void Start()
-    {
         playerParts = GameObject.Find("PlayerParts").GetComponent<PlayerParts>();
         Debug.Log("playerParts: " + playerParts);
         Debug.Log("inventoryData: " + inventoryData);
@@ -255,5 +252,36 @@ public class GameDataManager : MonoBehaviour
             SaveItemData();
             LoadItemData();
         }
+    }
+
+    public void TestSaveGame(int slot)
+    {
+        if (!isInitialized)
+        {
+            Debug.LogError("GameDataManager: まだ初期化されていません");
+            return;
+        }
+
+        // saveDataを初期化
+        if (saveData == null)
+        {
+            saveData = new SaveData();
+        }
+
+        // 今のゲームの状態をsaveDataインスタンスに設定する
+        saveData.LeftArm = PartsChara.Thief;
+        saveData.RightArm = playerParts.RightArm;
+        saveData.LeftLeg = PartsChara.Muscle;
+        saveData.RightLeg = playerParts.RightLeg;
+        saveData.stageNumber = 2;
+
+        // SaveDataをJSON形式の文字列に変換
+        string json = JsonUtility.ToJson(saveData);
+
+        // JSON文字列をファイルに書き込む
+        SetCurrentSlot(slot);
+        File.WriteAllText(saveFilePath, json);
+
+        Debug.Log("セーブしました: " + saveFilePath);
     }
 }
