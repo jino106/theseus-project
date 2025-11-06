@@ -22,6 +22,13 @@ public class StageItemSlot : Button
 
     [SerializeField] public Image iconImage;
 
+    [SerializeField] private GameObject playerImg;
+    [SerializeField] private GameObject theifImg;
+    [SerializeField] private GameObject fireImg;
+    [SerializeField] private GameObject musuleImg;
+    [SerializeField] private GameObject assasinImg;
+    
+
     // ダイアログを開く直前に選択されていたボタンを記憶しておく変数
     private GameObject lastSelectedButton;
 
@@ -52,6 +59,8 @@ public class StageItemSlot : Button
 
     protected void Awake()
     {
+        ImageFalse();
+
         stageInventoryData = GameObject.Find("StageInventoryData").GetComponent<StageInventoryData>();
         iconImage = GetComponentsInChildren<Image>(true)
             .FirstOrDefault(img => img.gameObject.name == "IconImage");
@@ -86,11 +95,13 @@ public class StageItemSlot : Button
     public override void OnClick()
     {
         base.OnClick(); // 決定音を鳴らす
-        if(IsObtained == false)
+        if (IsObtained == false)
         {
             Debug.Log("未取得のアイテムです。");
             return;
         }
+
+        ImageFalse();
         // アイテム説明用UIのボタンを表示
         ButtonsSetTrue();
         // 現在選択されているUI要素を記憶する
@@ -152,6 +163,29 @@ public class StageItemSlot : Button
         {
             itemText.text = pageTexts[currentPage];
             Debug.Log($"ページ {currentPage + 1}/{pageTexts.Count}: {itemText.text}");
+            if (currentPage == 0)
+            {
+                switch (itemID)
+                {
+                    case 1:
+                        playerImg.SetActive(true);
+                        break;
+                    case 2:
+                        theifImg.SetActive(true);
+                        break;
+                    case 3:
+                        musuleImg.SetActive(true);
+                        break;
+                    case 4:
+                        fireImg.SetActive(true);
+                        break;
+                    case 5:
+                        assasinImg.SetActive(true);
+                        break;
+                    default:
+                        break;
+                }   
+            }
         }
     }
 
@@ -165,6 +199,7 @@ public class StageItemSlot : Button
         }
         if (currentPage < pageTexts.Count - 1)
         {
+            ImageFalse();
             currentPage++;
             ShowCurrentPage();
         }
@@ -180,6 +215,7 @@ public class StageItemSlot : Button
         }
         if (currentPage > 0)
         {
+            ImageFalse();
             currentPage--;
             ShowCurrentPage();
         }
@@ -197,6 +233,7 @@ public class StageItemSlot : Button
 
     public void ReturnSelectedButton()
     {
+        ImageFalse();
         pageTexts = new List<string>();
         Debug.Log("ReturnSelectedButton lastSelectedButton: " + lastSelectedButton);
         selectedButtonManager.ReturnSelectedButton();
@@ -206,5 +243,14 @@ public class StageItemSlot : Button
     protected void OnEnable()
     {
         UpdateIcon();
+    }
+
+    private void ImageFalse()
+    {
+        playerImg.SetActive(false);
+        theifImg.SetActive(false);
+        fireImg.SetActive(false);
+        musuleImg.SetActive(false);
+        assasinImg.SetActive(false);
     }
 }
