@@ -2359,6 +2359,7 @@ MonoBehaviour:
   gameSceneManager: {fileID: 1480997590}
   itemManager: {fileID: 1113016527}
   gameDataManager: {fileID: 1559244142}
+  soundManager: {fileID: 2017757929}
 --- !u!1 &360644856 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6155022801611536632, guid: 8d8a3be38d6d94d3aa7f65477c67d3b0, type: 3}
@@ -5111,6 +5112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSlider: {fileID: 775953728}
   seSlider: {fileID: 1325690122}
+  bgmSource: {fileID: 0}
 --- !u!1 &608393485
 GameObject:
   m_ObjectHideFlags: 0
@@ -16769,6 +16771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSceneManager: {fileID: 1480997590}
   fadeController: {fileID: 1827676353}
+  soundManager: {fileID: 0}
   confirmationDialogPanel: {fileID: 772708243}
   noButton: {fileID: 1144307155}
 --- !u!114 &772708246
@@ -60969,6 +60972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dae8b6730a9fe4459a416dc4152b63f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 0}
 --- !u!4 &1480997591
 Transform:
   m_ObjectHideFlags: 0
@@ -67281,7 +67285,7 @@ Transform:
   m_GameObject: {fileID: 1586923810}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -124.63874, y: 15.620003, z: -10}
+  m_LocalPosition: {x: -124.63525, y: 15.620003, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

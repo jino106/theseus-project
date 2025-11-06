@@ -290,7 +290,7 @@ public class Controller : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (!isInputEnabled) return; // 入力が無効な場合は何もしない
+        if (!isInputEnabled || isStartGoal) return; // 入力が無効な場合は何もしない
         if (context.performed && rb != null)
         {
             if (airChecker != null && airChecker.IsGround)
