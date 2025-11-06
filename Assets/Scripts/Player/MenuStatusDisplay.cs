@@ -45,6 +45,15 @@ public class MenuStatusDisplay : MonoBehaviour
         {
             Debug.LogError("MenuStatusDisplay: One or more description GameObjects are not assigned.");
         }
+
+        if (playerParts != null)
+        {
+            DisplayStatus();
+        }
+        else
+        {
+            Debug.LogError("MenuStatusDisplay: 最終的に PlayerParts が見つかりませんでした。");
+        }
     }
 
     // プレイヤーのパーツを表示する関数
