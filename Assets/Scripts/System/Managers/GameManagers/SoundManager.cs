@@ -1,5 +1,8 @@
 using System.Diagnostics;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
+using System;
+using System.Threading;
 
 public class SoundManager : MonoBehaviour
 {
@@ -16,6 +19,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip[] seClips;
 
     public float SEVolume => seSource != null ? seSource.volume : 0f;
+
+    private CancellationTokenSource cts = new CancellationTokenSource();
 
     private void Awake()
     {
@@ -42,11 +47,48 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    // フェードインしながらBGM再生（ループ指定可能）
+    public async UniTask PlayBGMFadeIn(int index, float duration, CancellationToken token = default, bool loop = true)
+    {
+        if (bgmClips != null && index >= 0 && index < bgmClips.Length)
+        {
+            bgmSource.clip = bgmClips[index];
+            bgmSource.loop = loop;
+            bgmSource.volume = 0f;
+            bgmSource.Play();
+
+            float dt = 0.01f;
+            float volumeStep = VolumeData.Instance.bgmVolume / duration * dt;
+            while (bgmSource.volume < VolumeData.Instance.bgmVolume)
+            {
+                bgmSource.volume += volumeStep;
+                await UniTask.Delay(TimeSpan.FromSeconds(dt), cancellationToken: token);
+            }
+        }
+    }
+
     // BGM停止
     public void StopBGM()
     {
         if (bgmSource != null)
         {
+            bgmSource.Stop();
+        }
+    }
+
+    // フェードアウトしながらBGM停止
+    public async UniTask StopBGMFadeOut(float duration)
+    {
+        if (bgmSource != null && bgmSource.isPlaying)
+        {
+            float dt = 0.01f;
+            float volumeStep = bgmSource.volume / duration * dt;
+            while (bgmSource.volume > 0f)
+            {
+                bgmSource.volume -= volumeStep;
+                await UniTask.Delay(TimeSpan.FromSeconds(dt), cancellationToken: cts.Token, ignoreTimeScale: true);
+            }
+
             bgmSource.Stop();
         }
     }

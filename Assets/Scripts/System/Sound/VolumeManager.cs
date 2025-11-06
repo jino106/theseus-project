@@ -6,6 +6,8 @@ public class VolumeManager : MonoBehaviour
     [SerializeField] private Slider bgmSlider;
     [SerializeField] private Slider seSlider;
 
+    [SerializeField] private AudioSource bgmSource;
+
     void Start()
     {
         // 初期値をVolumeDataから取得
@@ -25,6 +27,7 @@ public class VolumeManager : MonoBehaviour
         if (VolumeData.Instance != null)
         {
             VolumeData.Instance.bgmVolume = value;
+            bgmSource.volume = value;
         }
     }
 
