@@ -34,6 +34,7 @@ public class PlayerPartsRatio : MonoBehaviour
             Debug.LogWarning("PlayerPartsRatio: 初期化が完了していません");
         }
         playerParts = GameObject.Find("PlayerParts").GetComponent<PlayerParts>();
+        CalculatePartsRatio();
     }
     public void CalculatePartsRatio()
     {
@@ -100,6 +101,8 @@ public class PlayerPartsRatio : MonoBehaviour
 
     public bool HasFullRatioParts()
     {
+        LogPartsRatio();
+        Debug.Log(partsRatios.Any(x => x.Value >= 100f));
         return partsRatios.Any(x => x.Value >= 100f);
     }
 
