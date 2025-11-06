@@ -1540,7 +1540,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dae8b6730a9fe4459a416dc4152b63f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundManager: {fileID: 0}
 --- !u!4 &182447306
 Transform:
   m_ObjectHideFlags: 0
@@ -2255,7 +2254,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSlider: {fileID: 1217656770}
   seSlider: {fileID: 752088186}
-  bgmSource: {fileID: 0}
 --- !u!1 &242258320
 GameObject:
   m_ObjectHideFlags: 0
@@ -6220,9 +6218,7 @@ MonoBehaviour:
   whiteBackground: {fileID: 376426433}
   fadeController: {fileID: 386483624}
   letterDelay: 0.05
-  soundManager: {fileID: 545712040}
-  bgmIndex: 2
-  fadeInDuration: 3
+  partsRatio: {fileID: 182030136}
 --- !u!1 &717040068
 GameObject:
   m_ObjectHideFlags: 0
@@ -10037,7 +10033,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dae8b6730a9fe4459a416dc4152b63f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundManager: {fileID: 0}
 --- !u!4 &1202197720
 Transform:
   m_ObjectHideFlags: 0

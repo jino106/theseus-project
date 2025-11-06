@@ -53,13 +53,7 @@ public class EndingShowDisplay : MonoBehaviour
 
     [SerializeField] float letterDelay = 0.05f; // 1文字ごとの表示遅延時間
 
-    [SerializeField] private SoundManager soundManager;
-
-    [SerializeField] private int bgmIndex;
-
-    [SerializeField] private float fadeInDuration;
-
-    [Inject]
+    [SerializeField]
     private PlayerPartsRatio partsRatio;
 
     private string inputText;
@@ -190,11 +184,11 @@ public class EndingShowDisplay : MonoBehaviour
         else if (!isTextCompleted && currentLine + 1 >= textLines.Length)
         {
             isTextCompleted = true;
-            await ShowEndingIllustration(cts.Token).SuppressCancellationThrow();
+            ShowEndingIllustration();
         }
     }
 
-    private async UniTask ShowEndingIllustration(CancellationToken token)
+    private void ShowEndingIllustration()
     {
         // テキストを非表示
         displayText.gameObject.SetActive(false);
@@ -202,7 +196,7 @@ public class EndingShowDisplay : MonoBehaviour
         // 背景を切り替え
         if (blackBackground != null) blackBackground.SetActive(false);
         if (whiteBackground != null) whiteBackground.SetActive(true);
-
+        
         // エンディングイラストを表示
         if (endingIllustration != null && selectedEndingImage != null)
         {
@@ -211,15 +205,11 @@ public class EndingShowDisplay : MonoBehaviour
         }
 
         isIllustrationShown = true;
-
-        await soundManager.PlayBGMFadeIn(bgmIndex, fadeInDuration, token, true);
     }
 
     private async void FadeOutAndLoadTitle()
     {
-        cts.Cancel(); // もし何か処理中ならキャンセル
         fadeController.FadeOut(2.0f).Forget();
-        soundManager.StopBGMFadeOut(1.5f).Forget();
         await UniTask.Delay(3000); // フェードアウトの完了を待つ 
         sceneManager.LoadTitle();
 
