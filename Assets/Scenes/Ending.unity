@@ -4884,7 +4884,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 338781348}
-  bgmClips: []
+  bgmClips:
+  - {fileID: 8300000, guid: 37e88a97d016e4e4b9dfc3c40d2e1326, type: 3}
+  - {fileID: 8300000, guid: c47c9d516902f4e29a0593f4ac78364e, type: 3}
+  - {fileID: 8300000, guid: 27c8e2dd8bb0c424787c8ccb3144f24b, type: 3}
   seSource: {fileID: 2024405745}
   seSourceLoop: {fileID: 1658714481}
   seSourceLoop2: {fileID: 0}
@@ -12609,9 +12612,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   confirmationDialogPanel: {fileID: 1623852517}
   noButton: {fileID: 74561753}
-  inventoryData: {fileID: 2114878911}
-  stageInventoryData: {fileID: 1930192916}
   itemSlots: []
+  stageItemSlots: []
 --- !u!1 &1639112299
 GameObject:
   m_ObjectHideFlags: 0
@@ -15903,6 +15905,7 @@ MonoBehaviour:
   noButton: {fileID: 346363752}
   gameDataManager: {fileID: 1812892550}
   itemManager: {fileID: 1107110901}
+  text: {fileID: 0}
 --- !u!1 &1950702109
 GameObject:
   m_ObjectHideFlags: 0

@@ -46566,7 +46566,7 @@ Transform:
   m_GameObject: {fileID: 1586923810}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -40.714382, y: 15.589998, z: -10}
+  m_LocalPosition: {x: -40.71184, y: 15.589998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -59816,7 +59816,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 1994769638}
-  bgmClips: []
+  bgmClips:
+  - {fileID: 8300000, guid: 37e88a97d016e4e4b9dfc3c40d2e1326, type: 3}
+  - {fileID: 8300000, guid: c47c9d516902f4e29a0593f4ac78364e, type: 3}
+  - {fileID: 8300000, guid: 27c8e2dd8bb0c424787c8ccb3144f24b, type: 3}
   seSource: {fileID: 212070737}
   seSourceLoop: {fileID: 1730931874}
   seSourceLoop2: {fileID: 0}
