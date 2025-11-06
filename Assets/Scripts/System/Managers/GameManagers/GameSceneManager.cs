@@ -23,7 +23,7 @@ public class GameSceneManager : MonoBehaviour
 
     public void LoadSaveScene(int currentStage)
     {
-        if(currentStage < 1 || currentStage > 4)
+        if(currentStage < 1 || currentStage > 5)
         {
             UnityEngine.Debug.LogError("現在のステージ番号が不正です: " + currentStage);
             return;
