@@ -1,12 +1,23 @@
 using System.Diagnostics;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour
 {
+    [SerializeField] private SoundManager soundManager;
+
+    private async UniTask LoadStageWithBGMFadeOut(string sceneName)
+    {
+        soundManager.StopBGMFadeOut(2.0f).Forget();
+        await UniTask.Delay(3000);
+        SceneManager.LoadScene(sceneName);
+    }
+
     public void LoadStage2()
     {
-        SceneManager.LoadScene("Stage2");
+        LoadStageWithBGMFadeOut("Stage2");
     }
 
     // 指定したステージに遷移
@@ -14,7 +25,7 @@ public class GameSceneManager : MonoBehaviour
     {
         string sceneName = $"{"Stage"}{stageNumber}";
         UnityEngine.Debug.Log(sceneName + "に遷移します");
-        SceneManager.LoadScene(sceneName);
+        LoadStageWithBGMFadeOut(sceneName);
     }
     public void LoadTitle()
     {

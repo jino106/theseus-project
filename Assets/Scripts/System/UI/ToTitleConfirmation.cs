@@ -12,6 +12,8 @@ public class ToTitleConfirmation : MonoBehaviour
     [SerializeField] private GameSceneManager gameSceneManager;
     [SerializeField] private FadeController fadeController;
 
+    [SerializeField] private SoundManager soundManager;
+
     // 親オブジェクトの取得
     [SerializeField] private GameObject confirmationDialogPanel;
 
@@ -49,6 +51,7 @@ public class ToTitleConfirmation : MonoBehaviour
         SoundManager.Instance.PlaySE(14); // 14はUI決定音のインデックス
 
         fadeController.FadeOut(fadeAnimation).Forget();
+        soundManager.StopBGMFadeOut(fadeAnimation - 1.5f).Forget();
         await UniTask.Delay(TimeSpan.FromSeconds(fadeAnimation), ignoreTimeScale: true);
 
         gameSceneManager.LoadTitle();

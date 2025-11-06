@@ -11,6 +11,9 @@ public class GameClearManager : MonoBehaviour
     [SerializeField] private GameSceneManager gameSceneManager;
     [SerializeField] private ItemManager itemManager;
     [SerializeField] private GameDataManager gameDataManager;
+
+    [SerializeField] private SoundManager soundManager;
+
     private StageNumber stageNumber;
 
     // プレイヤーの速度(単位はs)
@@ -98,6 +101,9 @@ public class GameClearManager : MonoBehaviour
 
             // 黒画像をフェードアウトさせる
             fadeController.FadeOut(animationTime).Forget();
+
+            // BGMをフェードアウトさせる
+            soundManager.StopBGMFadeOut(animationTime - 0.5f).Forget();
 
             // 入力を止める
             controller.isStartGoal = true;
