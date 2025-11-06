@@ -5,6 +5,9 @@ using VContainer;
 using Parts.Types;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
+using System;
+using System.Threading.Tasks;
+using System.Threading;
 
 public class EndingShowDisplay : MonoBehaviour
 {
@@ -48,6 +51,8 @@ public class EndingShowDisplay : MonoBehaviour
     [SerializeField]
     private FadeController fadeController;
 
+    [SerializeField] float letterDelay = 0.05f; // 1文字ごとの表示遅延時間
+
     [Inject]
     private PlayerPartsRatio partsRatio;
 
@@ -58,6 +63,10 @@ public class EndingShowDisplay : MonoBehaviour
     private Sprite selectedEndingImage;
     private bool isTextCompleted = false;
     private bool isIllustrationShown = false;
+
+    private bool isTextTyping = false; // テキストが表示中かどうかのフラグ
+   
+    private CancellationTokenSource cts;
 
     private GameSceneManager sceneManager;
 
@@ -87,6 +96,9 @@ public class EndingShowDisplay : MonoBehaviour
 
     private void Start()
     {
+        // CancellationTokenSourceの生成  
+        cts = new CancellationTokenSource();
+
         sceneManager = FindObjectOfType<GameSceneManager>();
 
         // 初期設定
@@ -132,19 +144,19 @@ public class EndingShowDisplay : MonoBehaviour
         Debug.Log($"Selected Ending for {fullParts}: {inputText}");
     }
 
-    private void InitializeText()
+    private async Task InitializeText()
     {
         if (!string.IsNullOrEmpty(inputText))
         {
             textLines = inputText.Split('\n');
             if (textLines.Length > 0)
             {
-                displayText.text = textLines[0];
+                await ShowLineLetterByLetter(textLines[0], cts.Token).SuppressCancellationThrow();
             }
         }
     }
 
-    private void ShowNextLine()
+    private async void ShowNextLine()
     {
         if (textLines == null) return;
 
@@ -155,10 +167,19 @@ public class EndingShowDisplay : MonoBehaviour
             return;
         }
 
+        if (isTextTyping) // 表示途中で押されたら
+        {
+            cts.Cancel(); // 現在の表示をキャンセル
+            displayText.text = textLines[currentLine]; // 現在の行を完全に表示
+            isTextTyping = false;
+            cts = new CancellationTokenSource(); // 新しいCancellationTokenSourceを作成
+            return;
+        }
+
         if (!isTextCompleted && currentLine + 1 < textLines.Length)
         {
             currentLine++;
-            displayText.text = textLines[currentLine];
+            await ShowLineLetterByLetter(textLines[currentLine], cts.Token).SuppressCancellationThrow();
         }
         else if (!isTextCompleted && currentLine + 1 >= textLines.Length)
         {
@@ -191,7 +212,20 @@ public class EndingShowDisplay : MonoBehaviour
         fadeController.FadeOut(2.0f).Forget();
         await UniTask.Delay(3000); // フェードアウトの完了を待つ 
         sceneManager.LoadTitle();
-        
-        
+
+
+    }
+    
+    private async UniTask ShowLineLetterByLetter(string line, CancellationToken token)
+    {
+        isTextTyping = true;
+        int lineLength = line.Length;
+        displayText.text = "";
+        for (int i = 0; i < lineLength; i++)
+        {
+            displayText.text += line[i];
+            await UniTask.Delay(TimeSpan.FromSeconds(letterDelay), cancellationToken: token);
+        }
+        isTextTyping = false;
     }
 }
