@@ -11,7 +11,11 @@ public class TitleLoder : MonoBehaviour
     public async void GameStart()
     {
         EventSystem.current.SetSelectedGameObject(null);
+        // ここにForgetでBGMのフェードアウトを入れる！
+
         await fadeController.FadeOut(3.0f);
         await UniTask.Delay(TimeSpan.FromSeconds(3.0f));
+
+        gameSceneManager.LoadPlorogue();
     }
 }
