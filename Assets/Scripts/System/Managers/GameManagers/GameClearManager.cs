@@ -89,7 +89,7 @@ public class GameClearManager : MonoBehaviour
         gameDataManager.SaveItemData();
 
         // オートセーブ
-        gameDataManager.SaveGame(1);
+        if (stageNumber.GetCurrentStage() != 5) gameDataManager.SaveGame(1);
 
         if (other.gameObject.tag == "Player" && !hasTriggered)
         {
