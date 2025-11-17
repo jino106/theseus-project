@@ -116,8 +116,11 @@ public class SaveSlot : Button
     public override void OnClick()
     {
         base.OnClick(); // 決定音を鳴らす
-        Debug.Log("ファイル" + saveDataNum + "の確認画面");
-        confirmation.ShowConfirmationDialog(saveDataNum);
+        if (saveData != null)
+        {
+            Debug.Log("ファイル" + saveDataNum + "の確認画面");
+            confirmation.ShowConfirmationDialog(saveDataNum);
+        }
     }
 
     public void SaveOnClick()
