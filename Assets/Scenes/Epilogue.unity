@@ -6234,8 +6234,8 @@ MonoBehaviour:
   letterDelay: 0.05
   partsRatio: {fileID: 182030136}
   soundManager: {fileID: 545712040}
-  bgmIndex: 0
-  fadeInDuration: 0
+  bgmIndex: 2
+  fadeInDuration: 3
 --- !u!1 &717040068
 GameObject:
   m_ObjectHideFlags: 0
@@ -15903,6 +15903,7 @@ MonoBehaviour:
   - {fileID: 1738467551}
   - {fileID: 1544226393}
   - {fileID: 1190524753}
+  clickable: {fileID: 0}
   text: {fileID: 1862811737}
 --- !u!1 &1950702109
 GameObject:
