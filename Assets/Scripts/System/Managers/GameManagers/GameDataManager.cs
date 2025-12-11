@@ -46,11 +46,12 @@ public class GameDataManager : MonoBehaviour
     private bool isInitialized = false;
     private int currentSlot = 1; // デフォルトは1番スロット
 
+    // 定数としてキー名を定義しておくと管理しやすいです
+    private const string SAVE_KEY_PREFIX = "Ariadne_SaveData_Slot_";
+    private const string ITEM_SAVE_KEY = "AriadneSaveData_Items";
+
     void Awake()
     {
-        // セーブファイルのパスを決定する（OSごとに適切な場所を指定してくれる）
-        saveFilePath = Application.persistentDataPath + "/save.json";
-
         playerParts = GameObject.Find("PlayerParts").GetComponent<PlayerParts>();
         Debug.Log("playerParts: " + playerParts);
         Debug.Log("inventoryData: " + inventoryData);
@@ -99,8 +100,10 @@ public class GameDataManager : MonoBehaviour
         string json = JsonUtility.ToJson(saveData);
 
         // JSON文字列をファイルに書き込む
-        SetCurrentSlot(slot);
-        File.WriteAllText(saveFilePath, json);
+        string key = SAVE_KEY_PREFIX + slot.ToString();
+        PlayerPrefs.SetString(key, json);
+        PlayerPrefs.Save();
+        
 
         Debug.Log("セーブしました: " + saveFilePath);
     }
@@ -121,13 +124,13 @@ public class GameDataManager : MonoBehaviour
             return;
         }
 
-        SetCurrentSlot(slot);
+        string key = SAVE_KEY_PREFIX + slot.ToString();
 
-        if (File.Exists(saveFilePath))
+        if (PlayerPrefs.HasKey(key))
         {
             try
             {
-                string json = File.ReadAllText(saveFilePath);
+                string json = PlayerPrefs.GetString(key);
                 saveData = JsonUtility.FromJson<SaveData>(json);
                 Debug.Log("セーブデータをロードしました");
 
@@ -170,6 +173,8 @@ public class GameDataManager : MonoBehaviour
             return null;
         }
 
+        string key = SAVE_KEY_PREFIX + slot.ToString();
+
         // playerCustomizerのnullチェックを追加
         if (playerCustomizer == null)
         {
@@ -177,13 +182,11 @@ public class GameDataManager : MonoBehaviour
             return null;
         }
 
-        SetCurrentSlot(slot);
-
-        if (File.Exists(saveFilePath))
+        if (PlayerPrefs.HasKey(key))
         {
             try
             {
-                string json = File.ReadAllText(saveFilePath);
+                string json = PlayerPrefs.GetString(key);
                 saveData = JsonUtility.FromJson<SaveData>(json);
                 Debug.Log("セーブデータをロードしました");
             }
@@ -234,8 +237,8 @@ public class GameDataManager : MonoBehaviour
         string json = JsonUtility.ToJson(saveData);
 
         // JSON文字列をファイルに書き込む
-        saveFilePath = Application.persistentDataPath + $"/save_item.json";
-        File.WriteAllText(saveFilePath, json);
+        PlayerPrefs.SetString(ITEM_SAVE_KEY, json);
+        PlayerPrefs.Save();
 
         Debug.Log("アイテムをセーブしました: " + saveFilePath);
     }
@@ -256,12 +259,11 @@ public class GameDataManager : MonoBehaviour
             return;
         }
 
-        saveFilePath = Application.persistentDataPath + $"/save_item.json";
-        if (File.Exists(saveFilePath))
+        if (PlayerPrefs.HasKey(ITEM_SAVE_KEY))
         {
             try
             {
-                string json = File.ReadAllText(saveFilePath);
+                string json = PlayerPrefs.GetString(ITEM_SAVE_KEY);
                 saveData = JsonUtility.FromJson<SaveData>(json);
                 Debug.Log("セーブデータをロードしました");
 
@@ -321,10 +323,11 @@ public class GameDataManager : MonoBehaviour
 
         // SaveDataをJSON形式の文字列に変換
         string json = JsonUtility.ToJson(saveData);
+        string key = SAVE_KEY_PREFIX + slot;
 
         // JSON文字列をファイルに書き込む
-        SetCurrentSlot(slot);
-        File.WriteAllText(saveFilePath, json);
+        PlayerPrefs.SetString(key, json);
+        PlayerPrefs.Save();
 
         Debug.Log("セーブしました: " + saveFilePath);
     }
