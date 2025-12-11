@@ -450,7 +450,7 @@
                 {
                     "name": "",
                     "id": "d0791174-7047-4877-9e22-61b90922382a",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -997,7 +997,7 @@
                 {
                     "name": "",
                     "id": "dba99631-c850-4b69-97b8-0ee5d8c486a0",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

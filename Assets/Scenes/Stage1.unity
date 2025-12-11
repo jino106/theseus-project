@@ -11909,7 +11909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameTextDisplay: {fileID: 1323112601}
-  tutorialText: "\u4ED8\u3051\u66FF\u3048\u305F\u624B\u8DB3\u306E\u60C5\u5831\u306F\u30E1\u30CB\u30E5\u30FC(Esc\u30AD\u30FC)\u304B\u3089\u78BA\u8A8D\u3067\u304D\u308B"
+  tutorialText: "\u4ED8\u3051\u66FF\u3048\u305F\u624B\u8DB3\u306E\u60C5\u5831\u306F\u30E1\u30CB\u30E5\u30FC(X\u30AD\u30FC)\u304B\u3089\u78BA\u8A8D\u3067\u304D\u308B"
 --- !u!61 &662034470
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -71868,7 +71868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameTextDisplay: {fileID: 1323112601}
-  tutorialText: "\u5165\u624B\u3057\u305F\u30A2\u30A4\u30C6\u30E0\u306F\u5168\u3066\u3001\u30E1\u30CB\u30E5\u30FC(Esc\u30AD\u30FC)\u304B\u3089\u8A73\u7D30\u3092\u78BA\u8A8D\u3067\u304D\u308B"
+  tutorialText: "\u5165\u624B\u3057\u305F\u30A2\u30A4\u30C6\u30E0\u306F\u5168\u3066\u3001\u30E1\u30CB\u30E5\u30FC(X\u30AD\u30FC)\u304B\u3089\u8A73\u7D30\u3092\u78BA\u8A8D\u3067\u304D\u308B"
 --- !u!61 &1930405108
 BoxCollider2D:
   m_ObjectHideFlags: 0
